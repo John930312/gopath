@@ -1,0 +1,4 @@
+INSERT INTO `ghealth_gopath_user` (`ID`, `USERNAME`, `PASSWORD`, `ENABLED`, `NAME`, `PHONE`, `EMAIL`, `BUILTIN`, `CREATE_TIME`, `CREATOR_NAME`, `UPDATE_TIME`, `UPDATOR_NAME`, `DELETED`, `DELETE_TIME`, `DELETOR_NAME`) VALUES ('095dc185bbb54373b97fad45341aa6e7', 'admin', '$2a$10$0wxO6ifaiWn9R0yU4Uetf.zD1RCBKYI0VdGSPWWdcLXwNZaQ9ad.2', '1', '管理员', NULL, NULL, '1', '2018-10-15 08:57:18', NULL, NULL, NULL, '0', NULL, NULL);
+
+INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('2a0eae65a73a11e8b822408d5c9494ce', '888133a4a73911e8b822408d5c9494ce', '用户管理', '/user/list.jsp', '1', 'fa-sitemap');
+INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('888133a4a73911e8b822408d5c9494ce', NULL, '系统设置', '', '4', 'fa-retweet');

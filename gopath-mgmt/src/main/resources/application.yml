@@ -1,0 +1,23 @@
+server:
+  port: 7001
+  servlet:
+      session:
+          timeout: 900
+
+# 配置项目名称
+spring:
+   freemarker:
+      suffix: .html
+   messages:
+      basename: message/error
+   http:
+      encoding:
+          charset: UTF-8
+          force: true
+          enabled: true
+gateway:
+  host: localhost
+  port: 7002
+  path:
+
+

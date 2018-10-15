@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.todaysoft.ghealth.mybaties.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybaties.model.User" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="USERNAME" property="username" jdbcType="VARCHAR" />
+    <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="ENABLED" property="enabled" jdbcType="BIT" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+    <result column="EMAIL" property="email" jdbcType="VARCHAR" />
+    <result column="BUILTIN" property="builtin" jdbcType="BIT" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="CREATOR_NAME" property="creatorName" jdbcType="VARCHAR" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="UPDATOR_NAME" property="updatorName" jdbcType="VARCHAR" />
+    <result column="DELETED" property="deleted" jdbcType="BIT" />
+    <result column="DELETE_TIME" property="deleteTime" jdbcType="TIMESTAMP" />
+    <result column="DELETOR_NAME" property="deletorName" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    select * FROM  ghealth_gopath_user
+  </sql>
+  <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <include refid="Base_Column_List"/>
+    where ID = #{id,jdbcType=VARCHAR}
+  </select>
+
+  <insert id="create" parameterType="com.todaysoft.ghealth.mybaties.model.User" >
+    insert into ghealth_gopath_user
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="username != null" >
+        USERNAME,
+      </if>
+      <if test="password != null" >
+        PASSWORD,
+      </if>
+      <if test="enabled != null" >
+        ENABLED,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="phone != null" >
+        PHONE,
+      </if>
+      <if test="email != null" >
+        EMAIL,
+      </if>
+      <if test="builtin != null" >
+        BUILTIN,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="creatorName != null" >
+        CREATOR_NAME,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="updatorName != null" >
+        UPDATOR_NAME,
+      </if>
+      <if test="deleted != null" >
+        DELETED,
+      </if>
+      <if test="deleteTime != null" >
+        DELETE_TIME,
+      </if>
+      <if test="deletorName != null" >
+        DELETOR_NAME,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="builtin != null" >
+        #{builtin,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorName != null" >
+        #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatorName != null" >
+        #{updatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        #{deleted,jdbcType=BIT},
+      </if>
+      <if test="deleteTime != null" >
+        #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletorName != null" >
+        #{deletorName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="modify" parameterType="com.todaysoft.ghealth.mybaties.model.User" >
+    update ghealth_gopath_user
+    <set >
+      <if test="username != null" >
+        USERNAME = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        PASSWORD = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="enabled != null" >
+        ENABLED = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null" >
+        PHONE = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        EMAIL = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="builtin != null" >
+        BUILTIN = #{builtin,jdbcType=BIT},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creatorName != null" >
+        CREATOR_NAME = #{creatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatorName != null" >
+        UPDATOR_NAME = #{updatorName,jdbcType=VARCHAR},
+      </if>
+      <if test="deleted != null" >
+        DELETED = #{deleted,jdbcType=BIT},
+      </if>
+      <if test="deleteTime != null" >
+        DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="deletorName != null" >
+        DELETOR_NAME = #{deletorName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <select id="getUserByUserName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * FROM ghealth_gopath_user WHERE USERNAME = #{userName}
+  </select>
+
+  <select id="getUserAuthorizedResources" resultType="string" parameterType="java.lang.String">
+    SELECT res.URI FROM ghealth_drp_resource res WHERE EXISTS
+        (
+            SELECT ar.AUTHORITY_ID FROM ghealth_drp_authority_resource ar WHERE ar.RESOURCE_ID = res.ID AND EXISTS
+            (
+                SELECT ra.ROLE_ID FROM ghealth_drp_role_authority ra WHERE ra.AUTHORITY_ID = ar.AUTHORITY_ID AND EXISTS
+                    (
+                        SELECT ur.USER_ID FROM ghealth_drp_user_role ur WHERE ur.ROLE_ID = ra.ROLE_ID AND ur.USER_ID = #{id}
+                    )
+            )
+        )
+  </select>
+
+  <sql id="OffsetLimitClause">
+    <if test="_parameter.limit != null">
+      LIMIT #{limit}
+    </if>
+    <if test="_parameter.offset != null">
+      OFFSET #{offset}
+    </if>
+  </sql>
+
+  <sql id="ExpertFilters">
+    <if test="_parameter.name != null and _parameter.name != ''" >
+      <bind name="namePattern" value="'%' + _parameter.name + '%'" />
+      AND ${user}.NAME LIKE #{namePattern}
+    </if>
+    <if test="_parameter.phone != null and _parameter.phone != ''" >
+      <bind name="phonePattern" value="'%' + _parameter.phone + '%'" />
+      AND ${user}.PHONE LIKE #{phonePattern}
+    </if>
+    <if test="_parameter.userName != null and _parameter.userName != ''" >
+      <bind name="usernamePattern" value="'%' + _parameter.userName + '%'" />
+      AND ${user}.USERNAME LIKE #{usernamePattern}
+    </if>
+    <if test="_parameter.builtin != null">
+      AND ${user}.BUILTIN = #{builtin}
+    </if>
+  </sql>
+
+  <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybaties.model.query.UserQuery">
+    SELECT COUNT(*) FROM ghealth_gopath_user t WHERE t.DELETED = '0'
+    <include refid="ExpertFilters">
+      <property name="user" value="t" />
+    </include>
+  </select>
+
+  <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybaties.model.query.UserQuery">
+    SELECT * FROM ghealth_gopath_user t WHERE t.DELETED = '0'
+    <include refid="ExpertFilters">
+      <property name="user" value="t" />
+    </include>
+    ORDER BY t.CREATE_TIME DESC
+    <include refid="OffsetLimitClause" />
+  </select>
+</mapper>
