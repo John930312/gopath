@@ -147,3 +147,109 @@ CREATE TABLE `ghealth_gopath_user_token` (
   `EXPIRE_TIME` datetime DEFAULT NULL COMMENT '失效时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户账号登录token表';
+
+
+
+-- 第二次添加
+-- ----------------------------
+-- Table structure for ghealth_gopath_customer
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_customer`;
+CREATE TABLE `ghealth_gopath_customer` (
+  `ID` varchar(64) NOT NULL COMMENT '主键',
+  `SAMPLEBOX_ID` varchar(64) NOT NULL COMMENT '采样盒',
+  `AGENCY_ID` varchar(64) DEFAULT NULL COMMENT '所属代理ID',
+  `NAME` varchar(64) NOT NULL COMMENT '姓名',
+  `PHONE` varchar(64) NOT NULL COMMENT '联系电话',
+  `EMAIL` varchar(128) DEFAULT NULL COMMENT '电子邮箱',
+  `SEX` varchar(64) DEFAULT NULL COMMENT '性别',
+  `BIRTHDAY` varchar(64) DEFAULT NULL COMMENT '出生日期',
+  `CREATE_TIME` datetime NOT NULL COMMENT '创建时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户主表';
+
+-- ----------------------------
+-- Table structure for ghealth_gopath_order
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_order`;
+CREATE TABLE `ghealth_gopath_order` (
+  `ID` varchar(64) NOT NULL,
+  `CODE` varchar(64) NOT NULL COMMENT '订单编号',
+  `OPEN_ID` varchar(64) NOT NULL COMMENT '微信openid',
+  `PRODUCT_ID` varchar(64) NOT NULL COMMENT '产品id',
+  `CUSTOMER_ID` varchar(64) DEFAULT NULL COMMENT '客户id',
+  `AGENCY_ID` varchar(64) DEFAULT NULL COMMENT '代理商id',
+  `SAMPLEBOX_ID` varchar(64) DEFAULT NULL COMMENT '采样盒id',
+  `ACTUAL_PRICE` decimal(11,2) DEFAULT NULL COMMENT '订单价格',
+  `REPORT_PRINT_REQUIRED` tinyint(1) NOT NULL COMMENT '是否需要纸质报告',
+  `SAMPLE_TYPE` int(1) DEFAULT NULL,
+  `STATUS` int(1) NOT NULL COMMENT '订单状态',
+  `CREATE_TIME` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `DELETED` tinyint(1) NOT NULL,
+  `DELETE_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for ghealth_gopath_product
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_product`;
+CREATE TABLE `ghealth_gopath_product` (
+  `ID` varchar(64) NOT NULL COMMENT '主键',
+  `CODE` varchar(64) NOT NULL COMMENT '编号',
+  `NAME` varchar(128) NOT NULL COMMENT '名称',
+  `SEX_RESTRAINT` tinyint(1) DEFAULT NULL COMMENT '性别约束',
+  `GUIDING_PRICE` decimal(10,2) DEFAULT NULL COMMENT '指导价格',
+  `START_TIME` datetime DEFAULT NULL COMMENT '优惠开始时间',
+  `END_TIME` datetime DEFAULT NULL COMMENT '优惠结束时间',
+  `DISCOUNT_PRICE` decimal(10,2) DEFAULT NULL COMMENT '优惠价格',
+  `DISCOUNT` tinyint(1) NOT NULL COMMENT '优惠标记 0-未优惠 1-已优惠',
+  `ITEM_REMARK` varchar(255) DEFAULT NULL COMMENT '检测内容介绍',
+  `ITEM_IDS` varchar(1024) DEFAULT NULL COMMENT '检测项目',
+  `IS_COMMON_PACKAGE` tinyint(1) NOT NULL COMMENT '是否通用推荐套餐',
+  `ENABLED` tinyint(1) NOT NULL COMMENT '启用状态：0-否 1-是',
+  `CREATE_TIME` datetime NOT NULL COMMENT '创建时间',
+  `UPDATE_TIME` datetime DEFAULT NULL COMMENT '最近更新时间',
+  `DELETED` tinyint(1) NOT NULL COMMENT '删除标记 0-未删除 1-已删除',
+  `DELETE_TIME` datetime DEFAULT NULL COMMENT '删除时间',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表';
+
+-- ----------------------------
+-- Table structure for ghealth_gopath_product_questionnaire
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_product_questionnaire`;
+CREATE TABLE `ghealth_gopath_product_questionnaire` (
+  `ID` varchar(64) NOT NULL,
+  `PRODUCT_ID` varchar(64) NOT NULL,
+  `QUESTIONNAIRE_ID` varchar(64) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for ghealth_gopath_questionnaire
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_questionnaire`;
+CREATE TABLE `ghealth_gopath_questionnaire` (
+  `ID` varchar(64) NOT NULL,
+  `NAME` varchar(64) NOT NULL,
+  `CATEGORY` int(2) NOT NULL COMMENT '项目类别',
+  `STATUS` tinyint(1) NOT NULL COMMENT '是否启用',
+  `REMARK` varchar(128) DEFAULT NULL COMMENT '描述',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Table structure for ghealth_gopath_sample_box
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_sample_box`;
+CREATE TABLE `ghealth_gopath_sample_box` (
+  `ID` varchar(64) NOT NULL,
+  `NAME` varchar(64) NOT NULL,
+  `PHONE` varchar(64) DEFAULT NULL COMMENT '收件人联系电话',
+  `PROVINCE` varchar(64) DEFAULT NULL COMMENT '省',
+  `CITY` varchar(64) DEFAULT NULL COMMENT '市',
+  `ADDRESS` varchar(64) DEFAULT NULL COMMENT '详细地址',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采样盒';
