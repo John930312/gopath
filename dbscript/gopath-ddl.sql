@@ -253,3 +253,17 @@ CREATE TABLE `ghealth_gopath_sample_box` (
   `CREATE_TIME` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采样盒';
+
+-- ----------------------------
+-- Table structure for ghealth_gopath_agency
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_agency`;
+CREATE TABLE `ghealth_gopath_agency` (
+  `ID` varchar(64) NOT NULL,
+  `CODE` varchar(64) NOT NULL COMMENT '代理编号',
+  `NAME` varchar(64) NOT NULL COMMENT '代理名称',
+  `CONTACT_NAME` varchar(64) NOT NULL COMMENT '联系人',
+  `PHONE` varchar(64) NOT NULL COMMENT '联系人号码',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
