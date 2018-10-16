@@ -3,8 +3,8 @@ package com.todaysoft.ghealth.service.paser;
 import com.hsgene.restful.request.Orderby;
 import com.hsgene.restful.request.QueryRequest;
 
-import com.todaysoft.ghealth.mybaties.model.query.OrderbyClause;
-import com.todaysoft.ghealth.mybaties.model.query.Query;
+import com.todaysoft.ghealth.mybatis.model.query.OrderbyClause;
+import com.todaysoft.ghealth.mybatis.model.query.Query;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.util.CollectionUtils;

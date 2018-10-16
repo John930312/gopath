@@ -1,6 +1,6 @@
 package com.todaysoft.ghealth.service.paser;
 
-import com.todaysoft.ghealth.mybaties.model.query.UserQuery;
+import com.todaysoft.ghealth.mybatis.model.query.UserQuery;
 import com.todaysoft.ghealth.request.UserQueryRequest;
 import org.springframework.stereotype.Component;
 

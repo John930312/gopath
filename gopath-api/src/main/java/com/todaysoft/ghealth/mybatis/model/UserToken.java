@@ -1,4 +1,4 @@
-package com.todaysoft.ghealth.mybaties.model;
+package com.todaysoft.ghealth.mybatis.model;
 
 import java.util.Date;
 

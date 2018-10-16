@@ -1,4 +1,4 @@
-package com.todaysoft.ghealth.mybaties.mapper;
+package com.todaysoft.ghealth.mybatis.mapper;
 
 import com.todaysoft.ghealth.DTO.SequenceDTO;
 

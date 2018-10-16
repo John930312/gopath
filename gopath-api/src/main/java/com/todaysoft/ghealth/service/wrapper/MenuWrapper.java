@@ -1,6 +1,6 @@
 package com.todaysoft.ghealth.service.wrapper;
 
-import com.todaysoft.ghealth.mybaties.model.Menu;
+import com.todaysoft.ghealth.mybatis.model.Menu;
 import com.todaysoft.ghealth.DTO.MenuDTO;
 import org.springframework.stereotype.Component;
 

@@ -1,4 +1,4 @@
-package com.todaysoft.ghealth.mybaties.model.query;
+package com.todaysoft.ghealth.mybatis.model.query;
 
 import org.springframework.util.StringUtils;
 

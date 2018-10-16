@@ -1,6 +1,6 @@
 package com.todaysoft.ghealth.service.impl;
 
-import com.todaysoft.ghealth.mybaties.mapper.SequenceMapper;
+import com.todaysoft.ghealth.mybatis.mapper.SequenceMapper;
 import com.todaysoft.ghealth.service.ISequenceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

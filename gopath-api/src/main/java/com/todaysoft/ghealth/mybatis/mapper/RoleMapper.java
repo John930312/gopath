@@ -1,9 +1,9 @@
-package com.todaysoft.ghealth.mybaties.mapper;
+package com.todaysoft.ghealth.mybatis.mapper;
 
 
 
-import com.todaysoft.ghealth.mybaties.model.Role;
-import com.todaysoft.ghealth.mybaties.model.query.RoleQuery;
+import com.todaysoft.ghealth.mybatis.model.Role;
+import com.todaysoft.ghealth.mybatis.model.query.RoleQuery;
 
 import java.util.List;
 

@@ -1,7 +1,7 @@
-package com.todaysoft.ghealth.mybaties.mapper;
+package com.todaysoft.ghealth.mybatis.mapper;
 
 
-import com.todaysoft.ghealth.mybaties.model.UserToken;
+import com.todaysoft.ghealth.mybatis.model.UserToken;
 
 public interface UserTokenMapper
 {

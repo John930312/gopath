@@ -1,7 +1,7 @@
-package com.todaysoft.ghealth.mybaties.mapper;
+package com.todaysoft.ghealth.mybatis.mapper;
 
-import com.todaysoft.ghealth.mybaties.model.User;
-import com.todaysoft.ghealth.mybaties.model.query.UserQuery;
+import com.todaysoft.ghealth.mybatis.model.User;
+import com.todaysoft.ghealth.mybatis.model.query.UserQuery;
 
 import java.util.List;
 

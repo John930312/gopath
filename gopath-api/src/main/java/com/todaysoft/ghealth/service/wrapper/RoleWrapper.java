@@ -1,12 +1,8 @@
 package com.todaysoft.ghealth.service.wrapper;
 
 import com.todaysoft.ghealth.DTO.RoleDTO;
-import com.todaysoft.ghealth.mybaties.model.Role;
-import com.todaysoft.ghealth.service.IRoleService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.todaysoft.ghealth.mybatis.model.Role;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
 
 /**
  * @Author: ljl

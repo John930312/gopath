@@ -3,8 +3,8 @@ package com.todaysoft.ghealth.service.impl;
 import com.hsgene.restful.response.DataResponse;
 import com.hsgene.restful.util.CountRecords;
 
-import com.todaysoft.ghealth.mybaties.mapper.MenuMapper;
-import com.todaysoft.ghealth.mybaties.model.Menu;
+import com.todaysoft.ghealth.mybatis.mapper.MenuMapper;
+import com.todaysoft.ghealth.mybatis.model.Menu;
 import com.todaysoft.ghealth.DTO.MenuDTO;
 import com.todaysoft.ghealth.service.IMenuService;
 import com.todaysoft.ghealth.service.wrapper.MenuWrapper;

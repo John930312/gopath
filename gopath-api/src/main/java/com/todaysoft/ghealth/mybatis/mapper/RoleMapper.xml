@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.todaysoft.ghealth.mybaties.mapper.RoleMapper">
-    <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybaties.model.Role">
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.Role">
         <id column="ID" property="id"/>
         <result column="CREATE_TIME" property="createTime"/>
         <result column="CREATOR_NAME" property="creatorName"/>
@@ -26,7 +26,7 @@
     where ID = #{id,jdbcType=INTEGER}
   </delete>
 
-    <insert id="insert" parameterType="com.todaysoft.ghealth.mybaties.model.Role">
+    <insert id="insert" parameterType="com.todaysoft.ghealth.mybatis.model.Role">
         insert into ghealth_gopath_role
         <trim prefix="(" suffix=")" suffixOverrides=",">
             <if test="id != null">
@@ -87,7 +87,7 @@
             </if>
         </trim>
     </insert>
-    <update id="update" parameterType="com.todaysoft.ghealth.mybaties.model.Role">
+    <update id="update" parameterType="com.todaysoft.ghealth.mybatis.model.Role">
         update ghealth_gopath_role
         <set>
             <if test="name != null">
@@ -127,12 +127,12 @@
         </if>
     </sql>
 
-    <select id="count" resultType="int" parameterType="com.todaysoft.ghealth.mybaties.model.query.RoleQuery">
+    <select id="count" resultType="int" parameterType="com.todaysoft.ghealth.mybatis.model.query.RoleQuery">
         SELECT COUNT(*) FROM ghealth_gopath_role
         <include refid="SearchFilters"></include>
     </select>
 
-    <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybaties.model.query.RoleQuery">
+    <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.RoleQuery">
         <include refid="Base_Column_List"></include>
         <include refid="SearchFilters"></include>
         ORDER BY CREATE_TIME DESC

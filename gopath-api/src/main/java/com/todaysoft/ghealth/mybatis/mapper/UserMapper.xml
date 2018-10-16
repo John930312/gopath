@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.todaysoft.ghealth.mybaties.mapper.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybaties.model.User" >
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.User" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
     <result column="USERNAME" property="username" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
@@ -26,7 +26,7 @@
     where ID = #{id,jdbcType=VARCHAR}
   </select>
 
-  <insert id="create" parameterType="com.todaysoft.ghealth.mybaties.model.User" >
+  <insert id="create" parameterType="com.todaysoft.ghealth.mybatis.model.User" >
     insert into ghealth_gopath_user
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -123,7 +123,7 @@
       </if>
     </trim>
   </insert>
-  <update id="modify" parameterType="com.todaysoft.ghealth.mybaties.model.User" >
+  <update id="modify" parameterType="com.todaysoft.ghealth.mybatis.model.User" >
     update ghealth_gopath_user
     <set >
       <if test="username != null" >
@@ -216,14 +216,14 @@
     </if>
   </sql>
 
-  <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybaties.model.query.UserQuery">
+  <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybatis.model.query.UserQuery">
     SELECT COUNT(*) FROM ghealth_gopath_user t WHERE t.DELETED = '0'
     <include refid="ExpertFilters">
       <property name="user" value="t" />
     </include>
   </select>
 
-  <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybaties.model.query.UserQuery">
+  <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.UserQuery">
     SELECT * FROM ghealth_gopath_user t WHERE t.DELETED = '0'
     <include refid="ExpertFilters">
       <property name="user" value="t" />

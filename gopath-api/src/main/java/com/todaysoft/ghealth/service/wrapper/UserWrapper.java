@@ -1,14 +1,8 @@
 package com.todaysoft.ghealth.service.wrapper;
 
 import com.todaysoft.ghealth.DTO.UserDTO;
-import com.todaysoft.ghealth.mybaties.model.User;
-import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.todaysoft.ghealth.mybatis.model.User;
 import org.springframework.stereotype.Component;
-import org.springframework.util.CollectionUtils;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @Author: xjw
