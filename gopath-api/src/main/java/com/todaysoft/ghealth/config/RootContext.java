@@ -22,7 +22,7 @@ import java.util.Properties;
  */
 
 @Configuration
-@MapperScan("com.todaysoft.ghealth.mybaties.mapper")
+@MapperScan("com.todaysoft.ghealth.mybatis.mapper")
 @EnableTransactionManagement
 public class RootContext
 {

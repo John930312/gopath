@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.DictMapper">
+    <resultMap id="DictEntity" type="com.todaysoft.ghealth.DTO.Dict">
+        <id column="ID" property="id" jdbcType="VARCHAR"/>
+        <result column="NAME" property="name"/>
+        <result column="PARENT_ID" property="parentId"/>
+        <result column="CATEGORY" property="category"/>
+        <result column="DICT_TEXT" property="dictText"/>
+        <result column="DICT_VALUE" property="dictValue"/>
+        <result column="SORT" property="sort"/>
+        <result column="EDITABLE" property="editable"/>
+    </resultMap>
+
+    <sql id="SearchLimit">
+        <if test="_parameter.offset != null and _parameter.limit != null">
+            LIMIT #{_parameter.offset}, #{_parameter.limit}
+        </if>
+    </sql>
+
+    <sql id="SearchFilters">
+        WHERE t.PARENT_ID is NULL
+        <if test="_parameter.dictText != null and _parameter.dictText != ''">
+            <bind name="dictTextPattern" value="_parameter.dictText + '%'"/>
+            AND t.DICT_TEXT LIKE #{dictTextPattern}
+        </if>
+
+        <if test="_parameter.category != null and _parameter.category != ''">
+            AND t.CATEGORY LIKE #{category}
+        </if>
+    </sql>
+
+    <select id="findList" resultMap="DictEntity"
+            parameterType="com.todaysoft.ghealth.mybatis.model.query.DictQuery">
+        SELECT t.* FROM GHEALTH_GOPATH_DICT t WHERE t.CATEGORY =#{category,jdbcType=VARCHAR} AND t.PARENT_ID is NOT NULL ORDER BY t.SORT ASC
+    </select>
+
+    <select id="findByCategoryAndValue" resultMap="DictEntity"
+            parameterType="com.todaysoft.ghealth.mybatis.model.query.DictQuery">
+        SELECT t.* FROM GHEALTH_GOPATH_DICT t
+        WHERE t.CATEGORY =#{category,jdbcType=VARCHAR}
+        AND t.DICT_VALUE = #{dictValue,jdbcType=VARCHAR}
+        AND t.PARENT_ID is NOT NULL ORDER BY t.SORT ASC
+    </select>
+
+</mapper>

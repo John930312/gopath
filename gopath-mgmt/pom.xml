@@ -57,7 +57,12 @@
 			<artifactId>restful</artifactId>
 			<version>1.0</version>
 		</dependency>
-	</dependencies>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.6</version>
+        </dependency>
+    </dependencies>
 
 	<build>
 		<plugins>
