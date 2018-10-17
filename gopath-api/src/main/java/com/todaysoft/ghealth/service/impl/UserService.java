@@ -4,10 +4,13 @@ import com.hsgene.restful.response.DataResponse;
 import com.hsgene.restful.util.CountRecords;
 import com.todaysoft.ghealth.DTO.UserDTO;
 import com.todaysoft.ghealth.mybatis.mapper.UserMapper;
+import com.todaysoft.ghealth.mybatis.model.Role;
 import com.todaysoft.ghealth.mybatis.model.User;
+import com.todaysoft.ghealth.mybatis.model.UserRole;
 import com.todaysoft.ghealth.mybatis.model.query.UserQuery;
 import com.todaysoft.ghealth.request.UserMaintainRequest;
 import com.todaysoft.ghealth.request.UserQueryRequest;
+import com.todaysoft.ghealth.service.IUserRoleService;
 import com.todaysoft.ghealth.service.IUserService;
 import com.todaysoft.ghealth.service.paser.UserQueryParser;
 import com.todaysoft.ghealth.service.wrapper.UserWrapper;
@@ -24,65 +27,67 @@ import java.util.List;
 
 /**
  * @Author: xjw
- * @Date: 2018/10/15 16:11
+ * @Date: 2018/8/24 11:30
  */
 @Service
 public class UserService implements IUserService
 {
     @Autowired
     private UserMapper userMapper;
-    
+
     @Autowired
     private UserQueryParser userQueryParser;
-    
+
     @Autowired
     private UserWrapper userWrapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-    
+
+    @Autowired
+    private IUserRoleService userRoleService;
+
     @Override
     public DataResponse<CountRecords<UserDTO>> query(UserQueryRequest request)
     {
         UserQuery query = userQueryParser.parse(request);
         query.setBuiltin(false);
         CountRecords<UserDTO> data = new CountRecords<>();
-        
+
         if (request.isCount())
         {
             long count = userMapper.count(query);
             data.setCount(count);
-            
+
             if (0 == count)
             {
                 data.setRecords(Collections.emptyList());
                 return new DataResponse<>(data);
             }
-            
+
             if (null != request.getLimit() && null != request.getOffset() && request.getOffset().intValue() >= count)
             {
                 int offset;
                 int limit = request.getLimit().intValue();
-                int mod = (int)count % limit;
-                
+                int mod = (int) count % limit;
+
                 if (0 == mod)
                 {
-                    offset = (((int)count / limit) - 1) * limit;
+                    offset = (((int) count / limit) - 1) * limit;
                 }
                 else
                 {
-                    offset = ((int)count / limit) * limit;
+                    offset = ((int) count / limit) * limit;
                 }
-                
+
                 query.setOffset(offset);
             }
         }
-        
+
         List<User> records = userMapper.query(query);
         data.setRecords(userWrapper.wrap(records));
         return new DataResponse<>(data);
     }
-
 
     @Override
     public DataResponse<UserDTO> get(String id)
@@ -94,7 +99,7 @@ public class UserService implements IUserService
     public DataResponse<Boolean> isUsernameUnique(UserMaintainRequest request)
     {
         UserQuery query = new UserQuery();
-        query.setName(request.getUsername());
+        query.setUserName(request.getUsername());
         query.setUsernameExactMatches(true);
         if (!StringUtils.isEmpty(request.getId()))
         {
@@ -122,6 +127,23 @@ public class UserService implements IUserService
         user.setCreateTime(new Date());
         userMapper.create(user);
 
+        UserRole userRole = new UserRole();
+        if (!StringUtils.isEmpty(request.getRolePlatForm()))
+        {
+            String a = request.getRolePlatForm();
+            String[] roleIds = a.split(",");
+            for (int i = 0; i < roleIds.length; i++)
+            {
+                User user1 = new User();
+                user1.setId(user.getId());
+                userRole.setUser(user1);
+
+                Role role = new Role();
+                role.setId(roleIds[i]);
+                userRole.setRole(role);
+                userRoleService.create(userRole);
+            }
+        }
     }
 
     @Override
@@ -140,7 +162,24 @@ public class UserService implements IUserService
         }
         userMapper.modify(user);
 
+        UserRole userRole = new UserRole();
+        userRoleService.deleteByuserId(request.getId());
+        if (!StringUtils.isEmpty(request.getRolePlatForm()))
+        {
+            String a = request.getRolePlatForm();
+            String[] roleIds = a.split(",");
+            for (int i = 0; i < roleIds.length; i++)
+            {
+                User user1 = new User();
+                user1.setId(user.getId());
+                userRole.setUser(user1);
 
+                Role role = new Role();
+                role.setId(roleIds[i]);
+                userRole.setRole(role);
+                userRoleService.create(userRole);
+            }
+        }
     }
 
     @Override
@@ -151,6 +190,7 @@ public class UserService implements IUserService
         user.setDeletorName(request.getOperatorName());
         user.setDeleteTime(new Date());
         userMapper.modify(user);
+        userRoleService.deleteByuserId(request.getId());
     }
 
     @Override

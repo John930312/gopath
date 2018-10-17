@@ -214,6 +214,22 @@
     <if test="_parameter.builtin != null">
       AND ${user}.BUILTIN = #{builtin}
     </if>
+    <if test="_parameter.excludeKeys != null and _parameter.excludeKeys.size != 0">
+      <choose>
+        <when test="_parameter.excludeKeys.size == 1">
+          AND ${user}.ID !=
+          <foreach collection="_parameter.excludeKeys" item="excludeKey" index="index" open="" close="" separator="">
+            #{excludeKey}
+          </foreach>
+        </when>
+        <otherwise>
+          AND ${user}.ID NOT IN
+          <foreach collection="_parameter.excludeKeys" item="excludeKey" index="index" open="(" close=")" separator=",">
+            #{excludeKey}
+          </foreach>
+        </otherwise>
+      </choose>
+    </if>
   </sql>
 
   <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybatis.model.query.UserQuery">

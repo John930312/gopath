@@ -1,7 +1,9 @@
 package com.todaysoft.ghealth.mvc;
 
+import com.alibaba.fastjson.JSON;
 import com.todaysoft.ghealth.form.FormInputView;
 import com.todaysoft.ghealth.form.FormSubmitHandler;
+import com.todaysoft.ghealth.model.Role;
 import com.todaysoft.ghealth.model.User;
 import com.todaysoft.ghealth.model.searcher.UserSearcher;
 import com.todaysoft.ghealth.service.IUserService;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Author: xjw
@@ -58,7 +61,9 @@ public class UserAction
     public String modify(String id, ModelMap model)
     {
         User data = userService.get(id);
+        List<Role> roles = data.getRoles();
         model.addAttribute("data", data);
+        model.addAttribute("roleList", JSON.toJSON(roles).toString());
         return "user/user_form";
     }
 
