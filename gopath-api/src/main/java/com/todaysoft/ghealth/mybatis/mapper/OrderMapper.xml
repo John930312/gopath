@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.OrderMapper">
+    <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.Order">
+        <id column="ID" jdbcType="VARCHAR" property="id"/>
+        <result column="CODE" jdbcType="VARCHAR" property="code"/>
+        <result column="OPEN_ID" jdbcType="VARCHAR" property="openId"/>
+        <result column="PRODUCT_ID" jdbcType="VARCHAR" property="product.id"/>
+        <result column="CUSTOMER_ID" jdbcType="VARCHAR" property="customer.id"/>
+        <result column="AGENCY_ID" jdbcType="VARCHAR" property="agency.id"/>
+        <result column="SAMPLEBOX_ID" jdbcType="VARCHAR" property="sampleBox.id"/>
+        <result column="ACTUAL_PRICE" jdbcType="DECIMAL" property="actualPrice"/>
+        <result column="REPORT_PRINT_REQUIRED" jdbcType="BIT" property="reportPrintRequired"/>
+        <result column="SAMPLE_TYPE" jdbcType="INTEGER" property="sampleType"/>
+        <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="DELETED" jdbcType="BIT" property="deleted"/>
+        <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime"/>
+        <result column="SAMPLING_PHONE" property="sampleBox.phone" jdbcType="VARCHAR"/>
+        <result column="CONSIGNEE" property="sampleBox.name" jdbcType="VARCHAR"/>
+        <result column="SAMPLEBOX_CODE" property="sampleBox.code" jdbcType="VARCHAR"/>
+        <result column="PROVINCE" property="sampleBox.province" jdbcType="VARCHAR"/>
+        <result column="CITY" property="sampleBox.city" jdbcType="VARCHAR"/>
+        <result column="ADDRESS" property="sampleBox.address" jdbcType="VARCHAR"/>
+        <result column="GUIDING_PRICE" property="product.guidingPrice" jdbcType="DECIMAL"/>
+        <result column="PRODUCT_NAME" property="product.name" jdbcType="VARCHAR"/>
+        <result column="PRODUCT_ID" property="product.id" jdbcType="VARCHAR"/>
+        <result column="SEX_RESTRAINT" property="product.sexRestraint" jdbcType="VARCHAR"/>
+        <result column="AGENCY_NAME" property="agency.name" jdbcType="VARCHAR"/>
+        <result column="AGENCY_PHONE" property="agency.phone" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_SEX" property="customer.sex" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_EMAIL" property="customer.email" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_NAME" property="customer.name" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_PHONE" property="customer.phone" jdbcType="VARCHAR"/>
+        <result column="CUSTOMER_BIRTHDAY" property="customer.birthday" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+      select *
+      from ghealth_gopath_order
+    </sql>
+    <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String">
+      SELECT
+        o.*, a. NAME AS AGENCY_NAME,
+        a.PHONE AS AGENCY_PHONE,
+        p.NAME AS PRODUCT_NAME,
+        sb.CODE AS SAMPLEBOX_CODE,
+        sb.NAME AS CONSIGNEE,
+        sb.PHONE AS SAMPLING_PHONE,
+        sb.PROVINCE AS PROVINCE,
+        sb.CITY AS CITY,
+        sb.ADDRESS AS ADDRESS,
+        c.SEX AS CUSTOMER_SEX,
+        c.EMAIL AS CUSTOMER_EMAIL,
+        c.NAME AS CUSTOMER_NAME,
+        c.PHONE AS CUSTOMER_PHONE,
+        c.BIRTHDAY AS CUSTOMER_BIRTHDAY
+      FROM ghealth_gopath_order o
+      LEFT JOIN ghealth_gopath_agency a ON o.AGENCY_ID = a.ID
+      LEFT JOIN ghealth_gopath_product p ON o.PRODUCT_ID = p.ID
+      LEFT JOIN ghealth_gopath_sample_box sb ON o.SAMPLEBOX_ID = sb.ID
+      LEFT JOIN ghealth_gopath_customer c ON o.CUSTOMER_ID = c.ID
+      WHERE o.id = #{id,jdbcType=VARCHAR};
+  </select>
+
+    <insert id="create" parameterType="com.todaysoft.ghealth.mybatis.model.Order">
+        insert into ghealth_gopath_order
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                ID,
+            </if>
+            <if test="code != null">
+                CODE,
+            </if>
+            <if test="openId != null">
+                OPEN_ID,
+            </if>
+            <if test="product.id != null">
+                PRODUCT_ID,
+            </if>
+            <if test="customer.id != null">
+                CUSTOMER_ID,
+            </if>
+            <if test="agency.id != null">
+                AGENCY_ID,
+            </if>
+            <if test="sampleBox.id != null">
+                SAMPLEBOX_ID,
+            </if>
+            <if test="actualPrice != null">
+                ACTUAL_PRICE,
+            </if>
+            <if test="reportPrintRequired != null">
+                REPORT_PRINT_REQUIRED,
+            </if>
+            <if test="sampleType != null">
+                SAMPLE_TYPE,
+            </if>
+            <if test="status != null">
+                STATUS,
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME,
+            </if>
+            <if test="deleted != null">
+                DELETED,
+            </if>
+            <if test="deleteTime != null">
+                DELETE_TIME,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null">
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="product.id != null">
+                #{product.id,jdbcType=VARCHAR},
+            </if>
+            <if test="customer.id != null">
+                #{customer.id,jdbcType=VARCHAR},
+            </if>
+            <if test="agency.id != null">
+                #{agency.id,jdbcType=VARCHAR},
+            </if>
+            <if test="sampleBox.id != null">
+                #{sampleBox.id,jdbcType=VARCHAR},
+            </if>
+            <if test="actualPrice != null">
+                #{actualPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="reportPrintRequired != null">
+                #{reportPrintRequired,jdbcType=BIT},
+            </if>
+            <if test="sampleType != null">
+                #{sampleType,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                #{deleted,jdbcType=BIT},
+            </if>
+            <if test="deleteTime != null">
+                #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="modify" parameterType="com.todaysoft.ghealth.mybatis.model.Order">
+        update ghealth_gopath_order
+        <set>
+            <if test="code != null">
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="openId != null">
+                OPEN_ID = #{openId,jdbcType=VARCHAR},
+            </if>
+            <if test="product.id != null">
+                PRODUCT_ID = #{product.id,jdbcType=VARCHAR},
+            </if>
+            <if test="customer.id != null">
+                CUSTOMER_ID = #{customer.id,jdbcType=VARCHAR},
+            </if>
+            <if test="agency.id != null">
+                AGENCY_ID = #{agency.id,jdbcType=VARCHAR},
+            </if>
+            <if test="sampleBox.id != null">
+                SAMPLEBOX_ID = #{sampleBox.id,jdbcType=VARCHAR},
+            </if>
+            <if test="actualPrice != null">
+                ACTUAL_PRICE = #{actualPrice,jdbcType=DECIMAL},
+            </if>
+            <if test="reportPrintRequired != null">
+                REPORT_PRINT_REQUIRED = #{reportPrintRequired,jdbcType=BIT},
+            </if>
+            <if test="sampleType != null">
+                SAMPLE_TYPE = #{sampleType,jdbcType=INTEGER},
+            </if>
+            <if test="status != null">
+                STATUS = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null">
+                DELETED = #{deleted,jdbcType=BIT},
+            </if>
+            <if test="deleteTime != null">
+                DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <sql id="OffsetLimitClause">
+        <if test="_parameter.limit != null">
+            LIMIT #{limit}
+        </if>
+        <if test="_parameter.offset != null">
+            OFFSET #{offset}
+        </if>
+    </sql>
+
+    <sql id="ExpertFilters">
+        WHERE 1=1
+        <if test="_parameter.code != null and _parameter.code != ''">
+            <bind name="codePattern" value="'%' + _parameter.code + '%'"/>
+            AND o.code LIKE #{codePattern}
+        </if>
+        <if test="_parameter.consignee != null and _parameter.consignee != ''">
+            <bind name="consigneePattern" value="'%' + _parameter.consignee + '%'"/>
+            AND sb.NAME LIKE #{consigneePattern}
+        </if>
+        <if test="_parameter.samplingPhone != null and _parameter.samplingPhone != ''">
+            <bind name="samplingPhonePattern" value="'%' + _parameter.samplingPhone + '%'"/>
+            AND sb.phone LIKE #{samplingPhonePattern}
+        </if>
+        <if test="_parameter.productName != null and _parameter.productName != ''">
+            <bind name="productNamePattern" value="'%' + _parameter.productName + '%'"/>
+            AND p.name LIKE #{productNamePattern}
+        </if>
+        <if test="_parameter.status != null and _parameter.status != ''">
+            <bind name="statusPattern" value="'%' + _parameter.status + '%'"/>
+            AND o.status LIKE #{statusPattern}
+        </if>
+        <if test="_parameter.agencyName != null and _parameter.agencyName != ''">
+            <bind name="agencyNamePattern" value="'%' + _parameter.agencyName + '%'"/>
+            AND a.name LIKE #{agencyNamePattern}
+        </if>
+        <if test="_parameter.startTime != null">
+            <bind name="startTimePattern" value="_parameter.startTime"/>
+            <![CDATA[   and DATE_FORMAT(o.CREATE_TIME, '%Y-%m-%d %H:%M:%S')>=  DATE_FORMAT(#{startTimePattern}, '%Y-%m-%d %H:%M:%S')   ]]>
+        </if>
+        <if test="_parameter.endTime != null">
+            <bind name="endTimePattern" value="_parameter.endTime"/>
+            <![CDATA[   and DATE_FORMAT(o.CREATE_TIME, '%Y-%m-%d %H:%M:%S') <  DATE_FORMAT(#{endTimePattern}, '%Y-%m-%d %H:%M:%S')   ]]>
+        </if>
+    </sql>
+
+    <select id="query" resultMap="BaseResultMap"
+            parameterType="com.todaysoft.ghealth.mybatis.model.query.OrderQuery">
+        SELECT
+        o.*,
+        a. NAME AS AGENCY_NAME,
+        a.PHONE AS AGENCY_PHONE,
+        p. NAME AS PRODUCT_NAME,
+        p.GUIDING_PRICE AS GUIDING_PRICE,
+        p.SEX_RESTRAINT AS SEX_RESTRAINT,
+        sb.NAME AS CONSIGNEE,
+        sb.PHONE AS SAMPLING_PHONE,
+        sb.PROVINCE AS PROVINCE,
+        sb.CITY AS CITY,
+        sb.ADDRESS AS ADDRESS
+        FROM ghealth_gopath_order o
+        LEFT JOIN ghealth_gopath_agency a ON o.AGENCY_ID = a.ID
+        LEFT JOIN ghealth_gopath_product p ON o.PRODUCT_ID = p.ID
+        LEFT JOIN ghealth_gopath_sample_box sb ON o.SAMPLEBOX_ID = sb.ID
+        <include refid="ExpertFilters"/>
+        ORDER BY o.CREATE_TIME DESC
+        <include refid="OffsetLimitClause"/>
+    </select>
+
+    <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybatis.model.query.OrderQuery">
+        SELECT COUNT(*)
+        FROM ghealth_gopath_order o
+        LEFT JOIN ghealth_gopath_agency a ON o.AGENCY_ID = a.ID
+        LEFT JOIN ghealth_gopath_product p ON o.PRODUCT_ID = p.ID
+        LEFT JOIN ghealth_gopath_sample_box sb ON o.SAMPLEBOX_ID = sb.ID
+        <include refid="ExpertFilters"/>
+    </select>
+
+</mapper>

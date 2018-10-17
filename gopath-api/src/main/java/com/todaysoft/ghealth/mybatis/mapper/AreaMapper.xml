@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.AreaMapper">
+    <sql id="areaColumns">
+        a.ID AS id,
+        a.NAME AS name,
+        a.PARENT_ID AS prentId,
+        a.FULL_NAME AS fullName
+    </sql>
+
+    <select id="get" parameterType="java.lang.String" resultType="com.todaysoft.ghealth.DTO.AreaDTO">
+        SELECT
+        <include refid="areaColumns" />
+        FROM ghealth_gopath_district a WHERE a.ID = #{id}
+    </select>
+
+    <select id="findProvince" parameterType="java.lang.String" resultType="com.todaysoft.ghealth.DTO.AreaDTO">
+        SELECT
+        <include refid="areaColumns" />
+        FROM ghealth_gopath_district a WHERE a.PARENT_ID IS NULL ;
+    </select>
+
+    <select id="findByParentId" parameterType="java.lang.String" resultType="com.todaysoft.ghealth.DTO.AreaDTO">
+        SELECT
+        <include refid="areaColumns" />
+        FROM ghealth_gopath_district a WHERE a.PARENT_ID = #{id}
+    </select>
+</mapper>

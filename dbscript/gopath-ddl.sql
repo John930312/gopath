@@ -163,7 +163,7 @@ CREATE TABLE `ghealth_gopath_customer` (
   `PHONE` varchar(64) NOT NULL COMMENT '联系电话',
   `EMAIL` varchar(128) DEFAULT NULL COMMENT '电子邮箱',
   `SEX` varchar(64) DEFAULT NULL COMMENT '性别',
-  `BIRTHDAY` varchar(64) DEFAULT NULL COMMENT '出生日期',
+  `BIRTHDAY` datetime DEFAULT NULL COMMENT '出生日期',
   `CREATE_TIME` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='客户主表';
@@ -198,7 +198,7 @@ CREATE TABLE `ghealth_gopath_product` (
   `ID` varchar(64) NOT NULL COMMENT '主键',
   `CODE` varchar(64) NOT NULL COMMENT '编号',
   `NAME` varchar(128) NOT NULL COMMENT '名称',
-  `SEX_RESTRAINT` tinyint(1) DEFAULT NULL COMMENT '性别约束',
+  `SEX_RESTRAINT` int(1) DEFAULT NULL COMMENT '性别约束',
   `GUIDING_PRICE` decimal(10,2) DEFAULT NULL COMMENT '指导价格',
   `START_TIME` datetime DEFAULT NULL COMMENT '优惠开始时间',
   `END_TIME` datetime DEFAULT NULL COMMENT '优惠结束时间',
@@ -267,3 +267,9 @@ CREATE TABLE `ghealth_gopath_agency` (
   `CREATE_TIME` datetime DEFAULT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+ALTER TABLE `ghealth_gopath_sample_box`
+ADD COLUMN `CODE`  varchar(64) NOT NULL AFTER `ID`;
+
+ALTER TABLE `ghealth_gopath_order`
+MODIFY COLUMN `REPORT_PRINT_REQUIRED`  int(1) NOT NULL COMMENT '是否需要纸质报告' AFTER `ACTUAL_PRICE`;

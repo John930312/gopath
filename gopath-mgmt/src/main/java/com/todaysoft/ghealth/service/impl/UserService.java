@@ -51,7 +51,7 @@ public class UserService implements IUserService
         pager.setRecords(userWrapper.wrap(response.getData().getRecords()));
         return pager;
     }
-
+    
     @Override
     public void modify(User data)
     {
@@ -60,16 +60,16 @@ public class UserService implements IUserService
         request.setOperatorName(accountHolder.get().getName());
         gateway.post("/user/modify", request);
     }
-
+    
     @Override
     public void create(User data)
     {
         UserMaintainRequest request = new UserMaintainRequest();
-        BeanUtils.copyProperties(data,request);
+        BeanUtils.copyProperties(data, request);
         request.setOperatorName(accountHolder.get().getName());
         gateway.post("/user/create", request);
     }
-
+    
     @Override
     public void delete(User data)
     {
@@ -78,39 +78,37 @@ public class UserService implements IUserService
         request.setOperatorName(accountHolder.get().getName());
         gateway.post("/user/delete", request);
     }
-
+    
     @Override
     public User get(String id)
     {
         UserMaintainRequest request = new UserMaintainRequest();
         request.setId(id);
-        DataResponse<UserDTO> response = gateway.post("/user/details",
-                request,
-                new ParameterizedTypeReference<DataResponse<UserDTO>>()
-                {
-                });
+        DataResponse<UserDTO> response = gateway.post("/user/details", request, new ParameterizedTypeReference<DataResponse<UserDTO>>()
+        {
+        });
         return userWrapper.wrap(response.getData());
     }
-
+    
     @Override
     public boolean isUsernameUnique(String username, String id)
     {
         UserMaintainRequest request = new UserMaintainRequest();
         request.setUsername(username);
         request.setId(id);
-
+        
         DataResponse<Boolean> response = gateway.post("/user/isUsernameUnique", request, new ParameterizedTypeReference<DataResponse<Boolean>>()
         {
         });
-
+        
         return response.getData();
     }
-
+    
     @Override
     public void change(User data)
     {
         UserMaintainRequest request = new UserMaintainRequest();
-        BeanUtils.copyProperties(data,request);
+        BeanUtils.copyProperties(data, request);
         request.setOperatorName(accountHolder.get().getName());
         gateway.post("/user/change", request);
     }

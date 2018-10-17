@@ -31,11 +31,11 @@
                 <div class="ibox ibox-table">
                     <div class="ibox-title">
                         <h5>用户列表</h5>
-
+                        <@security_resource resource = "/user/create.jsp">
                         <a href="${base}/user/create.jsp" class="btn btn-sm btn-success">
                             <i class="fa fa-plus"></i> 新增
                         </a>
-
+                        </@security_resource>
                     </div>
                     <div class="ibox-content">
                         <form action="${base}/user/list.jsp" method="post" class="search-form">
@@ -80,28 +80,30 @@
                                     <td>${(record.creatorName)!?html}</td>
                                     <td><#if record.createTime??>${record.createTime!?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
                                     <td class="flexible-btns" style="white-space:nowrap">
-
+                                        <@security_resource resource = "/user/modify.jsp">
                                         <a href="${base}/user/modify.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success">
                                             <i class="fa fa-edit"></i> 修改
                                         </a>
-
+                                        </@security_resource>
+                                        <@security_resource resource = "/user/delete.jsp">
                                         <a href="${base}/user/delete.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success layer-confirm"
-                                            data-confirm-message="确定删除该用户？">
+                                           data-confirm-message="确定删除该用户？">
                                             <i class="fa fa-trash"></i> 删除
                                         </a>
-
+                                        </@security_resource>
+                                        <@security_resource resource = "/user/modify.jsp">
                                         <#if record.enabled != false>
-                                        <a href="${base}/user/change.do?id=${(record.id)!?html}&enabled=false"
-                                            class="btn btn-sm btn-success layer-confirm" data-confirm-message="确定停用该用户？">
-                                            <i class="fa fa-refresh"></i> 停用
-                                        </a>
-                                        <#else>
-                                        <a href="${base}/user/change.do?id=${(record.id)!?html}&enabled=true"
-                                            class="btn btn-sm layer-confirm label-warning" data-confirm-message="确定启用该用户？">
-                                            <i class="fa fa-refresh"></i> 启用
-                                        </a>
+                                            <a href="${base}/user/change.do?id=${(record.id)!?html}&enabled=false"
+                                               class="btn btn-sm btn-success layer-confirm" data-confirm-message="确定停用该用户？">
+                                                <i class="fa fa-refresh"></i> 停用
+                                            </a>
+                                            <#else>
+                                                <a href="${base}/user/change.do?id=${(record.id)!?html}&enabled=true"
+                                                   class="btn btn-sm layer-confirm label-warning" data-confirm-message="确定启用该用户？">
+                                                    <i class="fa fa-refresh"></i> 启用
+                                                </a>
                                         </#if>
-
+                                        </@security_resource>
                                     </td>
                                 </tr>
                                 </#list> <#else>

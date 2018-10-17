@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>订单修改</title>
+    <link href="${plugins}/bootstrap/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/font-awesome.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/animate.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/hplus.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/icheckbox/icheckbox.css" rel="stylesheet"></link>
+    <link href="${system_css}/system.css" rel="stylesheet"></link>
+    <style type="text/css">
+        .area-select-group {
+            position: relative;
+            padding-left: 0;
+            padding-right: 34px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+
+        .area-select-group .dw {
+            position: absolute;
+            right: 0px;
+            top: 50%;
+            height: 34px;
+            line-height: 34px;
+            margin-top: -17px;
+            font-size: 12px;
+            padding-right: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="${base}/order/list.jsp">订单列表</a>
+                        </li>
+                        <li class="active">
+                            <strong>修改订单</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="ibox ibox-table">
+                <div class="ibox-title">
+                    <h5>修改订单</h5>
+                </div>
+                <div class="ibox-content">
+                    <#if data??>
+                        <#assign uri = "/order/modify.jsp" />
+                    </#if>
+                    <form class="form-horizontal m-t" action="${base}${uri}" method="post">
+                        <input type="hidden" name="id" value="${(data.id)!}"/>
+                        <input type="hidden" name="sampleBox.id" value="${(data.sampleBox.id)!}"/>
+                        <input type="hidden" name="${(REPEAT_SUBMIT_TOKEN)!}"
+                               value="${(Request[REPEAT_SUBMIT_TOKEN])!}"/>
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">订单编号：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="code" value="${(data.code)!?html}"
+                                           required
+                                           data-msg-required="产品编号不能为空" readonly/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">收件人：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="sampleBox.name"
+                                           value="${(data.sampleBox.name)!?html}"/>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">联系电话：</label>
+                                <div class="col-sm-3">
+                                    <input type="tel" class="form-control" name="sampleBox.phone"
+                                           value="${(data.sampleBox.phone)!?html}" required data-msg="联系电话不能为空"
+                                           maxlength="12"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">所在地市：</label>
+                                <div class="col-sm-8">
+                                    <div class="area-select-group col-sm-3">
+                                        <select class="form-control" name="sampleBox.province"
+                                                data-value="${(data.sampleBox.province)!?html}"
+                                                onchange="selectOpt(this)" required data-msg="请选择省份！">
+                                            <option value="">请选择省</option>
+                                            <#if list?has_content>
+                                                <#list list as record>
+                                                    <option value="${(record.id)!?html}">${(record.name)!?html}</option>
+                                                </#list>
+                                            </#if>
+                                        </select>
+                                    </div>
+                                    <div class="area-select-group col-sm-3">
+                                        <select class="form-control" name="sampleBox.city"
+                                                data-value="${(data.sampleBox.city)!?html}" required data-msg="请选择城市！">
+                                            <option value="">请选择市</option>
+                                            <#if province?has_content>
+                                                <#list province as record>
+                                                    <option value="${(record.id)!?html}">${(record.name)!?html}</option>
+                                                </#list>
+                                            </#if>
+                                        </select>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">详细地址：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="sampleBox.address"
+                                           value="${(data.sampleBox.address)!?html}" required data-msg="详细地址"
+                                           maxlength="50"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">检测产品：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="product.name"
+                                           value="${(data.product.name)!?html}" required data-msg="产品名称不能为空" readonly/>
+                                </div>
+                            </div>
+
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存</button>
+                                    <button class="btn btn-primary goback" type="button">返回</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${plugins}/jquery/jquery.min.js"></script>
+<script src="${plugins}/bootstrap/bootstrap.min.js"></script>
+<script src="${plugins}/icheckbox/icheckbox.min.js"></script>
+<script src="${plugins}/validation/jquery.validate.min.js"></script>
+<script src="${plugins}/layer/layer.min.js"></script>
+<script src="${plugins}/validation/additional-methods.min.js"></script>
+<script src="${plugins}/validation/localization/messages_zh.min.js"></script>
+<script src="${system_js}/system.js"></script>
+<script src="${system_js}/myValidate.js"></script>
+<script type="text/javascript">
+
+    $(function () {
+    <#if data??>
+        $('[name="reportPrintRequired"]:radio').iCheck('uncheck');
+        $("#reportPrintRequired_${(data.reportPrintRequired)!0}").iCheck('check');
+    </#if>
+
+        $('form').validate({
+            rules: {
+                'sampleBox.name': {
+                    required: true
+                },
+                'sampleBox.phone': {
+                    required: true,
+                    isMobile: true
+                },
+                'sampleBox.address': {
+                    required: true
+                },
+
+            },
+            messages: {
+                'sampleBox.name': {
+                    required: "请输入收件人"
+                },
+                'sampleBox.phone': {
+                    required: "联系电话不能为空",
+                    isMobile: "请输入有效的联系电话"
+                },
+                'sampleBox.address': {
+                    required: "收件地址不能为空"
+                },
+            },
+            errorPlacement: function (error, element) {
+                error.appendTo(element.parent());
+            }
+        });
+
+    });
+
+
+    function selectOpt(obj) {
+        $(obj).parent().next().children("select").empty();
+        $(obj).parent().next().children("select").append('<option value="">请选择市</option>');
+        var obj_ = $('select[name="sampleBox.city"]');
+
+        $.ajax({
+            type: 'POST',
+            url: '${base}/order/getAreas?parentId=' + $(obj).val(),
+            success: function (data) {
+                for (i in data) {
+                    obj_.append(
+                        '<option value="' + data[i].id + '">' + data[i].name + '</option>'
+                    );
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
