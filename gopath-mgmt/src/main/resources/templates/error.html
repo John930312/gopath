@@ -16,7 +16,7 @@
     <div class="middle-box text-center animated fadeInDown">
         <h3 class="font-bold">系统错误</h3>
         <div class="error-desc">
-            <#if error_code??>${error_code!?html}：${error_message!?html}<#else>系统好像出错了...</#if><br />
+            <#if error_code??>${error_message!?html}<#else>系统好像出错了...</#if><br />
             <a href="javascript:window.history.go(-1)" class="btn btn-primary m-t">返回</a>
         </div>
     </div>

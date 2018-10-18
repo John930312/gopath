@@ -20,5 +20,5 @@ public interface IOrderService
     
     void modify(Order data);
     
-    Boolean isUniqueCode(String code);
+    Boolean isUniqueSampleBoxCode(String sampleBoxCode);
 }

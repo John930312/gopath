@@ -1,5 +1,6 @@
 package com.todaysoft.ghealth.request;
 
+import com.todaysoft.ghealth.DTO.CustomerDTO;
 import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 
 import java.math.BigDecimal;
@@ -14,15 +15,17 @@ public class MaintainOrderRequest extends MaintainRequest
     
     private String code;
     
-    private Boolean reportPrintRequired;
+    private Integer reportPrintRequired;
     
     private BigDecimal actualPrice;
     
     private Integer status;
     
-    private String sampleType;
+    private Integer sampleType;
     
     private SampleBoxDTO sampleBox;
+    
+    private CustomerDTO customer;
     
     public String getId()
     {
@@ -44,12 +47,22 @@ public class MaintainOrderRequest extends MaintainRequest
         this.code = code;
     }
     
-    public Boolean getReportPrintRequired()
+    public CustomerDTO getCustomer()
+    {
+        return customer;
+    }
+    
+    public void setCustomer(CustomerDTO customer)
+    {
+        this.customer = customer;
+    }
+    
+    public Integer getReportPrintRequired()
     {
         return reportPrintRequired;
     }
     
-    public void setReportPrintRequired(Boolean reportPrintRequired)
+    public void setReportPrintRequired(Integer reportPrintRequired)
     {
         this.reportPrintRequired = reportPrintRequired;
     }
@@ -74,12 +87,12 @@ public class MaintainOrderRequest extends MaintainRequest
         this.status = status;
     }
     
-    public String getSampleType()
+    public Integer getSampleType()
     {
         return sampleType;
     }
     
-    public void setSampleType(String sampleType)
+    public void setSampleType(Integer sampleType)
     {
         this.sampleType = sampleType;
     }

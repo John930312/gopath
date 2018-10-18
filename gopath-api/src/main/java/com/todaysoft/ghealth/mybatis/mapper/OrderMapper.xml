@@ -14,6 +14,7 @@
         <result column="SAMPLE_TYPE" jdbcType="INTEGER" property="sampleType"/>
         <result column="STATUS" jdbcType="INTEGER" property="status"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="SAMPLING_TIME" jdbcType="TIMESTAMP" property="samplingTime"/>
         <result column="DELETED" jdbcType="BIT" property="deleted"/>
         <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime"/>
         <result column="SAMPLING_PHONE" property="sampleBox.phone" jdbcType="VARCHAR"/>
@@ -101,6 +102,9 @@
             <if test="createTime != null">
                 CREATE_TIME,
             </if>
+            <if test="samplingTime != null">
+                SAMPLING_TIME,
+            </if>
             <if test="deleted != null">
                 DELETED,
             </if>
@@ -144,6 +148,9 @@
             </if>
             <if test="createTime != null">
                 #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="samplingTime != null">
+                #{samplingTime,jdbcType=TIMESTAMP},
             </if>
             <if test="deleted != null">
                 #{deleted,jdbcType=BIT},
@@ -210,6 +217,12 @@
 
     <sql id="ExpertFilters">
         WHERE 1=1
+        <if test="_parameter.sampleBoxId != null and _parameter.sampleBoxId != ''">
+            AND o.SAMPLEBOX_ID = #{sampleBoxId}
+        </if>
+        <if test="_parameter.sampleBoxCode != null and _parameter.sampleBoxCode != ''">
+            AND sb.code = #{sampleBoxCode}
+        </if>
         <if test="_parameter.code != null and _parameter.code != ''">
             <bind name="codePattern" value="'%' + _parameter.code + '%'"/>
             AND o.code LIKE #{codePattern}

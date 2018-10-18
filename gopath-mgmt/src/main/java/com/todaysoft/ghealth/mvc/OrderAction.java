@@ -1,6 +1,7 @@
 package com.todaysoft.ghealth.mvc;
 
 import com.todaysoft.ghealth.DTO.AreaDTO;
+import com.todaysoft.ghealth.exception.ServiceException;
 import com.todaysoft.ghealth.model.Order;
 import com.todaysoft.ghealth.model.SampleBox;
 import com.todaysoft.ghealth.model.searcher.OrderSearcher;
@@ -94,6 +95,19 @@ public class OrderAction
     public List<AreaDTO> findByParentId(ModelMap model, String parentId)
     {
         return areaService.findByParentId(parentId);
+    }
+
+    @ResponseBody
+    @GetMapping("/validateSampleBoxCode.do")
+    public Boolean isUniqueSampleBoxCode(String sampleBoxCode)
+    {
+        return orderService.isUniqueSampleBoxCode(sampleBoxCode);
+    }
+
+    @RequestMapping("/reload.do")
+    public String reload(ModelMap model, HttpSession session)
+    {
+        return redirectList(model, session, "/order/list.jsp");
     }
     
     private String redirectList(ModelMap model, HttpSession session, String url)

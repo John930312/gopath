@@ -7,6 +7,7 @@ import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.gateway.Gateway;
 import com.todaysoft.ghealth.model.Order;
 import com.todaysoft.ghealth.model.searcher.OrderSearcher;
+import com.todaysoft.ghealth.request.MainSampleBoxRequest;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
 import com.todaysoft.ghealth.request.OrderQueryRequest;
 import com.todaysoft.ghealth.service.IOrderService;
@@ -85,25 +86,25 @@ public class OrderService implements IOrderService
     {
         MaintainOrderRequest request = new MaintainOrderRequest();
         request.setId(order.getId());
+        request.setStatus(order.getStatus());
         if (Objects.nonNull(order.getSampleBox()))
         {
             SampleBoxDTO sampleBox = new SampleBoxDTO();
             BeanUtils.copyProperties(order.getSampleBox(), sampleBox);
             request.setSampleBox(sampleBox);
         }
-        else
-        {
-            request.setStatus(order.getStatus());
-        }
+
         gateway.post("/order/modify", request);
     }
     
     @Override
-    public Boolean isUniqueCode(String code)
+    public Boolean isUniqueSampleBoxCode(String sampleBoxCode)
     {
-        DataResponse<Boolean> response = gateway.get("/order/isUniqueCode/{code}", new ParameterizedTypeReference<DataResponse<Boolean>>()
+        MainSampleBoxRequest request = new MainSampleBoxRequest();
+        request.setCode(sampleBoxCode);
+        DataResponse<Boolean> response = gateway.post("/order/isUniqueSampleBoxCode", request, new ParameterizedTypeReference<DataResponse<Boolean>>()
         {
-        }, code);
+        });
         if (null == response.getData())
         {
             return false;

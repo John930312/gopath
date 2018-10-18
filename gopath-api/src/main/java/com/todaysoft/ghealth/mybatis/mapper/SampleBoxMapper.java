@@ -9,4 +9,6 @@ public interface SampleBoxMapper
     int modify(SampleBox record);
     
     SampleBox get(String id);
+
+    long getByCode(String code);
 }

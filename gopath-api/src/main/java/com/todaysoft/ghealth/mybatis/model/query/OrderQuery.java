@@ -16,6 +16,10 @@ public class OrderQuery extends Query
     
     private String productName;
     
+    private String sampleBoxId;
+    
+    private String sampleBoxCode;
+    
     private String status;
     
     private String agencyName;
@@ -112,5 +116,25 @@ public class OrderQuery extends Query
     public void setEndTime(String endTime)
     {
         this.endTime = endTime;
+    }
+    
+    public String getSampleBoxId()
+    {
+        return sampleBoxId;
+    }
+    
+    public void setSampleBoxId(String sampleBoxId)
+    {
+        this.sampleBoxId = sampleBoxId;
+    }
+    
+    public String getSampleBoxCode()
+    {
+        return sampleBoxCode;
+    }
+    
+    public void setSampleBoxCode(String sampleBoxCode)
+    {
+        this.sampleBoxCode = sampleBoxCode;
     }
 }

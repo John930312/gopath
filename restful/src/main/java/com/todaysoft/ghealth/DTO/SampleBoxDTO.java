@@ -14,6 +14,8 @@ public class SampleBoxDTO
     
     private String phone;
     
+    private boolean binded;
+    
     private String province;
     
     private String city;
@@ -100,5 +102,15 @@ public class SampleBoxDTO
     public void setCreateTime(String createTime)
     {
         this.createTime = createTime;
+    }
+    
+    public boolean isBinded()
+    {
+        return binded;
+    }
+    
+    public void setBinded(boolean binded)
+    {
+        this.binded = binded;
     }
 }

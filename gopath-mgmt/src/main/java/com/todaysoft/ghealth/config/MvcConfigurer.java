@@ -94,13 +94,7 @@ public class MvcConfigurer implements WebMvcConfigurer
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(mapper);
         converters.add(converter);
     }
-    
-    @Bean(name = "localeResolver")
-    public LocaleResolver localeResolverBean()
-    {
-        return new SessionLocaleResolver();
-    }
-    
+
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver getCommonsMultipartResolver(ServletContext servletContext)
     {

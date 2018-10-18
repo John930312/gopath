@@ -12,6 +12,8 @@ public class SampleBox
     
     private String phone;
     
+    private boolean binded;
+    
     private String province;
     
     private String city;
@@ -98,5 +100,15 @@ public class SampleBox
     public void setCode(String code)
     {
         this.code = code;
+    }
+    
+    public boolean isBinded()
+    {
+        return binded;
+    }
+    
+    public void setBinded(boolean binded)
+    {
+        this.binded = binded;
     }
 }

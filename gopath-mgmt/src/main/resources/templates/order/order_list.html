@@ -7,10 +7,9 @@
     <meta http-equiv="Cache-Control" content="no-siteapp"/>
     <title>订单列表</title>
     <link href="${plugins}/bootstrap/bootstrap.min.css" rel="stylesheet"></link>
-    <link href="${plugins}/hplus/font-awesome.min.css" rel="stylesheet" />
+    <link href="${plugins}/hplus/font-awesome.min.css" rel="stylesheet"/>
     <link href="${plugins}/hplus/animate.min.css" rel="stylesheet"></link>
     <link href="${plugins}/hplus/hplus.min.css" rel="stylesheet"></link>
-    <link href="${plugins}/icheckbox/icheckbox.css" rel="stylesheet"></link>
     <link href="${system_css}/system.css?v=0.1" rel="stylesheet"></link>
 </head>
 <body class="gray-bg">
@@ -43,27 +42,32 @@
                                            value="${(searcher.code)!?html}" placeholder="订单编号">
                                 </div>
                             </div>
+
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="consignee" name="consignee"
                                            value="${(searcher.consignee)!?html}" placeholder="收件人姓名">
                                 </div>
                             </div>
+
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="samplingPhone" name="samplingPhone"
                                            value="${(searcher.samplingPhone)!?html}" placeholder="联系人电话">
                                 </div>
                             </div>
+
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="text" class="form-control" id="productName" name="productName"
                                            value="${(searcher.productName)!?html}" placeholder="检测产品">
                                 </div>
                             </div>
+
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <select class="form-control" id="status" name="status" data-value="${(searcher.status)!?html}">
+                                    <select class="form-control" id="status" name="status"
+                                            data-value="${(searcher.status)!?html}">
                                         <option value="">订单状态</option>
                                         <@dict_category category = "ORDER_STATUS">
                                         <#list entries as entry>
@@ -81,7 +85,6 @@
                                 </div>
                             </div>
 
-
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="text" class="Wdate form-control" id="startTime" name="startTime"
@@ -92,6 +95,7 @@
                                            readonly/>
                                 </div>
                             </div>
+
                             <div class="col-sm-2">
                                 <div class="form-group">
                                     <input type="text" class="Wdate form-control" id="endTime" name="endTime"
@@ -149,38 +153,39 @@
                                     <td><@dict_category_value category = "ORDER_STATUS" value = record.status/></td>
                                     <td class="flexible-btns" style="white-space: nowrap">
                                         <@security_resource resource = "/order/display.jsp">
-                                        <a href="${base}/order/display.jsp?id=${record.id}" class="btn btn-sm btn-success">
+                                        <a href="${base}/order/display.jsp?id=${record.id}"
+                                           class="btn btn-sm btn-success">
                                             <i class="fa fa-search-plus"></i> 查看
                                         </a>
-                                        </@security_resource>
-                                        <@security_resource resource = "/order/modify.jsp">
-                                        <a href="${base}/order/modify.jsp?id=${record.id}"
-                                           class="btn btn-sm btn-success">
-                                            <i class="fa fa-edit"></i> 修改
-                                        </a>
+                                    </@security_resource>
+                                    <@security_resource resource = "/order/modify.jsp">
+                                    <a href="${base}/order/modify.jsp?id=${record.id}"
+                                       class="btn btn-sm btn-success">
+                                        <i class="fa fa-edit"></i> 修改
+                                    </a>
 
-                                        <#if record.status == 0>
-                                        <a href="${base}/order/modifyStatus.jsp?id=${record.id}&status=1"
-                                           class="btn btn-sm btn-success">
+                                    <#if record.status == 0>
+                                        <a href="javascript:;" class="btn btn-sm btn-success"
+                                           onclick="setValue('${record.id}','${record.code}',1)">
                                             <i class="fa fa-edit"></i> 寄送
                                         </a>
-                                        </#if>
+                                    </#if>
 
-                                        <#if record.status == 1>
-                                        <a href="${base}/order/modifyStatus.jsp?id=${record.id}&status=2"
-                                           class="btn btn-sm btn-success">
+                                    <#if record.status == 1>
+                                        <a href="javascript:;" class="btn btn-sm btn-success"
+                                           onclick="setValue('${record.id}','${record.code}',2)">
                                             <i class="fa fa-edit"></i> 收样
                                         </a>
-                                        </#if>
+                                    </#if>
 
-                                        <#if record.status == 2>
+                                    <#if record.status == 2>
                                         <a href="${base}/order/modify.jsp?id=${record.id}"
                                            class="btn btn-sm btn-success">
                                             <i class="fa fa-edit"></i> 上传
                                         </a>
-                                        </#if>
-                                        </@security_resource>
-                                    </td>
+                                    </#if>
+                                </@security_resource>
+                                </td>
                                 </tr>
                             </#list>
                             <#else>
@@ -207,22 +212,26 @@
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="sended_ModalLabel">订单寄送</h4>
             </div>
-            <form id="sendedForm" method="post" action="${base}/order/setIsSended.do">
-                <input type="hidden" name="id" id="hiddenId">
+            <form id="sendForm" method="get" action="${base}/order/modifyStatus.jsp">
+                <input type="hidden" name="id">
                 <input type="hidden" name="code" id="orderCode">
                 <div class="modal-body">
                     <div class="form-group">
                         <label class="control-label required-label">采样盒编号：</label>
                         <div class="form-group">
-                            <input type="text" class="form-control" id="samplingCode" name="sampleBox.code"
-                                   maxlength="12" placeholder="请输入采样盒编号" required data-msg-required="采样盒编号不能为空"/>
+                            <input type="text" class="form-control" name="sampleBox.code" maxlength="12"
+                                   onfocus="hideDiv()"/>
+                            <input type="hidden" name="status" id="orderStatus" value=""/>
                         </div>
+                    </div>
+                    <div style="display: none; color: red;" class="error">
+                        采样盒编号已存在
                     </div>
                 </div>
 
                 <div class="modal-footer">
                     <div class="col-lg-4" style="float: right">
-                        <button type="submit" class="btn btn-primary">提交</button>
+                        <button type="button" class="btn btn-primary" onclick="orderSend()">提交</button>
                         <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
                     </div>
                 </div>
@@ -232,19 +241,54 @@
 </div>
 <script src="${plugins}/jquery/jquery.min.js"></script>
 <script src="${plugins}/bootstrap/bootstrap.min.js"></script>
-<script src="${plugins}/validation/jquery.validate.min.js"></script>
 <script src="${plugins}/layer/layer.min.js"></script>
-<script src="${plugins}/validation/additional-methods.min.js"></script>
-<script src="${plugins}/validation/localization/messages_zh.min.js"></script>
 <script src="${plugins}/pagination/jquery.pagination.js"></script>
 <script src="${plugins}/icheckbox/icheckbox.min.js"></script>
 <script src="${system_js}/system.js?v=0.2"></script>
 <script src="${plugins}/My97DatePicker/WdatePicker.js"></script>
-<script src="${plugins}/bootstrap-dialog/bootstrap-dialog.min.js"></script>
-<script src="${system_js}/myValidate.js"></script>
 <script>
 
+    function setValue(id, code, status) {
 
+        layer.confirm('确定对该订单做此操作么？', {btn: ['确定', '取消']}, function (index) {
+
+            $("[name='id']").val(id);
+            $("#orderStatus").val(status);
+            if (status == 2) {
+                $("#sendForm").submit();
+            } else {
+                $('#myModal').modal('show')
+                $("#orderCode").val(code);
+            }
+            layer.close(index);
+        });
+
+    }
+
+    function hideDiv() {
+        $(".error").css("display", "none");
+    }
+
+    function orderSend() {
+
+        var code = $('[name="sampleBox.code"]').val();
+        var isUnique = false;
+        $.ajax({
+            method: "GET",
+            url: "${base}/order/validateSampleBoxCode.do",
+            async: false,
+            data: {sampleBoxCode: code},
+            success: function (flag) {
+                isUnique = flag;
+            }
+        });
+
+        if (isUnique) {
+            $(".error").css("display", "block");
+            return;
+        }
+        $("#sendForm").submit();
+    }
 </script>
 </body>
 </html>

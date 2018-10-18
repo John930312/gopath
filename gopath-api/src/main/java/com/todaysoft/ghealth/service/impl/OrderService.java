@@ -3,11 +3,13 @@ package com.todaysoft.ghealth.service.impl;
 import com.hsgene.restful.response.DataResponse;
 import com.hsgene.restful.util.CountRecords;
 import com.todaysoft.ghealth.DTO.OrderDTO;
+import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.mybatis.mapper.OrderMapper;
 import com.todaysoft.ghealth.mybatis.mapper.SampleBoxMapper;
 import com.todaysoft.ghealth.mybatis.model.Order;
 import com.todaysoft.ghealth.mybatis.model.SampleBox;
 import com.todaysoft.ghealth.mybatis.model.query.OrderQuery;
+import com.todaysoft.ghealth.request.MainSampleBoxRequest;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
 import com.todaysoft.ghealth.request.OrderQueryRequest;
 import com.todaysoft.ghealth.service.IOrderService;
@@ -100,23 +102,23 @@ public class OrderService implements IOrderService
     @Transactional
     public void modify(MaintainOrderRequest request)
     {
-        if (null != request.getStatus())
+        Order order = orderMapper.get(request.getId());
+        
+        SampleBoxDTO data = request.getSampleBox();
+        SampleBox sampleBox = order.getSampleBox();
+        if (Objects.nonNull(sampleBox) && Objects.nonNull(data))
         {
-            Order order = orderMapper.get(request.getId());
-            order.setStatus(request.getStatus());
-            orderMapper.modify(order);
+            sampleBox.setCode(data.getCode());
+            sampleBoxMapper.modify(sampleBox);
         }
-        else
-        {
-            SampleBox data = new SampleBox();
-            BeanUtils.copyProperties(request.getSampleBox(), data);
-            sampleBoxMapper.modify(data);
-        }
+        
+        order.setStatus(request.getStatus());
+        orderMapper.modify(order);
     }
     
     @Override
-    public DataResponse<Boolean> isUniqueCode(String code)
+    public DataResponse<Boolean> isUniqueSampleBoxCode(MainSampleBoxRequest request)
     {
-        return new DataResponse<Boolean>();
+        return new DataResponse<Boolean>(sampleBoxMapper.getByCode(request.getCode()) != 0);
     }
 }

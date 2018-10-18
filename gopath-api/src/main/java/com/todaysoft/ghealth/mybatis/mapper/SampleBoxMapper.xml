@@ -6,6 +6,7 @@
         <result column="NAME" property="name" jdbcType="VARCHAR"/>
         <result column="PHONE" property="phone" jdbcType="VARCHAR"/>
         <result column="CODE" property="code" jdbcType="VARCHAR"/>
+        <result column="BINDED" property="binded" jdbcType="BIT" />
         <result column="PROVINCE" property="province" jdbcType="VARCHAR"/>
         <result column="CITY" property="city" jdbcType="VARCHAR"/>
         <result column="ADDRESS" property="address" jdbcType="VARCHAR"/>
@@ -36,6 +37,9 @@
             <if test="phone != null">
                 PHONE,
             </if>
+            <if test="binded != null">
+                BINDED,
+            </if>
             <if test="province != null">
                 PROVINCE,
             </if>
@@ -61,6 +65,9 @@
             </if>
             <if test="phone != null">
                 #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="binded != null">
+                #{binded,jdbcType=VARCHAR},
             </if>
             <if test="province != null">
                 #{province,jdbcType=VARCHAR},
@@ -88,6 +95,9 @@
             <if test="phone != null">
                 PHONE = #{phone,jdbcType=VARCHAR},
             </if>
+            <if test="binded != null">
+                BINDED = #{binded,jdbcType=VARCHAR},
+            </if>
             <if test="province != null">
                 PROVINCE = #{province,jdbcType=VARCHAR},
             </if>
@@ -104,4 +114,9 @@
         where ID = #{id,jdbcType=VARCHAR}
     </update>
 
+    <select id="getByCode" resultType="long" parameterType="java.lang.String">
+        SELECT COUNT(*)
+        FROM ghealth_gopath_sample_box b
+        WHERE b.CODE = #{code}
+    </select>
 </mapper>

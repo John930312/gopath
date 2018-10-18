@@ -29,6 +29,8 @@ public class Order
     
     private Date createTime;
     
+    private Date samplingTime;
+    
     private Boolean deleted;
     
     private Date deleteTime;
@@ -171,5 +173,15 @@ public class Order
     public void setDeleteTime(Date deleteTime)
     {
         this.deleteTime = deleteTime;
+    }
+    
+    public Date getSamplingTime()
+    {
+        return samplingTime;
+    }
+    
+    public void setSamplingTime(Date samplingTime)
+    {
+        this.samplingTime = samplingTime;
     }
 }
