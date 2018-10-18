@@ -58,7 +58,7 @@ INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('02244adbcda111e7a9760f184c352621', '0221be89cda011e7a9760f184c352621', 'FIT_PEOPLE', '通用', '0', '1', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('0225107dcda111e7a9760f184c352621', '0221be89cda011e7a9760f184c352621', 'FIT_PEOPLE', '女性', '2', '3', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('022a4b99cda111e7a9760f184c352621', '0221be89cda011e7a9760f184c352621', 'FIT_PEOPLE', '男性', '1', '2', '0');
-INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('012638d6cd9c11e7a9760f184c352621', NULL, 'GENDER', '性别', NULL, '1', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('012638d6cd9c11e7a9760f184c352621', NULL, 'GENDER', '性别', NULL, '5', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('01273335cd9d11e7a9760f184c352621', '012638d6cd9c11e7a9760f184c352621', 'GENDER', '男', '1', '1', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('0127490fcd9d11e7a9760f184c352621', '012638d6cd9c11e7a9760f184c352621', 'GENDER', '女', '2', '2', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('0381b603cda411e7a9760f184c352621', NULL, 'SAMPLE_TYPE', '样本类型', NULL, '7', '0');
@@ -68,3 +68,33 @@ INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('0371d0cacda411e7a9760f184c352621', NULL, 'REPORT_PRINT_REQUIRED', '是否需要纸质报告', NULL, '6', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('03729a86cda411e7a9760f184c352621', '0371d0cacda411e7a9760f184c352621', 'REPORT_PRINT_REQUIRED', '不需要', '0', '1', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('0373a093cda411e7a9760f184c352621', '0371d0cacda411e7a9760f184c352621', 'REPORT_PRINT_REQUIRED', '需要（另外收费）', '1', '2', '0');
+
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('29351fdc9e8e4134848b76f0620bd2fc', '844cdfda039d4dc898c91ecaf0853864', 'IS_DISCOUNT', '启用优惠', '1', '2', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('844cdfda039d4dc898c91ecaf0853864', NULL, 'IS_DISCOUNT', '优惠状态', NULL, '8', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('a6fd33a16ecd44caa7b599dabcdbbe48', '844cdfda039d4dc898c91ecaf0853864', 'IS_DISCOUNT', '取消优惠', '0', '1', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('f9ddf1f29ae84f509ecc286b71c6214a', NULL, 'IS_COMMON_PACKAGE', '是否推荐通用套餐', NULL, '9', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('fdd17e88083e45d5a65f875a17cfde22', 'f9ddf1f29ae84f509ecc286b71c6214a', 'IS_COMMON_PACKAGE', '否', '0', '1', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('fa4e33f3748f4610b7e95c2c95597fdf', 'f9ddf1f29ae84f509ecc286b71c6214a', 'IS_COMMON_PACKAGE', '是', '1', '2', '0');
+
+
+
+#产品管理
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('23dfe856c79e5f8ea1b5e24a1e475756', NULL, 'PRODUCT', '产品管理', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('d627f028f19c4269b4f0c9933a230798', '23dfe856c79e5f8ea1b5e24a1e475756', 'PRODUCT.PRODUCT', '产品管理', '1');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('1c5b3d1f5821554793fb4b8e3af1474c', 'd627f028f19c4269b4f0c9933a230798', 'PRODUCT.PRODUCT.CREATE', '新增产品', '1');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('2c076e8b48365baf855eb7cc7c0c8c21', 'd627f028f19c4269b4f0c9933a230798', 'PRODUCT.PRODUCT.LIST', '产品列表', '3');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('4e92cb6db7db58448b77a04a4c3a59d7', 'd627f028f19c4269b4f0c9933a230798', 'PRODUCT.PRODUCT.MODIFY', '修改产品', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('a02025368c4952f4ae1fc9d98502358a', 'd627f028f19c4269b4f0c9933a230798', 'PRODUCT.PRODUCT.DISPLAY', '查询产品', '4');
+
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('598731967c2843b6b7fd1e22db927968', '产品修改', '/product/modify.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('b797f209a0d7461ab3b31482918620ec', '产品查看', '/product/display.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('eeb1a4a5af6b474f899bd6eb3fec9f38', '产品列表', '/product/list.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('fbb5e68312674fc3a36a46322ab8d7b9', '产品新增', '/product/create.jsp');
+
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('4e92cb6db7db58448b77a04a4c3a59d7', '598731967c2843b6b7fd1e22db927968');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('a02025368c4952f4ae1fc9d98502358a', 'b797f209a0d7461ab3b31482918620ec');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('2c076e8b48365baf855eb7cc7c0c8c21', 'eeb1a4a5af6b474f899bd6eb3fec9f38');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('1c5b3d1f5821554793fb4b8e3af1474c', 'fbb5e68312674fc3a36a46322ab8d7b9');
+
+INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('62e28bd7dfba461499aedaf185f55556', NULL, '产品管理', NULL, '3', 'fa fa-leaf');
+INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('8fce52781c1644ada29f89011f9c6a5b', '62e28bd7dfba461499aedaf185f55556', '产品管理', '/product/list.jsp', '1', 'fa fa-flask');

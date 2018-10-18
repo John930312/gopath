@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>产品表单-检测产品</title>
+    <link href="${plugins}/bootstrap/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/font-awesome.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/animate.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/hplus.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/icheckbox/icheckbox.css" rel="stylesheet"></link>
+    <link href="${plugins}/multiselect/style.css" rel="stylesheet" type="text/css">
+    <link href="${system_css}/system.css" rel="stylesheet"></link>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="${base}/product/list.jsp">检测产品</a>
+                        </li>
+                        <li class="active">
+                            <strong><#if data??>修改产品<#else>新增产品</#if></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="ibox ibox-table">
+                <div class="ibox-title">
+                    <h5><#if data??>修改产品<#else>新增产品</#if></h5>
+                </div>
+                <div class="ibox-content">
+                    <#if data??> <#assign uri = "/product/modify.jsp" /> <#else> <#assign uri = "/product/create.jsp" /> </#if>
+                    <form class="form-horizontal m-t" action="${base}${uri}" method="post">
+                        <input type="hidden" name="id" value="${(data.id)!}" />
+                        <input type="hidden" name="${(REPEAT_SUBMIT_TOKEN)!}" value="${(Request[REPEAT_SUBMIT_TOKEN])!}" />
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">产品编号：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="code" value="${(data.code)!?html}" required
+                                           data-msg-required="产品编号不能为空" data-rule-remote="${base}/product/code_unique.do?id=${(data.id)!?html}"
+                                           data-msg-remote="产品编号已存在，请重新输入" />
+                                </div>
+                                <label class="col-sm-2 control-label required-label">产品名称：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="name" value="${(data.name)!?html}" required data-msg="产品名称不能为空" />
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">适用人群：</label>
+                                <div class="col-sm-3">
+                                    <div class="radio-inline i-checks">
+                                        <@dict_category category = "FIT_PEOPLE">
+                                            <#list entries as entry>
+                                                <label><input type="radio" id="sexRestraint_${(entry_index)!}" name="sexRestraint" value="${(entry.dictValue)!html}"
+                                                    <#if entry_index == 0>checked="checked"</#if>>${(entry.dictText)!html}</label>
+                                            </#list>
+                                        </@dict_category>
+                                    </div>
+                                </div>
+
+                                <label class="col-sm-2 control-label required-label">指导价格：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="guidingPrice" name="guidingPrice" value="${(data.guidingPrice)!?html}" required data-msg="指导价格不能为空"/>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">优惠价格：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" id="discountPrice" name="discountPrice" value="${(data.discountPrice)!?html}"/>
+                                </div>
+
+                                <label class="col-sm-2 control-label required-label">优惠状态：</label>
+                                <div class="form-group">
+                                    <div class="col-sm-3">
+                                        <div class="radio-inline i-checks">
+                                            <@dict_category category = "IS_DISCOUNT">
+                                            <#list entries as entry>
+                                                <label><input type="radio" id="discount_${(entry_index)!}" name="discount" value="${(entry.dictValue)!html}"
+                                                    <#if entry_index == 0>checked="checked"</#if>>${(entry.dictText)!html}</label>
+                                            </#list>
+                                        </@dict_category>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">优惠时间：</label>
+                                    <div class="col-sm-3">
+                                    <input type="text" class="col-sm-3 Wdate form-control delete" id="startTime" name="startTime"
+                                           style="height: 35px"
+                                           placeholder="开始日期"
+                                           onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',maxDate:'#F{$dp.$D(\'endTime\')}'})"   <#if data??><#if data.startTime??>value="${data.startTime!?string('yyyy-MM-dd')}"</#if></#if>/>
+                                    </div>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="col-sm-3 Wdate form-control delete" id="endTime" name="endTime"
+                                               style="height: 35px"
+                                               placeholder="结束日期"
+                                               onfocus="WdatePicker({dateFmt:'yyyy-MM-dd',minDate:'#F{$dp.$D(\'startTime\')}'})" <#if data??><#if data.endTime??>value="${data.endTime!?string('yyyy-MM-dd')}"</#if></#if>/>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label required-label">产品状态：</label>
+                                    <div class="col-sm-3">
+                                        <div class="radio-inline i-checks">
+                                            <@dict_category category = "IS_DISABLE">
+                                                <#list entries as entry>
+                                                    <label><input type="radio" id="enabled_${(entry_index)!}" name="enabled" value="${(entry.dictValue)!html}"
+                                                        <#if entry_index == 1>checked="checked"</#if>>${(entry.dictText)!html}</label>
+                                                </#list>
+                                            </@dict_category>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">检测内容介绍：</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="5" name="itemRemark" id="itemRemark">${(data.itemRemark)!}</textarea>
+                                    <p>字数限制：200</p>
+                                </div>
+                            </div>
+                                <label class="col-sm-2 control-label">检测项目：</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="5" name="itemIds" id="itemIds" >${(data.itemIds)!}</textarea>
+                                    <p>字数限制：500</p>
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">通用推荐套餐：</label>
+                                <div class="col-sm-3">
+                                    <div class="radio-inline i-checks">
+                                        <@dict_category category = "IS_COMMON_PACKAGE">
+                                        <#list entries as entry>
+                                            <label><input type="radio" id="commonpackage_${(entry_index)!}" name="isCommonPackage" value="${(entry.dictValue)!html}"
+                                                <#if entry_index == 0>checked="checked"</#if>>${(entry.dictText)!html}</label>
+                                        </#list>
+                                    </@dict_category>
+                                </div>
+                            </div>
+                        </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存</button>
+                                    <button class="btn btn-primary goback" type="button">返回</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${plugins}/jquery/jquery.min.js"></script>
+<script src="${plugins}/bootstrap/bootstrap.min.js"></script>
+<script src="${plugins}/icheckbox/icheckbox.min.js"></script>
+<script src="${plugins}/validation/jquery.validate.min.js"></script>
+<script src="${plugins}/layer/layer.min.js"></script>
+<script src="${plugins}/validation/additional-methods.min.js"></script>
+<script src="${plugins}/validation/localization/messages_zh.min.js"></script>
+<script src="${plugins}/multiselect/multiselect.min.js" type="text/javascript"></script>
+<script src="${system_js}/system.js"></script>
+<script src="${system_js}/myValidate.js"></script>
+<script src="${plugins}/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    <!--
+    $(function()
+    {
+    <#if data??>
+        $('[name="sexRestraint"]:radio').iCheck('uncheck');
+        $("#sexRestraint_${(data.sexRestraint)!'0'}").iCheck('check');
+
+        $('[name="discount"]:radio').iCheck('uncheck');
+        $("#discount_${(data.discount)?string('1','0')}").iCheck('check');
+
+        $('[name="enabled"]:radio').iCheck('uncheck');
+        $("#enabled_${(data.enabled)?string('1','0')}").iCheck('check');
+    </#if>
+    <#if data??>
+        $('[name="isCommonPackage"]:radio').iCheck('uncheck');
+        $("#commonpackage_${(data.isCommonPackage)?string('1','0')}").iCheck('check');
+    </#if>
+
+        $('form').validate({
+            submitHandler: function (form) {
+                var discountPrice = $("#discountPrice").val();
+                if ($("#discount_1").is(':checked')) {
+                    if (null == discountPrice || "" == discountPrice) {
+                        layer.confirm("优惠已启用,请输入优惠价格！", {title: "提示"});
+                        return false;
+                    }
+                };
+               form.submit();
+            },
+            rules: {
+                code:{
+                    tenlimit:true
+                },
+                name:{
+                    ten:true
+                },
+                guidingPrice:{
+                    pricelimit:true
+                },
+                discountPrice:{
+                    pricelimit:true,
+                    discount:true
+                },
+            },
+            messages:{
+                code: {
+                    tenlimit: "数字、字母均可，最长10位"
+                },
+                name: {
+                    ten: "请输入10位以内产品名称"
+                },
+                guidingPrice: {
+                    pricelimit: "请输入正确的价格"
+                },
+                discountPrice: {
+                    pricelimit: "请输入正确的价格",
+                    discount:"优惠价格不能大于代理价格！！！"
+                },
+            },
+            errorPlacement: function(error, element) {
+                error.appendTo(element.parent());
+            }
+        });
+        $('[name="sexRestraint"]').on('ifChecked', function(event){
+            $("#selected_items option").remove();
+        });
+    });
+    $("#itemRemark").on("input propertychange", function() {
+        var $this = $(this),
+            _val = $this.val(),
+            count = "";
+        if (_val.length > 200) {
+            $this.val(_val.substring(0, 200));
+        }
+        count = 200 - $this.val().length;
+        $("#text-count-itemRemark").text(count);
+    });
+    $("#itemIds").on("input propertychange", function() {
+        var $this = $(this),
+            _val = $this.val(),
+            count = "";
+        if (_val.length > 200) {
+            $this.val(_val.substring(0, 500));
+        }
+        count = 200 - $this.val().length;
+        $("#text-count-itemIds").text(count);
+    });
+
+
+    //-->
+</script>
+</body>
+</html>

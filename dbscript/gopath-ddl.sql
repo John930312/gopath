@@ -220,10 +220,8 @@ CREATE TABLE `ghealth_gopath_product` (
 -- ----------------------------
 DROP TABLE IF EXISTS `ghealth_gopath_product_questionnaire`;
 CREATE TABLE `ghealth_gopath_product_questionnaire` (
-  `ID` varchar(64) NOT NULL,
   `PRODUCT_ID` varchar(64) NOT NULL,
   `QUESTIONNAIRE_ID` varchar(64) NOT NULL,
-  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
