@@ -4,9 +4,11 @@ import com.hsgene.restful.response.DataResponse;
 import com.hsgene.restful.util.CountRecords;
 import com.todaysoft.ghealth.DTO.OrderDTO;
 import com.todaysoft.ghealth.DTO.SampleBoxDTO;
+import com.todaysoft.ghealth.mybatis.mapper.OrderHistoryMapper;
 import com.todaysoft.ghealth.mybatis.mapper.OrderMapper;
 import com.todaysoft.ghealth.mybatis.mapper.SampleBoxMapper;
 import com.todaysoft.ghealth.mybatis.model.Order;
+import com.todaysoft.ghealth.mybatis.model.OrderHistory;
 import com.todaysoft.ghealth.mybatis.model.SampleBox;
 import com.todaysoft.ghealth.mybatis.model.query.OrderQuery;
 import com.todaysoft.ghealth.request.MainSampleBoxRequest;
@@ -14,7 +16,9 @@ import com.todaysoft.ghealth.request.MaintainOrderRequest;
 import com.todaysoft.ghealth.request.OrderQueryRequest;
 import com.todaysoft.ghealth.service.IOrderService;
 import com.todaysoft.ghealth.service.paser.OrderQueryParser;
+import com.todaysoft.ghealth.service.wrapper.OrderHistoryWrapper;
 import com.todaysoft.ghealth.service.wrapper.OrderWrapper;
+import com.todaysoft.ghealth.utils.IdGen;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -43,6 +48,9 @@ public class OrderService implements IOrderService
     
     @Autowired
     private SampleBoxMapper sampleBoxMapper;
+    
+    @Autowired
+    private OrderHistoryMapper orderHistoryMapper;
     
     @Override
     public DataResponse<CountRecords<OrderDTO>> pager(OrderQueryRequest request)
@@ -103,17 +111,32 @@ public class OrderService implements IOrderService
     public void modify(MaintainOrderRequest request)
     {
         Order order = orderMapper.get(request.getId());
-        
+
         SampleBoxDTO data = request.getSampleBox();
         SampleBox sampleBox = order.getSampleBox();
-        if (Objects.nonNull(sampleBox) && Objects.nonNull(data))
+
+        if (StringUtils.isNotEmpty(data.getCode()))
         {
             sampleBox.setCode(data.getCode());
-            sampleBoxMapper.modify(sampleBox);
         }
+        else
+        {
+            BeanUtils.copyProperties(data, sampleBox);
+        }
+        sampleBoxMapper.modify(sampleBox);
         
-        order.setStatus(request.getStatus());
-        orderMapper.modify(order);
+        if (null != request.getStatus())
+        {
+            OrderHistory orderHistory = new OrderHistory();
+            orderHistory.setOrderId(request.getId());
+            orderHistory.setId(IdGen.uuid());
+            orderHistory.setEventTime(new Date());
+            orderHistory.setEventType(request.getStatus());
+            orderHistoryMapper.create(orderHistory);
+            
+            order.setStatus(request.getStatus());
+            orderMapper.modify(order);
+        }
     }
     
     @Override

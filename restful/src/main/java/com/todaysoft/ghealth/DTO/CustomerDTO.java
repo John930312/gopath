@@ -6,7 +6,7 @@ public class CustomerDTO
 {
     private String id;
     
-    private String sampleboxId;
+    private String sampleBoxId;
     
     private String agencyId;
     
@@ -32,14 +32,14 @@ public class CustomerDTO
         this.id = id;
     }
     
-    public String getSampleboxId()
+    public String getSampleBoxId()
     {
-        return sampleboxId;
+        return sampleBoxId;
     }
     
-    public void setSampleboxId(String sampleboxId)
+    public void setSampleBoxId(String sampleBoxId)
     {
-        this.sampleboxId = sampleboxId;
+        this.sampleBoxId = sampleBoxId;
     }
     
     public String getAgencyId()

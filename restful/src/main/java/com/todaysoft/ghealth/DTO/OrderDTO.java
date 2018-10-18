@@ -1,6 +1,7 @@
 package com.todaysoft.ghealth.DTO;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @Author: xjw
@@ -35,6 +36,8 @@ public class OrderDTO
     private ProductDTO product;
     
     private SampleBoxDTO sampleBox;
+    
+    private List<OrderHistoryDTO> orderHistory;
     
     public String getId()
     {
@@ -174,5 +177,15 @@ public class OrderDTO
     public void setSampleBox(SampleBoxDTO sampleBox)
     {
         this.sampleBox = sampleBox;
+    }
+    
+    public List<OrderHistoryDTO> getOrderHistory()
+    {
+        return orderHistory;
+    }
+    
+    public void setOrderHistory(List<OrderHistoryDTO> orderHistory)
+    {
+        this.orderHistory = orderHistory;
     }
 }

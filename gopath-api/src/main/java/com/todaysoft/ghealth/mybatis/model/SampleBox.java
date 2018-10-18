@@ -102,7 +102,7 @@ public class SampleBox
         this.code = code;
     }
     
-    public boolean isBinded()
+    public boolean getBinded()
     {
         return binded;
     }

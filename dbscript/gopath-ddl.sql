@@ -278,3 +278,15 @@ ADD COLUMN `SAMPLING_TIME`  datetime NULL COMMENT '采样日期' AFTER `STATUS`;
 
 ALTER TABLE `ghealth_gopath_sample_box`
 ADD COLUMN `BINDED`  tinyint(1) NOT NULL COMMENT '是否已绑定' AFTER `PHONE`;
+
+-- ----------------------------
+-- Table structure for ghealth_gopath_order_history
+-- ----------------------------
+DROP TABLE IF EXISTS `ghealth_gopath_order_history`;
+CREATE TABLE `ghealth_gopath_order_history` (
+  `ID` varchar(64) NOT NULL,
+  `ORDER_ID` varchar(64) NOT NULL,
+  `EVENT_TYPE` int(1) NOT NULL,
+  `EVENT_TIME` datetime NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

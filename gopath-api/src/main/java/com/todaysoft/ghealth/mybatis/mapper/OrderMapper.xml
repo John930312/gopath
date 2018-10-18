@@ -17,9 +17,10 @@
         <result column="SAMPLING_TIME" jdbcType="TIMESTAMP" property="samplingTime"/>
         <result column="DELETED" jdbcType="BIT" property="deleted"/>
         <result column="DELETE_TIME" jdbcType="TIMESTAMP" property="deleteTime"/>
-        <result column="SAMPLING_PHONE" property="sampleBox.phone" jdbcType="VARCHAR"/>
+        <result column="SAMPLEBOX_PHONE" property="sampleBox.phone" jdbcType="VARCHAR"/>
         <result column="CONSIGNEE" property="sampleBox.name" jdbcType="VARCHAR"/>
         <result column="SAMPLEBOX_CODE" property="sampleBox.code" jdbcType="VARCHAR"/>
+        <result column="BINDED" property="sampleBox.binded" jdbcType="BIT"/>
         <result column="PROVINCE" property="sampleBox.province" jdbcType="VARCHAR"/>
         <result column="CITY" property="sampleBox.city" jdbcType="VARCHAR"/>
         <result column="ADDRESS" property="sampleBox.address" jdbcType="VARCHAR"/>
@@ -46,9 +47,10 @@
         p.NAME AS PRODUCT_NAME,
         sb.CODE AS SAMPLEBOX_CODE,
         sb.NAME AS CONSIGNEE,
-        sb.PHONE AS SAMPLING_PHONE,
+        sb.PHONE AS SAMPLEBOX_PHONE,
         sb.PROVINCE AS PROVINCE,
         sb.CITY AS CITY,
+        sb.BINDED AS BINDED,
         sb.ADDRESS AS ADDRESS,
         c.SEX AS CUSTOMER_SEX,
         c.EMAIL AS CUSTOMER_EMAIL,
@@ -267,14 +269,21 @@
         p.GUIDING_PRICE AS GUIDING_PRICE,
         p.SEX_RESTRAINT AS SEX_RESTRAINT,
         sb.NAME AS CONSIGNEE,
-        sb.PHONE AS SAMPLING_PHONE,
+        sb.PHONE AS SAMPLEBOX_PHONE,
+        sb.BINDED AS BINDED,
         sb.PROVINCE AS PROVINCE,
         sb.CITY AS CITY,
-        sb.ADDRESS AS ADDRESS
+        sb.ADDRESS AS ADDRESS,
+        c.SEX AS CUSTOMER_SEX,
+        c.EMAIL AS CUSTOMER_EMAIL,
+        c.NAME AS CUSTOMER_NAME,
+        c.PHONE AS CUSTOMER_PHONE,
+        c.BIRTHDAY AS CUSTOMER_BIRTHDAY
         FROM ghealth_gopath_order o
         LEFT JOIN ghealth_gopath_agency a ON o.AGENCY_ID = a.ID
         LEFT JOIN ghealth_gopath_product p ON o.PRODUCT_ID = p.ID
         LEFT JOIN ghealth_gopath_sample_box sb ON o.SAMPLEBOX_ID = sb.ID
+        LEFT JOIN ghealth_gopath_customer c ON o.CUSTOMER_ID = c.ID
         <include refid="ExpertFilters"/>
         ORDER BY o.CREATE_TIME DESC
         <include refid="OffsetLimitClause"/>

@@ -3,7 +3,7 @@
 <mapper namespace="com.todaysoft.ghealth.mybatis.mapper.CustomerMapper" >
   <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.Customer" >
     <id column="ID" property="id" jdbcType="VARCHAR" />
-    <result column="SAMPLEBOX_ID" property="sampleboxId" jdbcType="VARCHAR" />
+    <result column="SAMPLEBOX_ID" property="sampleBoxId" jdbcType="VARCHAR" />
     <result column="AGENCY_ID" property="agencyId" jdbcType="VARCHAR" />
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="PHONE" property="phone" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
       <if test="id != null" >
         ID,
       </if>
-      <if test="sampleboxId != null" >
+      <if test="sampleBoxId != null" >
         SAMPLEBOX_ID,
       </if>
       <if test="agencyId != null" >
@@ -58,8 +58,8 @@
       <if test="id != null" >
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="sampleboxId != null" >
-        #{sampleboxId,jdbcType=VARCHAR},
+      <if test="sampleBoxId != null" >
+        #{sampleBoxId,jdbcType=VARCHAR},
       </if>
       <if test="agencyId != null" >
         #{agencyId,jdbcType=VARCHAR},
@@ -87,8 +87,8 @@
   <update id="modify" parameterType="com.todaysoft.ghealth.mybatis.model.Customer" >
     update ghealth_gopath_customer
     <set >
-      <if test="sampleboxId != null" >
-        SAMPLEBOX_ID = #{sampleboxId,jdbcType=VARCHAR},
+      <if test="sampleBoxId != null" >
+        SAMPLEBOX_ID = #{sampleBoxId,jdbcType=VARCHAR},
       </if>
       <if test="agencyId != null" >
         AGENCY_ID = #{agencyId,jdbcType=VARCHAR},
