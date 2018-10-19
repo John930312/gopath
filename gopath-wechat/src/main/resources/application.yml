@@ -1,0 +1,15 @@
+server:
+  port: 7003
+
+spring:
+   freemarker:
+      suffix: .html
+   messages:
+      basename: messages/errors
+
+gateway:
+  host: localhost
+  port: 7002
+
+
+
