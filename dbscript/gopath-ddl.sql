@@ -234,6 +234,7 @@ CREATE TABLE `ghealth_gopath_questionnaire` (
   `CATEGORY` int(2) NOT NULL COMMENT '项目类别',
   `STATUS` tinyint(1) NOT NULL COMMENT '是否启用',
   `REMARK` varchar(128) DEFAULT NULL COMMENT '描述',
+  `DELETED` tinyint(1) NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 

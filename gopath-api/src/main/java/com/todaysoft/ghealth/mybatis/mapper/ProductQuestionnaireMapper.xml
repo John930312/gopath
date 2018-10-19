@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.ProductQuestionnaireMapper" >
+  <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.ProductQuestionnaire" >
+    <result column="PRODUCT_ID" property="productId" jdbcType="VARCHAR" />
+    <result column="QUESTIONNAIRE_ID" property="questionnaireId" jdbcType="VARCHAR" />
+  </resultMap>
+
+  <resultMap id="Questionnaire" type="com.todaysoft.ghealth.DTO.Questionnaire" >
+    <id column="ID" property="id" jdbcType="VARCHAR" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="CATEGORY" property="category" jdbcType="INTEGER" />
+    <result column="STATUS" property="status" jdbcType="BIT" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="DELETED" property="deleted" jdbcType="BIT" />
+  </resultMap>
+
+  <insert id="create" parameterType="com.todaysoft.ghealth.mybatis.model.ProductQuestionnaire" >
+    insert into ghealth_gopath_product_questionnaire
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="product.id != null" >
+        PRODUCT_ID,
+      </if>
+      <if test="questionnaire.id != null" >
+        QUESTIONNAIRE_ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="product.id != null" >
+        #{product.id,jdbcType=VARCHAR},
+      </if>
+      <if test="questionnaire.id != null" >
+        #{questionnaire.id,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteByProductId" parameterType="java.lang.String">
+    delete from ghealth_gopath_product_questionnaire
+    where PRODUCT_ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+  <sql id="A_List">
+    SELECT
+    q.*
+    FROM ghealth_gopath_product_questionnaire pq
+    LEFT JOIN ghealth_gopath_questionnaire q ON pq.QUESTIONNAIRE_ID = q.ID
+  </sql>
+
+  <select id="getQuestionnairesByProductId" parameterType="java.lang.String" resultMap="Questionnaire">
+    <include refid="A_List" />
+    WHERE pq.PRODUCT_ID =#{id}
+  </select>
+
+  <delete id="deleteByQuestionnaireId" parameterType="java.lang.String">
+    delete from ghealth_gopath_product_questionnaire
+    where QUESTIONNAIRE_ID = #{id,jdbcType=INTEGER}
+  </delete>
+</mapper>

@@ -3,6 +3,7 @@ package com.todaysoft.ghealth.service.wrapper;
 import com.todaysoft.ghealth.DTO.ProductDTO;
 import com.todaysoft.ghealth.model.Product;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 /**
  * @Author: ljl
@@ -25,5 +26,9 @@ public class ProductWrapper extends Wrapper<ProductDTO, Product>
         target.setCreateTime(parseDate(source.getCreateTime()));
         target.setUpdateTime(parseDate(source.getUpdateTime()));
         target.setDeleteTime(parseDate(source.getDeleteTime()));
+        if (!CollectionUtils.isEmpty(source.getQuestionnaires()))
+        {
+            target.setQuestionnaires(source.getQuestionnaires());
+        }
     }
 }

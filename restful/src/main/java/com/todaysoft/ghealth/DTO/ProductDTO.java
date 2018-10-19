@@ -1,6 +1,7 @@
 package com.todaysoft.ghealth.DTO;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @Author: ljl
@@ -41,6 +42,8 @@ public class ProductDTO
     private Boolean deleted;
     
     private String deleteTime;
+
+    private List<Questionnaire> questionnaires;
     
     public String getId()
     {
@@ -210,5 +213,13 @@ public class ProductDTO
     public void setDeleteTime(String deleteTime)
     {
         this.deleteTime = deleteTime;
+    }
+
+    public List<Questionnaire> getQuestionnaires() {
+        return questionnaires;
+    }
+
+    public void setQuestionnaires(List<Questionnaire> questionnaires) {
+        this.questionnaires = questionnaires;
     }
 }

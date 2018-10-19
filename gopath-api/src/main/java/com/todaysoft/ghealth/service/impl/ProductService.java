@@ -4,8 +4,11 @@ package com.todaysoft.ghealth.service.impl;
 import com.hsgene.restful.response.DataResponse;
 import com.hsgene.restful.util.CountRecords;
 import com.todaysoft.ghealth.DTO.ProductDTO;
+import com.todaysoft.ghealth.DTO.Questionnaire;
 import com.todaysoft.ghealth.mybatis.mapper.ProductMapper;
+import com.todaysoft.ghealth.mybatis.mapper.ProductQuestionnaireMapper;
 import com.todaysoft.ghealth.mybatis.model.Product;
+import com.todaysoft.ghealth.mybatis.model.ProductQuestionnaire;
 import com.todaysoft.ghealth.mybatis.model.query.ProductQuery;
 import com.todaysoft.ghealth.request.ProductMaintainRequest;
 import com.todaysoft.ghealth.request.ProductQueryRequest;
@@ -31,6 +34,9 @@ public class ProductService implements IProductService
 
     @Autowired
     private ProductWrapper productWrapper;
+
+    @Autowired
+    private ProductQuestionnaireMapper productQuestionnaireMapper;
 
     @Override
     public DataResponse<CountRecords<ProductDTO>> pager(ProductQueryRequest request)
@@ -88,6 +94,24 @@ public class ProductService implements IProductService
         data.setCreateTime(new Date());
         data.setDeleted(false);
         productMapper.create(data);
+
+        ProductQuestionnaire relation = new ProductQuestionnaire();
+        if (!StringUtils.isEmpty(request.getQuestionnairePlatForm()))
+        {
+            String a = request.getQuestionnairePlatForm();
+            String[] questionnaireIds = a.split(",");
+            for (int i = 0; i < questionnaireIds.length; i++)
+            {
+                Product productTo = new Product();
+                productTo.setId(data.getId());
+                relation.setProduct(productTo);
+
+                Questionnaire questionnaire = new Questionnaire();
+                questionnaire.setId(questionnaireIds[i]);
+                relation.setQuestionnaire(questionnaire);
+                productQuestionnaireMapper.create(relation);
+            }
+        }
     }
 
     @Override
@@ -119,5 +143,24 @@ public class ProductService implements IProductService
         BeanUtils.copyProperties(request,data);
         data.setUpdateTime(new Date());
         productMapper.modify(data);
+
+        ProductQuestionnaire relation = new ProductQuestionnaire();
+        productQuestionnaireMapper.deleteByProductId(request.getId());
+        if (!StringUtils.isEmpty(request.getQuestionnairePlatForm()))
+        {
+            String a = request.getQuestionnairePlatForm();
+            String[] questionnaireIds = a.split(",");
+            for (int i = 0; i < questionnaireIds.length; i++)
+            {
+                Product productTo = new Product();
+                productTo.setId(data.getId());
+                relation.setProduct(productTo);
+
+                Questionnaire questionnaire = new Questionnaire();
+                questionnaire.setId(questionnaireIds[i]);
+                relation.setQuestionnaire(questionnaire);
+                productQuestionnaireMapper.create(relation);
+            }
+        }
     }
 }

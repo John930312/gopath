@@ -50,10 +50,10 @@ INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('035e9694cda011e7a9760f184c352621', '032daff9cd9d11e7a9760f184c352621', 'ORDER_STATUS', '实验中', '2', '3', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('c370f7769a654967b35313d6db688a57', '032daff9cd9d11e7a9760f184c352621', 'ORDER_STATUS', '已完成', '3', '4', '0');
 
-INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('b68c24200be748219a114ecfc56510b7', NULL, 'PROJECT_TYPE', '项目分类', NULL, '3', '0');
-INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('797312f177c547bf9970832f2bb2924c', 'b68c24200be748219a114ecfc56510b7', 'PROJECT_TYPE', '肿瘤类', '0', '1', '0');
-INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('1fe25029aa51456fb9f5a04dacb36c44', 'b68c24200be748219a114ecfc56510b7', 'PROJECT_TYPE', '非肿瘤类', '1', '2', '0');
-INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('996fbf3e41c34985969141b06f22491d', 'b68c24200be748219a114ecfc56510b7', 'PROJECT_TYPE', '日常用药', '2', '3', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('b68c24200be748219a114ecfc56510b7', NULL, 'PROJECT_CATEGORY', '项目分类', NULL, '3', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('797312f177c547bf9970832f2bb2924c', 'b68c24200be748219a114ecfc56510b7', 'PROJECT_CATEGORY', '肿瘤类', '1', '1', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('1fe25029aa51456fb9f5a04dacb36c44', 'b68c24200be748219a114ecfc56510b7', 'PROJECT_CATEGORY', '非肿瘤类', '2', '2', '0');
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('996fbf3e41c34985969141b06f22491d', 'b68c24200be748219a114ecfc56510b7', 'PROJECT_CATEGORY', '日常用药', '3', '3', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('0221be89cda011e7a9760f184c352621', NULL, 'FIT_PEOPLE', '适用人群', NULL, '4', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('02244adbcda111e7a9760f184c352621', '0221be89cda011e7a9760f184c352621', 'FIT_PEOPLE', '通用', '0', '1', '0');
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('0225107dcda111e7a9760f184c352621', '0221be89cda011e7a9760f184c352621', 'FIT_PEOPLE', '女性', '2', '3', '0');
@@ -98,3 +98,22 @@ INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) 
 
 INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('62e28bd7dfba461499aedaf185f55556', NULL, '产品管理', NULL, '3', 'fa fa-leaf');
 INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('8fce52781c1644ada29f89011f9c6a5b', '62e28bd7dfba461499aedaf185f55556', '产品管理', '/product/list.jsp', '1', 'fa fa-flask');
+
+#问卷项配置
+INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('e927d20f446e4402a47906cc5c92bb72', '62e28bd7dfba461499aedaf185f55556', '问卷项配置', '/questionnaire/list.jsp', '2', 'fa fa-question');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('bd64c2196eeb4c9785bc1a3dc2427d04', '23dfe856c79e5f8ea1b5e24a1e475756', 'PRODUCT.QUERTIONNAIRE', '问卷配置项', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('c8afe1ba7e264c97afa235fea738d3c1', 'bd64c2196eeb4c9785bc1a3dc2427d04', 'PRODUCT.QUERTIONNAIRE.CREATE', '新增配置项', '1');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('fcaeea0384974458954f67627b7b3ff5', 'bd64c2196eeb4c9785bc1a3dc2427d04', 'PRODUCT.QUERTIONNAIRE.MODIFY', '修改配置项', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('bd5e2647787745afa13193196f4e6bee', 'bd64c2196eeb4c9785bc1a3dc2427d04', 'PRODUCT.QUERTIONNAIRE.LIST', '问卷配置项查询', '3');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('295f5d89a1014f2286befc2dd83e8690', 'bd64c2196eeb4c9785bc1a3dc2427d04', 'PRODUCT.QUERTIONNAIRE.DELETE', '配置项删除', '4');
+
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('5b2c54944638469880698c5c9b9af392', '问卷配置项列表', '/questionnaire/list.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('8314f50421b544d19c8812bba5a315ca', '配置项新增', '/questionnaire/create.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('03e89d5ae6c84fd28a3d4180853aa201', '配置项修改', '/questionnaire/modify.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('4ff0a7dc08ac4a7eac41c07d14629d20', '配置项删除', '/questionnaire/delete.jsp');
+
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('bd5e2647787745afa13193196f4e6bee', '5b2c54944638469880698c5c9b9af392');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('c8afe1ba7e264c97afa235fea738d3c1', '8314f50421b544d19c8812bba5a315ca');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('fcaeea0384974458954f67627b7b3ff5', '03e89d5ae6c84fd28a3d4180853aa201');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('295f5d89a1014f2286befc2dd83e8690', '4ff0a7dc08ac4a7eac41c07d14629d20');
+

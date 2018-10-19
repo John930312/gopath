@@ -1,4 +1,4 @@
-package com.todaysoft.ghealth.mybatis.model;
+package com.todaysoft.ghealth.DTO;
 
 public class Questionnaire
 {
@@ -11,7 +11,9 @@ public class Questionnaire
     private Boolean status;
     
     private String remark;
-    
+
+    private Boolean deleted;
+
     public String getId()
     {
         return id;
@@ -60,5 +62,13 @@ public class Questionnaire
     public void setRemark(String remark)
     {
         this.remark = remark;
+    }
+
+    public Boolean getDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(Boolean deleted) {
+        this.deleted = deleted;
     }
 }

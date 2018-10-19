@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp" />
+    <title>产品表单-检测产品</title>
+    <link href="${plugins}/bootstrap/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/font-awesome.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/animate.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/hplus.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/icheckbox/icheckbox.css" rel="stylesheet"></link>
+    <link href="${plugins}/multiselect/style.css" rel="stylesheet" type="text/css">
+    <link href="${system_css}/system.css" rel="stylesheet"></link>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="${base}/questionnaire/list.jsp">问卷配置项</a>
+                        </li>
+                        <li class="active">
+                            <strong><#if data??>修改问卷配置项<#else>新增问卷配置项</#if></strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="ibox ibox-table">
+                <div class="ibox-title">
+                    <h5><#if data??>修改问卷配置项<#else>新增问卷配置项</#if></h5>
+                </div>
+                <div class="ibox-content">
+                    <#if data??> <#assign uri = "/questionnaire/modify.jsp" /> <#else> <#assign uri = "/questionnaire/create.jsp" /> </#if>
+                    <form class="form-horizontal m-t" action="${base}${uri}" method="post">
+                        <input type="hidden" name="id" value="${(data.id)!}" />
+                        <input type="hidden" name="${(REPEAT_SUBMIT_TOKEN)!}" value="${(Request[REPEAT_SUBMIT_TOKEN])!}" />
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">配置项名称不能为空：</label>
+                                <div class="col-sm-3">
+                                    <input type="text" class="form-control" name="name" value="${(data.name)!?html}" required data-msg="配置项名称不能为空" />
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">项目分类：</label>
+                                <div class="col-sm-3">
+                                    <select class="col-sm-12 control-label" name="category" value="${(data.category)!?html}">
+                                    <option value="">请选择：</option>
+                                    <@dict_category category = "PROJECT_CATEGORY">
+                                        <#list entries as entry>
+                                            <option  <#if data??><#if (data.category)?string==(entry.dictValue)>selected="true"</#if></#if> value="${(entry.dictValue)!html}">${(entry.dictText)!html}</option>
+                                        </#list>
+                                    </@dict_category>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">状态：</label>
+                                <div class="col-sm-3">
+                                    <div class="radio-inline i-checks">
+                                        <@dict_category category = "IS_DISABLE">
+                                            <#list entries as entry>
+                                                <label><input type="radio" id="status_${(entry_index)!}" name="status" value="${(entry.dictValue)!html}"
+                                                    <#if entry_index == 1>checked="checked"</#if>>${(entry.dictText)!html}</label>
+                                            </#list>
+                                        </@dict_category>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label">描述：</label>
+                                <div class="col-sm-8">
+                                    <textarea class="form-control" rows="5" name="remark" id="remark">${(data.remark)!}</textarea>
+                                    <p>字数限制：200</p>
+                                </div>
+                            </div>
+                            </div>
+
+                        </div>
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="submit">保存</button>
+                                    <button class="btn btn-primary goback" type="button">返回</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="${plugins}/jquery/jquery.min.js"></script>
+<script src="${plugins}/bootstrap/bootstrap.min.js"></script>
+<script src="${plugins}/icheckbox/icheckbox.min.js"></script>
+<script src="${plugins}/validation/jquery.validate.min.js"></script>
+<script src="${plugins}/layer/layer.min.js"></script>
+<script src="${plugins}/validation/additional-methods.min.js"></script>
+<script src="${plugins}/validation/localization/messages_zh.min.js"></script>
+<script src="${plugins}/multiselect/multiselect.min.js" type="text/javascript"></script>
+<script src="${system_js}/system.js"></script>
+<script src="${system_js}/myValidate.js"></script>
+<script src="${plugins}/My97DatePicker/WdatePicker.js"></script>
+<script type="text/javascript">
+    <!--
+    $(function()
+    {
+    <#if data??>
+        $('[name="status"]:radio').iCheck('uncheck');
+        $("#status_${(data.status)?string('1','0')}").iCheck('check');
+    </#if>
+
+
+    $("#remark").on("input propertychange", function() {
+        var $this = $(this),
+            _val = $this.val(),
+            count = "";
+        if (_val.length > 200) {
+            $this.val(_val.substring(0, 200));
+        }
+        count = 200 - $this.val().length;
+        $("#text-count-remark").text(count);
+    });
+    });
+
+    //-->
+</script>
+</body>
+</html>

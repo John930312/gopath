@@ -1,10 +1,6 @@
-package com.todaysoft.ghealth.drp.freemarker;
+package com.todaysoft.ghealth.freemarker;
 
-import com.todaysoft.ghealth.freemarker.FindDictByCategoryAndValue;
-import com.todaysoft.ghealth.freemarker.FindDictsByCategory;
-import com.todaysoft.ghealth.freemarker.SecurityResourceDirectiveModel;
 import freemarker.template.TemplateException;
-import freemarker.template.TemplateModelException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 

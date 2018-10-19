@@ -1,5 +1,7 @@
 package com.todaysoft.ghealth.mvc;
 
+import com.alibaba.fastjson.JSON;
+import com.todaysoft.ghealth.DTO.Questionnaire;
 import com.todaysoft.ghealth.form.FormInputView;
 import com.todaysoft.ghealth.form.FormSubmitHandler;
 import com.todaysoft.ghealth.model.Product;
@@ -16,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Controller
 @RequestMapping("/product")
@@ -54,7 +57,9 @@ public class ProductAction
     public String modify(String id, ModelMap model, HttpSession session)
     {
         Product data = productService.get(id);
+        List<Questionnaire> questionnaires = data.getQuestionnaires();
         model.addAttribute("data", data);
+        model.addAttribute("questionnaireList", JSON.toJSON(questionnaires).toString());
         return "product/product_form";
     }
 

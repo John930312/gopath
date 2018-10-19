@@ -1,7 +1,10 @@
 package com.todaysoft.ghealth.model;
 
+import com.todaysoft.ghealth.DTO.Questionnaire;
+
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 public class Product
 {
@@ -38,6 +41,10 @@ public class Product
     private Boolean deleted;
     
     private Date deleteTime;
+
+    private String questionnairePlatForm;
+
+    private List<Questionnaire> questionnaires;
     
     public String getId()
     {
@@ -217,5 +224,21 @@ public class Product
     public void setDeleteTime(Date deleteTime)
     {
         this.deleteTime = deleteTime;
+    }
+
+    public String getQuestionnairePlatForm() {
+        return questionnairePlatForm;
+    }
+
+    public void setQuestionnairePlatForm(String questionnairePlatForm) {
+        this.questionnairePlatForm = questionnairePlatForm;
+    }
+
+    public List<Questionnaire> getQuestionnaires() {
+        return questionnaires;
+    }
+
+    public void setQuestionnaires(List<Questionnaire> questionnaires) {
+        this.questionnaires = questionnaires;
     }
 }

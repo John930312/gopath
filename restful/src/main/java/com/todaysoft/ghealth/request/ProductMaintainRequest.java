@@ -34,6 +34,8 @@ public class ProductMaintainRequest extends MaintainRequest {
 
     private Boolean enabled;
 
+    private String questionnairePlatForm;
+
     public String getId() {
         return id;
     }
@@ -136,5 +138,13 @@ public class ProductMaintainRequest extends MaintainRequest {
 
     public void setEnabled(Boolean enabled) {
         this.enabled = enabled;
+    }
+
+    public String getQuestionnairePlatForm() {
+        return questionnairePlatForm;
+    }
+
+    public void setQuestionnairePlatForm(String questionnairePlatForm) {
+        this.questionnairePlatForm = questionnairePlatForm;
     }
 }

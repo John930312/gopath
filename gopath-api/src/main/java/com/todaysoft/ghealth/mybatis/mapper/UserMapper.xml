@@ -177,13 +177,13 @@
   </select>
 
   <select id="getUserAuthorizedResources" resultType="string" parameterType="java.lang.String">
-    SELECT res.URI FROM ghealth_drp_resource res WHERE EXISTS
+    SELECT res.URI FROM ghealth_gopath_resource res WHERE EXISTS
         (
-            SELECT ar.AUTHORITY_ID FROM ghealth_drp_authority_resource ar WHERE ar.RESOURCE_ID = res.ID AND EXISTS
+            SELECT ar.AUTHORITY_ID FROM ghealth_gopath_authority_resource ar WHERE ar.RESOURCE_ID = res.ID AND EXISTS
             (
-                SELECT ra.ROLE_ID FROM ghealth_drp_role_authority ra WHERE ra.AUTHORITY_ID = ar.AUTHORITY_ID AND EXISTS
+                SELECT ra.ROLE_ID FROM ghealth_gopath_role_authority ra WHERE ra.AUTHORITY_ID = ar.AUTHORITY_ID AND EXISTS
                     (
-                        SELECT ur.USER_ID FROM ghealth_drp_user_role ur WHERE ur.ROLE_ID = ra.ROLE_ID AND ur.USER_ID = #{id}
+                        SELECT ur.USER_ID FROM ghealth_gopath_user_role ur WHERE ur.ROLE_ID = ra.ROLE_ID AND ur.USER_ID = #{id}
                     )
             )
         )
