@@ -11,7 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
-import org.springframework.web.client.RestTemplate;
 
 @Configuration
 @ComponentScan("com.todaysoft.ghealth")
@@ -38,12 +37,6 @@ public class RootContext implements ApplicationContextAware
         config.setHost(environment.getRequiredProperty("gateway.host"));
         config.setPort(environment.getRequiredProperty("gateway.port"));
         return config;
-    }
-    
-    @Bean
-    public RestTemplate getRestTemplate()
-    {
-        return new RestTemplate();
     }
     
     @Override

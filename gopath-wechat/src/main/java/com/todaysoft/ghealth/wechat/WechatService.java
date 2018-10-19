@@ -1,9 +1,9 @@
 package com.todaysoft.ghealth.wechat;
 
+
 import com.todaysoft.ghealth.wechat.dto.SNSTokenDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
@@ -18,24 +18,23 @@ import java.util.Collections;
 @Service
 public class WechatService
 {
-    @Autowired
-    private RestTemplate template;
-    
     private static Logger log = LoggerFactory.getLogger(WechatService.class);
-    
+
     private static final String APPID = "wxbd6b5a4386023b26";
-    
+
     private static final String SECRET = "8f345bbfab41394614adf3ea7182027e";
-    
+
     // 永久二维码(字符串)
     public static final String QR_LIMIT_STR_SCENE = "QR_LIMIT_STR_SCENE";
-    
+
     // 创建二维码URL
     public static final String CREATE_TICKET_PATH = "https://api.weixin.qq.com/cgi-bin/qrcode/create?access_token={0}";
-    
+
     // 通过ticket换取二维码
     public static final String SHOW_QRCODE_PATH = "https://mp.weixin.qq.com/cgi-bin/showqrcode?ticket={0}";
-    
+
+    private RestTemplate template = new RestTemplate();
+
     public String getOauth2AuthorizeUrl(HttpServletRequest request)
     {
         try
@@ -50,7 +49,7 @@ public class WechatService
             throw new IllegalStateException();
         }
     }
-    
+
     public SNSTokenDTO getSNSToken(String code)
     {
         try
@@ -60,19 +59,19 @@ public class WechatService
             converter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_PLAIN));
             template.setMessageConverters(Collections.singletonList(converter));
             SNSTokenDTO token = template.getForObject(url, SNSTokenDTO.class, APPID, SECRET, code);
-            
+
             if (null == token)
             {
                 log.error("Get sns token error, response is null.");
                 return null;
             }
-            
+
             if (!token.isValid())
             {
                 log.error("Get sns token error, error code {}, error com.todaysoft.ghealth.message {}", token.getErrorCode(), token.getErrorMessage());
                 return null;
             }
-            
+
             return token;
         }
         catch (Exception e)
