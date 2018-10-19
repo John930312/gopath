@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.AgencyMapper" >
+    <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.Agency" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="CODE" property="code" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="CONTACT_NAME" property="contactName" jdbcType="VARCHAR" />
+        <result column="PHONE" property="phone" jdbcType="VARCHAR" />
+        <result column="PROVINCE" property="province" jdbcType="VARCHAR" />
+        <result column="CITY" property="city" jdbcType="VARCHAR" />
+        <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="CREATOR_NAME" property="creatorName" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <insert id="create" parameterType="com.todaysoft.ghealth.mybatis.model.Agency" >
+        insert into ghealth_gopath_agency
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="code != null" >
+                CODE,
+            </if>
+            <if test="name != null" >
+                NAME,
+            </if>
+            <if test="contactName != null" >
+                CONTACT_NAME,
+            </if>
+            <if test="phone != null" >
+                PHONE,
+            </if>
+            <if test="province != null" >
+                PROVINCE,
+            </if>
+            <if test="city != null" >
+                CITY,
+            </if>
+            <if test="address != null" >
+                ADDRESS,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="creatorName != null" >
+                CREATOR_NAME,
+            </if>
+            <if test="deleted != null" >
+                DELETED,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="code != null" >
+                #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="contactName != null" >
+                #{contactName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null" >
+                #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null" >
+                #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null" >
+                #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null" >
+                #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="creatorName != null" >
+                #{creatorName,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modify" parameterType="com.todaysoft.ghealth.mybatis.model.Agency">
+        update ghealth_gopath_agency
+        <set>
+            <if test="code != null">
+                CODE = #{code,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="contactName != null">
+                CONTACT_NAME = #{contactName,jdbcType=VARCHAR},
+            </if>
+            <if test="phone != null">
+                PHONE = #{phone,jdbcType=VARCHAR},
+            </if>
+            <if test="province != null">
+                PROVINCE = #{province,jdbcType=VARCHAR},
+            </if>
+            <if test="city != null">
+                CITY = #{city,jdbcType=VARCHAR},
+            </if>
+            <if test="address != null">
+                ADDRESS = #{address,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null" >
+                DELETED = #{deleted,jdbcType=BIT},
+            </if>
+            <if test="deleteTime != null" >
+                DELETE_TIME = #{deleteTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deletorName != null" >
+                DELETOR_NAME = #{deletorName,jdbcType=VARCHAR},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <sql id="Base_Column_List" >
+    ID, CODE, NAME, CONTACT_NAME, PHONE, CREATE_TIME
+    </sql>
+    <sql id="Detail_Column_List" >
+    ID, CODE, NAME, CONTACT_NAME, PHONE, PROVINCE, CITY, ADDRESS, CREATE_TIME, CREATOR_NAME
+    </sql>
+    <sql id="ExpertFilters">
+        <if test="_parameter.code != null and _parameter.code != ''" >
+            <bind name="namePattern" value="'%' + _parameter.code + '%'" />
+            AND ${agency}.CODE LIKE #{namePattern}
+        </if>
+        <if test="_parameter.name != null and _parameter.name != ''" >
+            <bind name="namePattern" value="'%' + _parameter.name + '%'" />
+            AND ${agency}.NAME LIKE #{namePattern}
+        </if>
+        <if test="_parameter.contactName != null and _parameter.contactName != ''" >
+            <bind name="namePattern" value="'%' + _parameter.contactName + '%'" />
+            AND ${agency}.CONTACT_NAME LIKE #{namePattern}
+        </if>
+        <if test="_parameter.phone != null and _parameter.phone != ''" >
+            <bind name="phonePattern" value="'%' + _parameter.phone + '%'" />
+            AND ${agency}.PHONE LIKE #{phonePattern}
+        </if>
+    </sql>
+    <sql id="OffsetLimitClause">
+        <if test="_parameter.limit != null">
+            LIMIT #{limit}
+        </if>
+        <if test="_parameter.offset != null">
+            OFFSET #{offset}
+        </if>
+    </sql>
+
+    <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybatis.model.query.AgencyQuery">
+        SELECT COUNT(*) FROM ghealth_gopath_agency t WHERE DELETED = '0'
+        <include refid="ExpertFilters">
+            <property name="agency" value="t" />
+        </include>
+    </select>
+
+    <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.AgencyQuery">
+        SELECT
+        <include refid="Base_Column_List" />
+        FROM ghealth_gopath_agency t WHERE DELETED = '0'
+        <include refid="ExpertFilters">
+            <property name="agency" value="t" />
+        </include>
+        ORDER BY t.CREATE_TIME DESC
+        <include refid="OffsetLimitClause" />
+    </select>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+        <include refid="Detail_Column_List"/>
+        FROM ghealth_gopath_agency t WHERE ID = #{id,jdbcType=VARCHAR}
+    </select>
+
+</mapper>
