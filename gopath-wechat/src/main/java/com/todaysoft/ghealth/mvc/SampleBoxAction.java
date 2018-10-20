@@ -39,7 +39,7 @@ public class SampleBoxAction
     public String deatils(String id, ModelMap model)
     {
         model.addAttribute("data", sampleBoxService.detail(id));
-        return "order/order_report_detail";
+        return "sampleBox/sampleBox_detail";
     }
 
     @ResponseBody

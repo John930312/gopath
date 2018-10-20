@@ -44,10 +44,10 @@ public class SampleBoxService implements ISampleBoxService
     
     @Autowired
     private OrderWrapper orderWrapper;
-
+    
     @Autowired
     private OrderHistoryMapper orderHistoryMapper;
-
+    
     @Autowired
     private OrderHistoryWrapper orderHistoryWrapper;
     
@@ -62,19 +62,24 @@ public class SampleBoxService implements ISampleBoxService
         BeanUtils.copyProperties(request.getCustomer(), customer, "birthday");
         customer.setId(customerId);
         customer.setCreateTime(new Date());
+        Date customerBirthday = null;
+        Date orderSamplingTime = null;
         try
         {
-            customer.setBirthday(DateUtils.parseDate(request.getCustomer().getBirthday(), "yyyy-MM-dd"));
+            customerBirthday = DateUtils.parseDate(request.getCustomer().getBirthday(), "yyyy-MM-dd");
+            orderSamplingTime = DateUtils.parseDate(request.getSamplingTime(), "yyyy-MM-dd");
         }
         catch (ParseException e)
         {
             e.printStackTrace();
         }
+        customer.setBirthday(customerBirthday);
         customer.setSampleBoxId(sampleBox.getId());
         customerMapper.create(customer);
         
         order.setCustomer(customer);
         order.setSampleType(request.getSampleType());
+        order.setSamplingTime(orderSamplingTime);
         orderMapper.modify(order);
         
         sampleBox.setBinded(true);
