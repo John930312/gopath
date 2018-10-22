@@ -32,6 +32,6 @@ public class ProductAction
 
         return "product/product_detail";
     }
-    private IProductService  productService;
+//    private IProductService  productService;
 
 }

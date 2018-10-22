@@ -11,6 +11,8 @@ public class OrderQueryRequest extends QueryRequest
     private String id;
     
     private String code;
+
+    private String openId;
     
     private String consignee;
     
@@ -44,6 +46,16 @@ public class OrderQueryRequest extends QueryRequest
     public void setCode(String code)
     {
         this.code = code;
+    }
+
+    public String getOpenId()
+    {
+        return openId;
+    }
+
+    public void setOpenId(String openId)
+    {
+        this.openId = openId;
     }
     
     public String getConsignee()

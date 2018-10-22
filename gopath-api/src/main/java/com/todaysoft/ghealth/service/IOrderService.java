@@ -24,4 +24,6 @@ public interface IOrderService
     void modify(MaintainOrderRequest request);
     
     DataResponse<Boolean> isUniqueSampleBoxCode(MainSampleBoxRequest request);
+
+    DataResponse<List<OrderDTO>> getByOpenid(String openid);
 }

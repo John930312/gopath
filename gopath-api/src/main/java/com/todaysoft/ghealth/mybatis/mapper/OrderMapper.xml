@@ -302,4 +302,18 @@
         <include refid="ExpertFilters"/>
     </select>
 
+    <select id="getByOpenid" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        o.*,
+        sb.ID AS SAMPLEBOX_ID,
+        sb.NAME AS CONSIGNEE,
+        sb.CODE AS SAMPLEBOX_CODE,
+        sb.BINDED AS BINDED,
+        p.NAME AS PRODUCT_NAME
+        FROM ghealth_gopath_order o
+        LEFT JOIN ghealth_gopath_sample_box sb ON o.SAMPLEBOX_ID = sb.ID
+        LEFT JOIN ghealth_gopath_product p ON o.PRODUCT_ID = p.ID
+        WHERE o.OPEN_ID = #{openid,jdbcType=VARCHAR}
+        ORDER BY o.CREATE_TIME DESC
+    </select>
 </mapper>

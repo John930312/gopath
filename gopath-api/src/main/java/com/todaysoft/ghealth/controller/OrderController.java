@@ -55,5 +55,11 @@ public class OrderController
     {
         return orderService.isUniqueSampleBoxCode(request);
     }
+
+    @RequestMapping("/getMyOrder")
+    public DataResponse<List<OrderDTO>> getMyOrder(@RequestBody OrderQueryRequest request)
+    {
+        return orderService.getByOpenid(request.getOpenId());
+    }
     
 }

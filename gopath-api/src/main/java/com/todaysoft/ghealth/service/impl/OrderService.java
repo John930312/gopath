@@ -144,4 +144,11 @@ public class OrderService implements IOrderService
     {
         return new DataResponse<Boolean>(sampleBoxMapper.getByCode(request.getCode()) != 0);
     }
+
+    @Override
+    public DataResponse<List<OrderDTO>> getByOpenid(String openid)
+    {
+        List<Order> records = orderMapper.getByOpenid(openid);
+        return new DataResponse<>(orderWrapper.wrap(records));
+    }
 }

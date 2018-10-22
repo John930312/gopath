@@ -16,4 +16,6 @@ public interface OrderMapper
     long count(OrderQuery query);
     
     List<Order> query(OrderQuery query);
+
+    List<Order> getByOpenid(String openid);
 }
