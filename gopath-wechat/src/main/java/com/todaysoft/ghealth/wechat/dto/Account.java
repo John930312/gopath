@@ -6,6 +6,8 @@ public class Account
     
     private String token;
     
+    private String agencyId;
+    
     public String getOpenid()
     {
         return openid;
@@ -26,4 +28,13 @@ public class Account
         this.token = token;
     }
     
+    public String getAgencyId()
+    {
+        return agencyId;
+    }
+    
+    public void setAgencyId(String agencyId)
+    {
+        this.agencyId = agencyId;
+    }
 }

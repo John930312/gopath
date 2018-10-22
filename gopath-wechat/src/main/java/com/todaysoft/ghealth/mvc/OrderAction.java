@@ -1,10 +1,13 @@
 package com.todaysoft.ghealth.mvc;
 
+
 import com.todaysoft.ghealth.DTO.OrderDTO;
+import com.todaysoft.ghealth.DTO.ProductDTO;
 import com.todaysoft.ghealth.wechat.H5.WXPay;
 import com.todaysoft.ghealth.wechat.H5.WXPayUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -24,6 +27,13 @@ public class OrderAction
 {
     @Autowired
     private WXPay wxPay;
+    
+    @RequestMapping("/place.jsp")
+    public String place(ProductDTO product, ModelMap model)
+    {
+        model.addAttribute("product", product);
+        return "order/order_confirm";
+    }
     
     @ResponseBody
     @RequestMapping("/pay.jsp")
