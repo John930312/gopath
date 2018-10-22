@@ -6,7 +6,7 @@
 </head>
 <body>
 <h3>出问题了。。。错误信息：
-    <#if error_message??>${error_message}
+    <#if error_message??>${error_code}:   ${error_message}
         <#else>${exception!""}
     </#if>
 </h3>

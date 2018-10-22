@@ -198,6 +198,9 @@
             <if test="createTime != null">
                 CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="samplingTime != null">
+                SAMPLING_TIME = #{samplingTime,jdbcType=TIMESTAMP},
+            </if>
             <if test="deleted != null">
                 DELETED = #{deleted,jdbcType=BIT},
             </if>
@@ -274,6 +277,7 @@
         sb.PROVINCE AS PROVINCE,
         sb.CITY AS CITY,
         sb.ADDRESS AS ADDRESS,
+        sb.CODE AS SAMPLEBOX_CODE,
         c.SEX AS CUSTOMER_SEX,
         c.EMAIL AS CUSTOMER_EMAIL,
         c.NAME AS CUSTOMER_NAME,
