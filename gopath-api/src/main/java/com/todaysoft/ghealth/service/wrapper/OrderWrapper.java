@@ -31,6 +31,7 @@ public class OrderWrapper extends Wrapper<Order, OrderDTO>
     public void setCopyIgnoreProperties(Order source, OrderDTO target)
     {
         target.setCreateTime(formatDate(source.getCreateTime()));
+        target.setSamplingTime(formatDate(source.getSamplingTime()));
         target.setProduct(productWrapper.wrap(source.getProduct()));
         target.setCustomer(customerWrapper.wrap(source.getCustomer()));
         target.setSampleBox(sampleBoxWrapper.wrap(source.getSampleBox()));

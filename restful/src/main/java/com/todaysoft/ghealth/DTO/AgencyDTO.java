@@ -1,13 +1,13 @@
-package com.todaysoft.ghealth.mybatis.model;
+package com.todaysoft.ghealth.DTO;
 
 import java.util.Date;
 
 /**
  * @Author: zyf
- * @Date: 2018/10/17 14:27
+ * @Date: 2018/10/17 10:12
  */
 
-public class Agency
+public class AgencyDTO
 {
     private String id;
 
@@ -25,7 +25,7 @@ public class Agency
 
     private String address;
 
-    private Date createTime;
+    private String createTime;
 
     private String creatorName;
 
@@ -99,11 +99,11 @@ public class Agency
         this.address = address;
     }
 
-    public Date getCreateTime() {
+    public String getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(Date createTime) {
+    public void setCreateTime(String createTime) {
         this.createTime = createTime;
     }
 
