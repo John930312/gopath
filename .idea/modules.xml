@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/gopath-api/gopath-api.iml" filepath="$PROJECT_DIR$/gopath-api/gopath-api.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gopath-mgmt/gopath-mgmt.iml" filepath="$PROJECT_DIR$/gopath-mgmt/gopath-mgmt.iml" />
-      <module fileurl="file://$PROJECT_DIR$/gopath-wechat/gopath-wechat.iml" filepath="$PROJECT_DIR$/gopath-wechat/gopath-wechat.iml" />
-      <module fileurl="file://$PROJECT_DIR$/restful/restful.iml" filepath="$PROJECT_DIR$/restful/restful.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/gopath-wechat.iml" filepath="$PROJECT_DIR$/.idea/gopath-wechat.iml" />
     </modules>
   </component>
 </project>
