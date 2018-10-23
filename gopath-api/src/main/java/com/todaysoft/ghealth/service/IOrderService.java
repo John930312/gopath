@@ -20,6 +20,8 @@ public interface IOrderService
     DataResponse<List<OrderDTO>> list(OrderQueryRequest request);
     
     DataResponse<OrderDTO> get(String id);
+
+    DataResponse<String> create(MaintainOrderRequest request);
     
     void modify(MaintainOrderRequest request);
     

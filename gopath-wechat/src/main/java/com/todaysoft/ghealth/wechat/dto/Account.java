@@ -8,6 +8,8 @@ public class Account
     
     private String agencyId;
     
+    private Integer livePurchase = 1;
+    
     public String getOpenid()
     {
         return openid;
@@ -36,5 +38,15 @@ public class Account
     public void setAgencyId(String agencyId)
     {
         this.agencyId = agencyId;
+    }
+    
+    public Integer getLivePurchase()
+    {
+        return livePurchase;
+    }
+    
+    public void setLivePurchase(Integer livePurchase)
+    {
+        this.livePurchase = livePurchase;
     }
 }

@@ -19,24 +19,32 @@
 <body>
 <header class="ja-head ja-head_order-sure">
     <section class="ub ub-ac lh_1 ub-fv" style="padding-left: 0.8rem; padding-right: 0.8rem;">
-        <p class="ja-head__txt ub-f1">非酒精性脂肪肝 <span class="f_r">¥6000</span></p>
+        <p class="ja-head__txt ub-f1">${(product.name)!?html}<span class="f_r">¥${price}</span>
+        </p>
     </section>
 </header>
 <article class="ja-product-cot" style="padding-bottom: 3rem;">
-    <form action="" class="ja-sure-form">
+    <form action="${base}/order/payConfirm.jsp" class="ja-sure-form" method="post">
+        <input type='hidden' name="actualPrice" value="${price?c}"/>
+        <input type='hidden' name="product.id" value="${(product.id)!?html}"/>
+        <input type='hidden' name="product.name" value="${(product.name)!?html}"/>
+        <input type='hidden' name="sampleBox.province" class="address"/>
+        <input type='hidden' name="sampleBox.city" class="address"/>
+        <input type='hidden' name="sampleBox.provinceText" class="addressText"/>
+        <input type='hidden' name="sampleBox.cityText" class="addressText"/>
         <fieldset>
             <legend class="ja-sure-form__legend_rec">采集器领取方式：</legend>
             <div class="ub">
                 <div class="ub-f1 txt_c">
                     <label class="ja-check" style="margin-right: 2.5rem; margin-left: 1rem;">
-                        <input type="radio" name="mail" class="ja-check__input" checked>
+                        <input type="radio" name="smpleBoxGeted" id="mail" class="ja-check__input" value="0">
                         <span class="ja-check__state"></span>
                         邮寄
                     </label>
                 </div>
                 <div class="ub-f1 txt_c">
                     <label class="ja-check" style="margin-right: 2.5rem; margin-left: 1rem;">
-                        <input type="radio" name="mail" class="ja-check__input">
+                        <input type="radio" name="smpleBoxGeted" id="scene" class="ja-check__input" value="1">
                         <span class="ja-check__state"></span>
                         现场
                     </label>
@@ -45,40 +53,46 @@
         </fieldset>
         <fieldset class="ja-sure-form__fieldset_mail">
             <legend class="ja-sure-form__legend_mail">采集器寄送</legend>
-            <div class="ja-sure-form__row ub ub-ac">
-                <label for="" class="ja-sure-form__label">收件人：</label>
-                <div class="ja-input ub-f1">
-                    <input type="text" class="weui-input">
+            <div id="hidDiv">
+                <div class="ja-sure-form__row ub ub-ac">
+                    <label for="" class="ja-sure-form__label">收件人：</label>
+                    <div class="ja-input ub-f1">
+                        <input type="text" class="weui-input" name="sampleBox.name">
+                    </div>
+                </div>
+                <div class="ja-sure-form__row ub ub-ac">
+                    <label for="" class="ja-sure-form__label">联系电话：</label>
+                    <div class="ja-input ub-f1">
+                        <input type="phone" class="weui-input input_txt" name="sampleBox.phone">
+                    </div>
+                </div>
+                <div class="ja-sure-form__row ub ub-ac">
+                    <label for="" class="ja-sure-form__label">所在区域：</label>
+                    <div class="ja-select ub-f1">
+                        <input type="text" class="weui-input" readonly id="sickCity">
+                    </div>
+                </div>
+                <div class="ja-sure-form__row">
+                    <div class="ja-textarea">
+                        <textarea name="sampleBox.address" id="" class="weui-input" placeholder="详细地址"
+                                  style="height: 3.5rem;"></textarea>
+                    </div>
                 </div>
             </div>
-            <div class="ja-sure-form__row ub ub-ac">
-                <label for="" class="ja-sure-form__label">联系电话：</label>
-                <div class="ja-input ub-f1">
-                    <input type="phone" class="weui-input input_txt">
-                </div>
-            </div>
-            <div class="ja-sure-form__row ub ub-ac">
-                <label for="" class="ja-sure-form__label">所在区域：</label>
-                <div class="ja-select ub-f1">
-                    <input type="text" class="weui-input" readonly>
-                </div>
-            </div>
-            <div class="ja-sure-form__row">
-                <div class="ja-textarea">
-                    <textarea name="" id="" class="weui-input" placeholder="详细地址" style="height: 3.5rem;"></textarea>
-                </div>
-            </div>
+
             <div style="margin-top: 1.55rem;">
                 <div class="ub">
                     <div class="ub-f1 txt_c">
                         <label class="ja-btn-check">
-                            <input type="radio" name="mail" class="ja-btn-check__input" checked>
+                            <input type="radio" name="reportPrintRequired" class="ja-btn-check__input"
+                                   id="electronicReport" checked value="0">
                             <span class="ja-btn-check__state">电子报告</span>
                         </label>
                     </div>
                     <div class="ub-f1 txt_c">
                         <label class="ja-btn-check">
-                            <input type="radio" name="mail" class="ja-btn-check__input">
+                            <input type="radio" name="reportPrintRequired" class="ja-btn-check__input" id="paperReport"
+                                   value="1">
                             <span class="ja-btn-check__state">纸质报告+20元</span>
                         </label>
                     </div>
@@ -90,15 +104,64 @@
                 <a href="javascript:history.go(-1);" class="weui-btn ja-btn__default ja-btn__angle ja-btn__iherit-size">上一步</a>
             </div>
             <div class="ub-f1">
-                <button type="button" class="weui-btn ja-btn__primary ja-btn__angle ja-btn__iherit-size">确认提交</button>
+                <button type="submit" class="weui-btn ja-btn__primary ja-btn__angle ja-btn__iherit-size">确认提交</button>
             </div>
         </div>
     </form>
 </article>
 <script src="${plugins}/jquery.min.js"></script>
 <script src="${plugins}/jquery-weui.min.js"></script>
+<script src="${system_js}/city-picker.min.js"></script>
 <script type="text/javascript">
+    // 城市
+    $('#sickCity').cityPicker({
+        title: '选择您的城市',
+        onChange: function (picker, values, dispalyValues) {
+            $(".address").each(function (i, v) {
+                $(v).val(values[i])
+            });
+            $(".addressText").each(function (i, v) {
+                $(v).val(dispalyValues[i])
+            });
+        }
+    });
 
+    var flag = "${livePurchase}";
+    if (flag == 1) {
+        $("#scene").attr("checked", "checked");
+        $("#hidDiv").hide();
+    } else {
+        $("#mail").attr("checked", "checked");
+    }
+
+    $(':radio[name="smpleBoxGeted"]').click(function () {
+        var value = $(this).val()  //获取选中的radio的值
+        if (value == 1) {
+            $("#hidDiv").hide();
+        } else {
+            $("#hidDiv").show();
+        }
+    });
+
+    $(':radio[name="reportPrintRequired"]').click(function () {
+        var value = $(this).val()  //获取选中的radio的值
+        if ($('[name="smpleBoxGeted"]:checked').val() == 0) {
+            $("#hidDiv").show();
+            return;
+        }
+        if (value == 1 && $('[name="smpleBoxGeted"]:checked').val() == 1) {
+            $("#hidDiv").show();
+            return;
+        }
+        hideDiv();
+
+    });
+
+    function hideDiv(){
+        $("input").val("");
+        $("textarea").val("");
+        $("#hidDiv").hide();
+    }
 </script>
 </body>
 </html>

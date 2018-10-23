@@ -7,18 +7,16 @@ import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.mybatis.mapper.OrderHistoryMapper;
 import com.todaysoft.ghealth.mybatis.mapper.OrderMapper;
 import com.todaysoft.ghealth.mybatis.mapper.SampleBoxMapper;
-import com.todaysoft.ghealth.mybatis.model.Order;
-import com.todaysoft.ghealth.mybatis.model.OrderHistory;
-import com.todaysoft.ghealth.mybatis.model.SampleBox;
+import com.todaysoft.ghealth.mybatis.model.*;
 import com.todaysoft.ghealth.mybatis.model.query.OrderQuery;
 import com.todaysoft.ghealth.request.MainSampleBoxRequest;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
 import com.todaysoft.ghealth.request.OrderQueryRequest;
 import com.todaysoft.ghealth.service.IOrderService;
 import com.todaysoft.ghealth.service.paser.OrderQueryParser;
-import com.todaysoft.ghealth.service.wrapper.OrderHistoryWrapper;
 import com.todaysoft.ghealth.service.wrapper.OrderWrapper;
 import com.todaysoft.ghealth.utils.IdGen;
+import com.todaysoft.ghealth.utils.SerialNumber;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +26,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @Author: xjw
@@ -51,6 +48,9 @@ public class OrderService implements IOrderService
     
     @Autowired
     private OrderHistoryMapper orderHistoryMapper;
+    
+    @Autowired
+    private SerialNumber serialNumber;
     
     @Override
     public DataResponse<CountRecords<OrderDTO>> pager(OrderQueryRequest request)
@@ -108,13 +108,49 @@ public class OrderService implements IOrderService
     
     @Override
     @Transactional
+    public DataResponse<String> create(MaintainOrderRequest request)
+    {
+        Order order = new Order();
+        String orderCode = serialNumber.getCode(Order.SAMPLE_CODE);
+        
+        Product product = new Product();
+        product.setId(request.getId());
+        order.setProduct(product);
+        
+        String sampleBoxId = IdGen.uuid();
+        SampleBox sampleBox = new SampleBox();
+        SampleBoxDTO sampleBoxRequest = request.getSampleBox();
+        BeanUtils.copyProperties(sampleBoxRequest, sampleBox);
+        sampleBox.setId(sampleBoxId);
+        sampleBoxMapper.create(sampleBox);
+        order.setSampleBox(sampleBox);
+        
+        Agency agency = new Agency();
+        agency.setId(request.getAgencyId());
+        order.setAgency(agency);
+        
+        order.setStatus(4);
+        order.setId(IdGen.uuid());
+        order.setCreateTime(new Date());
+        order.setSampleType(request.getSampleType());
+        order.setActualPrice(request.getActualPrice());
+        order.setCode(orderCode);
+        order.setReportPrintRequired(request.getReportPrintRequired());
+        order.setDeleted(false);
+        orderMapper.create(order);
+
+        return new DataResponse<>(orderCode);
+    }
+    
+    @Override
+    @Transactional
     public void modify(MaintainOrderRequest request)
     {
         Order order = orderMapper.get(request.getId());
-
+        
         SampleBoxDTO data = request.getSampleBox();
         SampleBox sampleBox = order.getSampleBox();
-
+        
         if (StringUtils.isNotEmpty(data.getCode()))
         {
             sampleBox.setCode(data.getCode());

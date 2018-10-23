@@ -8,10 +8,7 @@ import com.todaysoft.ghealth.request.MaintainOrderRequest;
 import com.todaysoft.ghealth.request.OrderQueryRequest;
 import com.todaysoft.ghealth.service.IOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -60,6 +57,12 @@ public class OrderController
     public DataResponse<List<OrderDTO>> getMyOrder(@RequestBody OrderQueryRequest request)
     {
         return orderService.getByOpenid(request.getOpenId());
+    }
+    
+    @PostMapping("/create")
+    public DataResponse<String> create(@RequestBody MaintainOrderRequest request)
+    {
+        return orderService.create(request);
     }
     
 }

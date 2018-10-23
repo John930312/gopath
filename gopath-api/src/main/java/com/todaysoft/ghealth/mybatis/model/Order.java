@@ -5,6 +5,8 @@ import java.util.Date;
 
 public class Order
 {
+    public static final String SAMPLE_CODE = "SAMPLE_CODE";
+
     private String id;
     
     private String code;
