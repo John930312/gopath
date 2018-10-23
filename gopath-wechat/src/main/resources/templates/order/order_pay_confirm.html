@@ -27,18 +27,21 @@
 </header>
 <article style="padding-bottom: 3rem">
     <section class="ja-cells">
-        <input type="hidden" name="code" value="${(data.code)}!?html"/>
         <input type="hidden" name="price" value="${(data.actualPrice)}!?html"/>
         <div class="ja-cell">
-            <div class="ja-summary ub">
-                <div class="ja-summary__hd ub ub-ac">
-                    <h4 class="ja-summary__title">采样盒</h4>
+            <#if data.sampleBox??>
+                <div class="ja-summary ub">
+                    <div class="ja-summary__hd ub ub-ac">
+                        <h4 class="ja-summary__title">采样盒</h4>
+                    </div>
+                    <div class="ja-summary__bd ub-f1">
+                        <p class="ja-summary__txt">${(data.sampleBox.name)!?html} ${(data.sampleBox.phone)!?html}</p>
+                        <p class="ja-summary__txt">
+                            ${(data.sampleBox.provinceText)!?html}${(data.sampleBox.cityText)!?html}${(data.sampleBox.address)!?html}
+                        </p>
+                    </div>
                 </div>
-                <div class="ja-summary__bd ub-f1">
-                    <p class="ja-summary__txt">${(data.sampleBox.name)!?html} ${(data.sampleBox.phone)!?html}</p>
-                    <p class="ja-summary__txt">${(data.sampleBox.provinceText)}${(data.sampleBox.cityText)}${(data.sampleBox.address)}</p>
-                </div>
-            </div>
+            </#if>
         </div>
     </section>
     <section class="ja-cells mt-space-cell">
@@ -51,7 +54,8 @@
     </section>
     <div class="ja-btm-acts ub">
         <div class="ub ub-ac ub-f1" style="padding-left: 0.8rem;">
-            <p class="ft_lg"><span class="txt_default">应付：</span> <strong class="ntc-price">¥${(data.actualPrice)!?html}</strong></p>
+            <p class="ft_lg"><span class="txt_default">应付：</span> <strong
+                    class="ntc-price">¥${(data.actualPrice)!?html}</strong></p>
         </div>
         <div class="ub ub-ac" style="padding-right: 0.8rem; padding-left: 0.8rem;">
             <a href="javascript:;" class="weui-btn ja-btn__primary ja-btn__round ja-btn__normal-size" onclick="pay()">立即付款</a>
@@ -61,6 +65,8 @@
 <script src="${plugins}/jquery.min.js"></script>
 <script src="${plugins}/jquery-weui.min.js"></script>
 <script type="text/javascript">
+    var actualPrice = "${(data.actualPrice)?c}";
+    var code = "${(data.code)!?html}"
     $("#zf").select({
         title: "选择支付方式",
         items: [
@@ -77,15 +83,59 @@
                 value: "003",
             }
         ],
-        onClose:function () {
+        onClose: function () {
             var v = $('#zf').val();
         }
     });
-    
-    function pay() {
 
-        
+    function pay() {
+        $.post("${base}/order/pay.jsp", {actualPrice: actualPrice, code: code}, function (reslut) {
+            var data = new Object();
+            data.appId = result.appId;
+            data.timeStamp = result.timeStamp;
+            data.nonceStr = result.nonceStr;
+            data.package = result.package;
+            data.signType = result.signType;
+            data.paySign = result.paySign;
+
+            if (typeof WeixinJSBridge == "undefined") {
+                if (document.addEventListener) {
+                    document.addEventListener('WeixinJSBridgeReady',
+                        onBridgeReady, false);
+                } else if (document.attachEvent) {
+                    document.attachEvent('WeixinJSBridgeReady',
+                        onBridgeReady);
+                    document.attachEvent('onWeixinJSBridgeReady',
+                        onBridgeReady);
+                }
+            } else {
+                onBridgeReady(data);
+            }
+        });
     }
+
+
+    function onBridgeReady(data) {
+        WeixinJSBridge.invoke('getBrandWCPayRequest', {
+                "appId": data.appId,     //公众号名称,由商户传入
+                "timeStamp": data.timeStamp,         //时间戳,自1970年以来的秒数
+                "nonceStr": data.nonceStr, //随机串
+                "package": data.package,
+                "signType": data.signType,         //微信签名方式：
+                "paySign": data.paySign //微信签名
+            },
+            function (res) {
+                if (res.err_msg == "get_brand_wcpay_request:ok") {
+                    window.location.href = "${base}/sampleBox/bind.jsp";
+                } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+                    console.log('支付取消');
+                } else if (res.err_msg == "get_brand_wcpay_request:fail") {
+                    console.log('支付失败');
+                    WeixinJSBridge.call('closeWindow');
+                } //使用以上方式判断前端返回,微信团队郑重提示：res.err_msg将在用户支付成功后返回ok,但并不保证它绝对可靠。
+            });
+    }
+
 </script>
 </body>
 </html>

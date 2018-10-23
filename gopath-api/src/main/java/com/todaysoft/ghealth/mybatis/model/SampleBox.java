@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class SampleBox
 {
+    public static final String SAMPLEBOX_CODE = "SAMPLEBOX_CODE";
+
     private String id;
     
     private String code;

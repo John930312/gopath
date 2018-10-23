@@ -26,6 +26,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Author: xjw
@@ -114,31 +115,39 @@ public class OrderService implements IOrderService
         String orderCode = serialNumber.getCode(Order.SAMPLE_CODE);
         
         Product product = new Product();
-        product.setId(request.getId());
+        product.setId(request.getProductId());
         order.setProduct(product);
         
-        String sampleBoxId = IdGen.uuid();
         SampleBox sampleBox = new SampleBox();
-        SampleBoxDTO sampleBoxRequest = request.getSampleBox();
-        BeanUtils.copyProperties(sampleBoxRequest, sampleBox);
-        sampleBox.setId(sampleBoxId);
-        sampleBoxMapper.create(sampleBox);
+        if(Objects.nonNull(request.getSampleBox()))
+        {
+            String sampleBoxId = IdGen.uuid();
+            SampleBoxDTO sampleBoxRequest = request.getSampleBox();
+            BeanUtils.copyProperties(sampleBoxRequest, sampleBox);
+            sampleBox.setId(sampleBoxId);
+            sampleBox.setCreateTime(new Date());
+            sampleBox.setCode(serialNumber.getCode(SampleBox.SAMPLEBOX_CODE));
+            sampleBoxMapper.create(sampleBox);
+        }
         order.setSampleBox(sampleBox);
         
         Agency agency = new Agency();
         agency.setId(request.getAgencyId());
         order.setAgency(agency);
+
+        order.setCustomer(new Customer());
         
         order.setStatus(4);
+        order.setCode(orderCode);
         order.setId(IdGen.uuid());
+        order.setOpenId(request.getOpenId());
         order.setCreateTime(new Date());
         order.setSampleType(request.getSampleType());
         order.setActualPrice(request.getActualPrice());
-        order.setCode(orderCode);
         order.setReportPrintRequired(request.getReportPrintRequired());
         order.setDeleted(false);
         orderMapper.create(order);
-
+        
         return new DataResponse<>(orderCode);
     }
     
@@ -180,7 +189,7 @@ public class OrderService implements IOrderService
     {
         return new DataResponse<Boolean>(sampleBoxMapper.getByCode(request.getCode()) != 0);
     }
-
+    
     @Override
     public DataResponse<List<OrderDTO>> getByOpenid(String openid)
     {

@@ -52,6 +52,42 @@ public class AccountMockAction
         
         return rsp;
     }
+
+    @RequestMapping("/{enabled}/{openid}/agencyId/{agencyId}")
+    public Map<String, Object> agencyId(@PathVariable boolean enabled, @PathVariable String openid,@PathVariable String agencyId)
+    {
+        Map<String, Object> rsp = new HashMap<String, Object>();
+
+        try
+        {
+            config.setEnabled(enabled);
+            rsp.put("success", true);
+            rsp.put("enabled", enabled);
+            rsp.put("agencyId", agencyId);
+
+            if (enabled)
+            {
+                if (StringUtils.isEmpty(openid))
+                {
+                    throw new ServiceException("MOCK_ERROR", "Mock启用时Openid不能为空");
+                }
+
+                Account account = new Account();
+                account.setOpenid(openid);
+                account.setAgencyId(agencyId);
+                account.setToken(null);
+                config.setAccount(account);
+                rsp.put("account", account);
+            }
+        }
+        catch (Exception e)
+        {
+            rsp.put("success", false);
+            rsp.put("error", e.getMessage());
+        }
+
+        return rsp;
+    }
     
     @RequestMapping("/{enabled}/{openid}/{token}")
     public Map<String, Object> mock(@PathVariable boolean enabled, @PathVariable String openid, @PathVariable String token)

@@ -33,6 +33,8 @@ public class MaintainOrderRequest extends MaintainRequest
     
     private String agencyId;
     
+    private String openId;
+    
     public String getId()
     {
         return id;
@@ -141,5 +143,15 @@ public class MaintainOrderRequest extends MaintainRequest
     public void setAgencyId(String agencyId)
     {
         this.agencyId = agencyId;
+    }
+    
+    public String getOpenId()
+    {
+        return openId;
+    }
+    
+    public void setOpenId(String openId)
+    {
+        this.openId = openId;
     }
 }

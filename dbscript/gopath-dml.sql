@@ -117,3 +117,4 @@ INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) 
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('fcaeea0384974458954f67627b7b3ff5', '03e89d5ae6c84fd28a3d4180853aa201');
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('295f5d89a1014f2286befc2dd83e8690', '4ff0a7dc08ac4a7eac41c07d14629d20');
 
+INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('c478ficyr9a654967b35313d6db688a57', '032daff9cd9d11e7a9760f184c352621', 'ORDER_STATUS', '未付款', '4', '5', '0');

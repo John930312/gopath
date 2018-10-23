@@ -6,6 +6,8 @@ import com.todaysoft.ghealth.gateway.Gateway;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
 import com.todaysoft.ghealth.request.OrderQueryRequest;
 import com.todaysoft.ghealth.service.IOrderService;
+import com.todaysoft.ghealth.wechat.AccountContextHolder;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -24,11 +26,17 @@ public class OrderService implements IOrderService
     @Autowired
     private Gateway gateway;
     
+    @Autowired
+    private AccountContextHolder holder;
+    
     @Override
     public String create(OrderDTO data)
     {
         MaintainOrderRequest request = new MaintainOrderRequest();
         BeanUtils.copyProperties(data, request);
+        request.setOpenId(holder.getAccount().getOpenid());
+        request.setAgencyId(holder.getAccount().getAgencyId());
+        request.setProductId(data.getProduct().getId());
         DataResponse<String> response = gateway.post("/order/create", request, new ParameterizedTypeReference<DataResponse<String>>()
         {
         });

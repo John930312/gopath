@@ -27,8 +27,8 @@ public class SampleBoxAction
         return "sampleBox/sampleBox_bind";
     }
     
-    @PostMapping("/bind.jsp")
     @ResponseBody
+    @PostMapping("/binding.jsp")
     public String bind(OrderDTO data)
     {
         sampleBoxService.bind(data);

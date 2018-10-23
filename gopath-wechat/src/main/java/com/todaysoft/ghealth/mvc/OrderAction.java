@@ -7,6 +7,7 @@ import com.todaysoft.ghealth.wechat.AccountContextHolder;
 import com.todaysoft.ghealth.wechat.H5.WXPay;
 import com.todaysoft.ghealth.wechat.H5.WXPayUtil;
 import com.todaysoft.ghealth.wechat.dto.Account;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -34,7 +35,7 @@ public class OrderAction
     
     @Autowired
     private AccountContextHolder accountContextHolder;
-
+    
     @Autowired
     private AccountContextHolder holder;
     
@@ -59,17 +60,15 @@ public class OrderAction
     @PostMapping("/payConfirm.jsp")
     public String payConfirm(OrderDTO data, ModelMap model)
     {
+        if (StringUtils.isEmpty(data.getSampleBox().getName()))
+        {
+            data.setSampleBox(null);
+        }
         BigDecimal actualPrice = data.getReportPrintRequired() == 1 ? data.getActualPrice().add(new BigDecimal("20")) : data.getActualPrice();
         data.setActualPrice(actualPrice);
+        data.setCode(orderService.create(data));
         model.addAttribute("data", data);
         return "order/order_pay_confirm";
-    }
-    
-    @ResponseBody
-    @PostMapping("create.jsp")
-    public String create(OrderDTO data)
-    {
-        return orderService.create(data);
     }
     
     @ResponseBody
