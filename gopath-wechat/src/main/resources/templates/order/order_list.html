@@ -56,7 +56,7 @@
 </div>
 <#if orders?has_content>
 <#list orders as order>
-<#if order.sampleBox??has_content>
+<#if order.sampleBox?has_content>
 <div class="ja-cells mt-space-cell">
     <a href="id=${(order.sampleBox.id)!?html}" class="ub ja-cell ja-cell_nvg">
         <div class="ub-f1">
