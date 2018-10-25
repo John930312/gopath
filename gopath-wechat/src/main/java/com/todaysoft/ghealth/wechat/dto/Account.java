@@ -8,7 +8,7 @@ public class Account
     
     private String agencyId;
     
-    private Integer livePurchase = 1;
+    private Integer livePurchase = 1;//1:自主购买；2：体验中心购买；
     
     public String getOpenid()
     {

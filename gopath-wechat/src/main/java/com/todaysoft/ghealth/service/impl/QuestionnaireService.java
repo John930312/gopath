@@ -29,7 +29,7 @@ public class QuestionnaireService implements IQuestionnaireService
     {
         QuestionnaireQueryRequest request = new QuestionnaireQueryRequest();
         request.setCount(false);
-        DataResponse<List<Questionnaire>> response = gateway.post("/questionnaire/list", request, new ParameterizedTypeReference<DataResponse<List<Questionnaire>>>()
+        DataResponse<List<Questionnaire>> response = gateway.post("/wechat/questionnaire/list", request, new ParameterizedTypeReference<DataResponse<List<Questionnaire>>>()
         {
         });
         return response.getData();

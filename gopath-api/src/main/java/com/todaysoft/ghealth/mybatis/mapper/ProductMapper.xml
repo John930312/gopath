@@ -262,4 +262,41 @@
         ORDER BY t.CREATE_TIME DESC
         <include refid="OffsetLimitClause"/>
     </select>
+
+    <sql id="union">
+        SELECT DISTINCT
+        p.*
+        FROM
+        ghealth_gopath_product p
+        LEFT JOIN ghealth_gopath_product_questionnaire pq ON pq.PRODUCT_ID = p.ID
+        LEFT JOIN	ghealth_gopath_questionnaire q ON q.ID = pq.QUESTIONNAIRE_ID
+        WHERE
+        p.DELETED = 0
+        AND	q.DELETED = 0
+        AND q.`STATUS` = 1
+        AND q.ID IN
+        <foreach collection="_parameter.questionnaireList" item="questionnaireId" index="index" open="(" close=")" separator=",">
+            #{questionnaireId}
+        </foreach>
+        UNION
+    </sql>
+
+    <select id="list" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.ProductQuery">
+        SELECT
+          a.*
+        FROM
+            (
+            <if test="_parameter.questionnaireList != null">
+                <include refid="union"/>
+            </if>
+            SELECT
+                ggp.*
+            FROM
+                ghealth_gopath_product ggp
+            WHERE
+                ggp.DELETED = 0
+            AND ggp.ENABLED = 1
+            AND ggp.IS_COMMON_PACKAGE = 1) a
+        ORDER BY a.CREATE_TIME DESC
+    </select>
 </mapper>

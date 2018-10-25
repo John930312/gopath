@@ -11,163 +11,103 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <meta name="HandheldFriendly" content="true">
     <meta name="renderer" content="webkit|ie-comp|ie-stand">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/weui/1.1.3/style/weui.min.css">
-    <link rel="stylesheet" href="https://cdn.bootcss.com/jquery-weui/1.2.1/css/jquery-weui.min.css">
+    <link rel="stylesheet" href="${plugins}/weui.min.css">
+    <link rel="stylesheet" href="${plugins}/jquery-weui.min.css">
     <!--<link rel="stylesheet" href="https://cdn.bootcss.com/animate.css/3.5.2/animate.min.css">-->
-    <link rel="stylesheet" href="styles/common.css">
-    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="${system_css}/common.css">
+    <link rel="stylesheet" href="${system_css}/styles.css">
 </head>
 <body>
-<form action="">
+<form action="${base}/product/list.jsp">
     <div class="ja-cells ja-cells_trans ">
         <div class="ja-cell ja-cell_default-size ub ub-ac">
             <h3 class="lh_1 ft_big">家族病史</h3>
         </div>
     </div>
+    <input type="hidden" id="questionnaireIds" name="questionnaireIds">
     <article>
+        <#if tumors?has_content>
         <section class="ja-panel_que mb-space-cell">
             <div class="ja-que-label">
                 <h4 class="ja-que-label__title">肿瘤类</h4>
             </div>
             <div class="ja-que-checks">
+                <#list tumors as tumor>
                 <div class="ja-que-checks__item">
                     <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
+                        <input type="checkbox" class="ja-que-check__input" value="${(tumor.id)!?html}">
                         <span class="ja-que-check__state"></span>
-                        肺癌
+                        ${(tumor.name)!?html}
                     </label>
                 </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        食道癌
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        胃贲门癌
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        乳腺癌
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        胃癌
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        乳腺癌
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        胃癌
-                    </label>
-                </div>
+                </#list>
             </div>
         </section>
+        </#if>
+
+        <#if nonTumors?has_content>
         <section class="ja-panel_que mb-space-cell ">
             <div class="ja-que-label ja-que-label_style-2">
-                <h4 class="ja-que-label__title">肿瘤类</h4>
+                <h4 class="ja-que-label__title">非肿瘤类</h4>
             </div>
             <div class="ja-que-checks">
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        胆结石
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        痛风
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        强直性脊柱炎
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        高胆固醇
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        帕金森病
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        关节炎
-                    </label>
-                </div>
-                <div class="ja-que-checks__item">
-                    <label class="ja-que-check">
-                        <input type="checkbox" class="ja-que-check__input">
-                        <span class="ja-que-check__state"></span>
-                        关节炎
-                    </label>
-                </div>
+                <#list nonTumors as nonTumor>
+                    <div class="ja-que-checks__item">
+                        <label class="ja-que-check">
+                            <input type="checkbox" class="ja-que-check__input" value="${(nonTumor.id)!?html}">
+                            <span class="ja-que-check__state"></span>
+                            ${(nonTumor.name)!?html}
+                        </label>
+                    </div>
+                </#list>
             </div>
         </section>
+        </#if>
+
+        <#if dailys?has_content>
         <section class="ja-panel_que mb-space-cell">
             <div class="ja-que-label ja-que-label_style-2">
-                <h4 class="ja-que-label__title">肿瘤类</h4>
+                <h4 class="ja-que-label__title">日常用药</h4>
             </div>
             <div class="ja-que-checks">
-                <div class="ja-que-checks__item">
-                    抗凝血类药物 &nbsp; 氯吡格雷
-                </div>
-                <div class="ja-que-checks__item ja-que-checks__item_auto">
-                    <label class="ja-que-check">
-                        <input type="radio" class="ja-que-check__input" name="drug">
-                        <span class="ja-que-check__state"></span>
-                        使用
-                    </label>
-                </div>
-                <div class="ja-que-checks__item ja-que-checks__item_auto">
-                    <label class="ja-que-check">
-                        <input type="radio" class="ja-que-check__input" name="drug">
-                        <span class="ja-que-check__state"></span>
-                        不使用
-                    </label>
-                </div>
+                <#list dailys as daily>
+                    <div class="ja-que-checks__item">
+                        <label class="ja-que-check">
+                            <input type="checkbox" class="ja-que-check__input" value="${(daily.id)!?html}">
+                            <span class="ja-que-check__state"></span>
+                            ${(daily.name)!?html}
+                        </label>
+                    </div>
+                </#list>
             </div>
         </section>
+        </#if>
+        <div class="ja-btm-acts ub">
+            <div class="ub ub-ac" style="padding-right: 0.8rem; padding-left: 0.8rem;">
+                <a href="javascript:;" class="weui-btn ja-btn__primary ja-btn__round ja-btn__normal-size" onclick="getProducts()">提交</a>
+            </div>
+        </div>
     </article>
 </form>
-
-
-<script src="https://cdn.bootcss.com/jquery/1.11.0/jquery.min.js"></script>
-<script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/jquery-weui.min.js"></script>
+<script src="${plugins}/jquery.min.js"></script>
+<script src="${plugins}/jquery-weui.min.js"></script>
 <script type="text/javascript">
+
+    function getProducts() {
+        var questionnaireIds = getSelectedIds();
+        $('#questionnaireIds').val(questionnaireIds);
+        $("form").submit();
+    }
+
+    function getSelectedIds() {
+        var ids = "";
+        $(".ja-que-check__input:checkbox").each(function (i, v) {
+            if ($(this).prop("checked")) {
+                ids += $(this).val() + "-"
+            }
+        });
+        return ids;
+    }
 
 </script>
 </body>

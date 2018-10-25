@@ -20,11 +20,9 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ProductService implements IProductService
@@ -162,5 +160,24 @@ public class ProductService implements IProductService
                 productQuestionnaireMapper.create(relation);
             }
         }
+    }
+
+    @Override
+    public DataResponse<List<ProductDTO>> indexList(ProductQueryRequest request)
+    {
+        ProductQuery query = new ProductQuery();
+        BeanUtils.copyProperties(request,query);
+        List<Product>  records = productMapper.weChatQuery(query);
+        return new DataResponse<List<ProductDTO>>(productWrapper.wrap(records));
+    }
+
+    @Override
+    public DataResponse<List<ProductDTO>> list(ProductQueryRequest request)
+    {
+        ProductQuery query = new ProductQuery();
+        BeanUtils.copyProperties(request,query);
+        Optional.ofNullable(request.getQuestionnaireIds()).ifPresent(x -> query.setQuestionnaireList(Arrays.asList(x.split("-"))));
+        List<Product> records = productMapper.list(query);
+        return new DataResponse<List<ProductDTO>>(productWrapper.wrap(records));
     }
 }

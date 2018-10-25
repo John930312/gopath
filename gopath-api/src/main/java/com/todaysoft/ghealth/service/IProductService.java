@@ -6,6 +6,8 @@ import com.todaysoft.ghealth.DTO.ProductDTO;
 import com.todaysoft.ghealth.request.ProductMaintainRequest;
 import com.todaysoft.ghealth.request.ProductQueryRequest;
 
+import java.util.List;
+
 public interface IProductService
 {
     DataResponse<CountRecords<ProductDTO>> pager(ProductQueryRequest request);
@@ -17,4 +19,8 @@ public interface IProductService
     DataResponse<ProductDTO> get(String id);
 
     void modify(ProductMaintainRequest request);
+
+    DataResponse<List<ProductDTO>> list(ProductQueryRequest request);
+
+    DataResponse<List<ProductDTO>> indexList(ProductQueryRequest request);
 }
