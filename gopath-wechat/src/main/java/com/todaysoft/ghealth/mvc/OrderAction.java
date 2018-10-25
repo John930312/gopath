@@ -45,14 +45,9 @@ public class OrderAction
     @RequestMapping("/place.jsp")
     public String place(ProductDTO product, ModelMap model)
     {
-        ProductDTO p = new ProductDTO();
-        p.setDiscount(true);
-        p.setName("抑癌基因");
-        p.setId("product_id_123");
-        p.setDiscountPrice(new BigDecimal(1001));
         model.addAttribute("livePurchase", 1);
-        model.addAttribute("product", p);
-        BigDecimal price = p.getDiscount() ? p.getDiscountPrice() : p.getGuidingPrice();
+        model.addAttribute("product", product);
+        BigDecimal price = product.getDiscount() ? product.getDiscountPrice() : product.getGuidingPrice();
         model.addAttribute("price", price);
         return "order/order_confirm";
     }
@@ -84,7 +79,7 @@ public class OrderAction
     {
         //将微信发的xml转map
         Map<String, String> notifyMap = WXPayUtil.xmlToMap(WXPayUtil.getStreamData(request));
-        
+        orderService.payed(notifyMap.get("out_trade_no"));
         //通知微信服务器收到信息 不要在调用回调action
         WXPayUtil.backSuccess(response);
     }

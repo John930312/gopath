@@ -22,6 +22,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
 
 import java.util.Collections;
 import java.util.Date;
@@ -111,6 +112,7 @@ public class OrderService implements IOrderService
     @Transactional
     public DataResponse<String> create(MaintainOrderRequest request)
     {
+        Integer status = 4;
         Order order = new Order();
         String orderCode = serialNumber.getCode(Order.SAMPLE_CODE);
         
@@ -119,7 +121,7 @@ public class OrderService implements IOrderService
         order.setProduct(product);
         
         SampleBox sampleBox = new SampleBox();
-        if(Objects.nonNull(request.getSampleBox()))
+        if (Objects.nonNull(request.getSampleBox()))
         {
             String sampleBoxId = IdGen.uuid();
             SampleBoxDTO sampleBoxRequest = request.getSampleBox();
@@ -134,10 +136,10 @@ public class OrderService implements IOrderService
         Agency agency = new Agency();
         agency.setId(request.getAgencyId());
         order.setAgency(agency);
-
+        
         order.setCustomer(new Customer());
         
-        order.setStatus(4);
+        order.setStatus(status);
         order.setCode(orderCode);
         order.setId(IdGen.uuid());
         order.setOpenId(request.getOpenId());
@@ -147,6 +149,9 @@ public class OrderService implements IOrderService
         order.setReportPrintRequired(request.getReportPrintRequired());
         order.setDeleted(false);
         orderMapper.create(order);
+        
+        request.setStatus(status);
+        createOrderHistory(request);
         
         return new DataResponse<>(orderCode);
     }
@@ -172,13 +177,7 @@ public class OrderService implements IOrderService
         
         if (null != request.getStatus())
         {
-            OrderHistory orderHistory = new OrderHistory();
-            orderHistory.setOrderId(request.getId());
-            orderHistory.setId(IdGen.uuid());
-            orderHistory.setEventTime(new Date());
-            orderHistory.setEventType(request.getStatus());
-            orderHistoryMapper.create(orderHistory);
-            
+            createOrderHistory(request);
             order.setStatus(request.getStatus());
             orderMapper.modify(order);
         }
@@ -195,5 +194,33 @@ public class OrderService implements IOrderService
     {
         List<Order> records = orderMapper.getByOpenid(openid);
         return new DataResponse<>(orderWrapper.wrap(records));
+    }
+    
+    @Override
+    public void payed(MaintainOrderRequest request)
+    {
+        Integer status = 0;
+        OrderQuery query = new OrderQuery();
+        query.setCode(request.getCode());
+        List<Order> orders = orderMapper.query(query);
+        if (!CollectionUtils.isEmpty(orders))
+        {
+            Order order = orders.get(0);
+            order.setStatus(status);
+            orderMapper.modify(order);
+            
+            request.setStatus(status);
+            createOrderHistory(request);
+        }
+    }
+    
+    private void createOrderHistory(MaintainOrderRequest request)
+    {
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.setOrderId(request.getId());
+        orderHistory.setId(IdGen.uuid());
+        orderHistory.setEventTime(new Date());
+        orderHistory.setEventType(request.getStatus());
+        orderHistoryMapper.create(orderHistory);
     }
 }

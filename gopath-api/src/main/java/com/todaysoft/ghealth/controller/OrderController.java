@@ -64,5 +64,11 @@ public class OrderController
     {
         return orderService.create(request);
     }
+
+    @PostMapping("/payed")
+    public void payed(@RequestBody MaintainOrderRequest request)
+    {
+        orderService.payed(request);
+    }
     
 }

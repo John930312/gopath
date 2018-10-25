@@ -54,6 +54,15 @@ public class OrderService implements IOrderService
     }
 
     @Override
+    public void payed(String code)
+    {
+        MaintainOrderRequest request = new MaintainOrderRequest();
+        request.setCode(code);
+        gateway.post("/order/payed", request);
+    }
+
+
+    @Override
     public OrderDTO get(String id)
     {
         DataResponse<OrderDTO> response = gateway.get("/order/get/{id}", new ParameterizedTypeReference<DataResponse<OrderDTO>>()

@@ -14,5 +14,7 @@ public interface IOrderService
     
     List<OrderDTO> getMyOrder(String openId);
 
+    void payed(String code);
+
     OrderDTO get(String id);
 }

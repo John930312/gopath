@@ -28,4 +28,6 @@ public interface IOrderService
     DataResponse<Boolean> isUniqueSampleBoxCode(MainSampleBoxRequest request);
 
     DataResponse<List<OrderDTO>> getByOpenid(String openid);
+
+    void payed(MaintainOrderRequest request);
 }
