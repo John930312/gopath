@@ -13,4 +13,6 @@ public interface IOrderService
     String create(OrderDTO data);
     
     List<OrderDTO> getMyOrder(String openId);
+
+    OrderDTO get(String id);
 }

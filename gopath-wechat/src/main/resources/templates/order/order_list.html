@@ -23,7 +23,7 @@
 <#if orders?has_content>
 <#list orders as order>
 <div class="ja-cells mt-space-cell">
-    <a href="id=${(order.id)!?html}" class="ub ub-ac ja-cell ja-cell_nvg">
+    <a href="${base}/order/detail.jsp?id=${(order.id)!?html}" class="ub ub-ac ja-cell ja-cell_nvg">
         <div class="ub-f1">
             <p class="ft_sm lh_1 mb-lh">${(order.createTime)!?html}<span class="f_r ntc-color">
             <#if order.status == 0>已下单</#if>

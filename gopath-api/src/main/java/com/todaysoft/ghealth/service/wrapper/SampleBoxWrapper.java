@@ -3,6 +3,8 @@ package com.todaysoft.ghealth.service.wrapper;
 
 import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.mybatis.model.SampleBox;
+import com.todaysoft.ghealth.service.IAreaService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,6 +14,9 @@ import org.springframework.stereotype.Component;
 @Component
 public class SampleBoxWrapper extends Wrapper<SampleBox, SampleBoxDTO>
 {
+    @Autowired
+    private IAreaService areaService;
+
     @Override
     public String[] getCopyIgnoreProperties()
     {
@@ -21,6 +26,8 @@ public class SampleBoxWrapper extends Wrapper<SampleBox, SampleBoxDTO>
     @Override
     public void setCopyIgnoreProperties(SampleBox source, SampleBoxDTO target)
     {
+        target.setProvinceText(areaService.getDistrictName(source.getProvince()));
+        target.setCityText(areaService.getDistrictName(source.getCity()));
         target.setCreateTime(formatDate(source.getCreateTime()));
     }
 }

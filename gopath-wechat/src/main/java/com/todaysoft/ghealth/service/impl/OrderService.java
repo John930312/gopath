@@ -52,4 +52,19 @@ public class OrderService implements IOrderService
         });
         return response.getData();
     }
+
+    @Override
+    public OrderDTO get(String id)
+    {
+        DataResponse<OrderDTO> response = gateway.get("/order/get/{id}", new ParameterizedTypeReference<DataResponse<OrderDTO>>()
+        {
+        }, id);
+
+        if (Objects.isNull(response.getData()))
+        {
+            return new OrderDTO();
+        }
+
+        return response.getData();
+    }
 }

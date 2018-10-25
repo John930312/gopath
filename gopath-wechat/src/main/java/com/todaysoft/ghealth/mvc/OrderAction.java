@@ -97,4 +97,12 @@ public class OrderAction
         model.addAttribute("orders", orders);
         return "order/order_list";
     }
+    @RequestMapping("/detail.jsp")
+    public String detail(String id,ModelMap model, HttpSession session)
+    {
+        OrderDTO order = orderService.get(id);
+        model.addAttribute("order", order);
+        return "order/order_detail";
+    }
+
 }
