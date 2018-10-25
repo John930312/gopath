@@ -20,40 +20,32 @@
                 <div class="ibox-title">
                     <ol class="breadcrumb">
                         <li>
-                            <a href="${base}/agency/list.jsp">体检机构</a>
+                            <a href="${base}/slideshow/list.jsp">问卷轮播图</a>
                         </li>
                         <li class="active">
-                            <strong>机构列表</strong>
+                            <strong>轮播图列表</strong>
                         </li>
                     </ol>
                 </div>
             </div>
             <div class="ibox ibox-table">
                 <div class="ibox-title">
-                    <h5>机构列表</h5>
+                    <h5>轮播图列表</h5>
 
-                    <a href="${base}/agency/create.jsp" class="btn btn-sm btn-success">
+                    <a href="${base}/slideshow/create.jsp" class="btn btn-sm btn-success">
                         <i class="fa fa-plus"></i> 新增
                     </a>
 
                 </div>
                 <div class="ibox-content">
-                    <form action="${base}/agency/list.jsp" method="post" class="search-form">
-                        <div class="col-sm-2 form-group">
-                            <input type="text" class="form-control" name="code" value="${(searcher.code)!?html}"
-                                   placeholder="代理编号">
-                        </div>
+                    <form action="${base}/slideshow/list.jsp" method="post" class="search-form">
                         <div class="col-sm-2 form-group">
                             <input type="text" class="form-control" name="name" value="${(searcher.name)!?html}"
-                                   placeholder="机构名称">
+                                   placeholder="轮播图名称">
                         </div>
                         <div class="col-sm-2 form-group">
-                            <input type="text" class="form-control" name="contactName"
-                                   value="${(searcher.contactName)!?html}" placeholder="联系人姓名">
-                        </div>
-                        <div class="col-sm-2 form-group">
-                            <input type="text" class="form-control" name="phone" value="${(searcher.phone)!?html}"
-                                   placeholder="联系人电话">
+                            <input type="text" class="form-control" name="questionnaireSurveyName"
+                                   value="${(searcher.questionnaireSurveyName)!?html}" placeholder="问卷名称">
                         </div>
                         <div class="col-sm-2 form-group">
                             <button type="submit" class="btn btn-sm btn-success">
@@ -68,10 +60,9 @@
                         <thead>
                         <tr>
                             <th class="index">序号</th>
-                            <th>代理编号</th>
-                            <th>机构名称</th>
-                            <th>联系人姓名</th>
-                            <th>联系人电话</th>
+                            <th>轮播图名称</th>
+                            <th>问卷名称</th>
+                            <th>轮播图地址</th>
                             <th>创建时间</th>
                             <th class="flexible-btns">操作</th>
                         </tr>
@@ -80,17 +71,14 @@
                         <#if pagination.records?has_content> <#list pagination.records as record>
                         <tr>
                             <td>${record_index + 1}</td>
-                            <td>${(record.code)!?html}</td>
                             <td>${(record.name)!?html}</td>
-                            <td>${(record.contactName)!?html}</td>
-                            <td>${(record.phone)!?html}</td>
+                            <td>${(record.questionnaireSurvey.name)!?html}</td>
+                            <td>${(record.pictureUrl)!?html}</td>
                             <td><#if record.createTime??>${record.createTime!?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
                             <td class="flexible-btns" style="white-space:nowrap">
-                                <a href="${base}/agency/detail.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> 详情</a>
+                                <a href="${base}/slideshow/modify.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> 修改</a>
 
-                                <a href="${base}/agency/modify.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> 修改</a>
-
-                                <a href="${base}/agency/delete.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success layer-confirm" data-confirm-message="确定删除该机构？"><i class="fa fa-trash"></i> 删除</a>
+                                <a href="${base}/slideshow/delete.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success layer-confirm" data-confirm-message="确定删除该轮播图？"><i class="fa fa-trash"></i> 删除</a>
 
                             </td>
                         </tr>

@@ -9,6 +9,6 @@ import org.springframework.stereotype.Component;
  * @Date: 2018/10/17 14:23
  */
 @Component
-public class AgencyQueryParser  extends QueryParser<AgencyQueryRequest, AgencyQuery>
+public class AgencyQueryParser extends QueryParser<AgencyQueryRequest, AgencyQuery>
 {
 }

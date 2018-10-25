@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.SlideshowMapper" >
+    <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.Slideshow" >
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+        <result column="QUESTIONNAIRE_ID" property="questionnaireSurvey.id" jdbcType="VARCHAR" />
+        <result column="QUESTIONNAIRE_NAME" property="questionnaireSurvey.name" jdbcType="VARCHAR" />
+        <result column="PICTURE_URL" property="pictureUrl" jdbcType="VARCHAR" />
+        <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <sql id="ExpertFilters">
+        <if test="_parameter.name != null and _parameter.name != ''" >
+            <bind name="namePattern" value="'%' + _parameter.name + '%'" />
+            AND t.NAME LIKE #{namePattern}
+        </if>
+        <if test="_parameter.questionnaireSurveyName != null and _parameter.questionnaireSurveyName != ''" >
+            <bind name="namePattern" value="'%' + _parameter.questionnaireSurveyName + '%'" />
+            AND q.NAME LIKE #{namePattern}
+        </if>
+    </sql>
+    <sql id="OffsetLimitClause">
+        <if test="_parameter.limit != null">
+            LIMIT #{limit}
+        </if>
+        <if test="_parameter.offset != null">
+            OFFSET #{offset}
+        </if>
+    </sql>
+
+    <insert id="create" parameterType="com.todaysoft.ghealth.mybatis.model.Slideshow" >
+        insert into ghealth_gopath_slideshow
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                ID,
+            </if>
+            <if test="name != null" >
+                NAME,
+            </if>
+            <if test="questionnaireSurvey.id != null" >
+                QUESTIONNAIRE_ID,
+            </if>
+            <if test="pictureUrl != null" >
+                PICTURE_URL,
+            </if>
+            <if test="createTime != null" >
+                CREATE_TIME,
+            </if>
+            <if test="deleted != null" >
+                DELETED,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireSurvey.id != null" >
+                #{questionnaireSurvey.id,jdbcType=VARCHAR},
+            </if>
+            <if test="pictureUrl != null" >
+                #{pictureUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="deleted != null" >
+                #{deleted,jdbcType=VARCHAR},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="modify" parameterType="com.todaysoft.ghealth.mybatis.model.Slideshow">
+        update ghealth_gopath_slideshow
+        <set>
+            <if test="name != null">
+                NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="questionnaireSurvey.id != null">
+                QUESTIONNAIRE_ID = #{questionnaireSurvey.id,jdbcType=VARCHAR},
+            </if>
+            <if test="pictureUrl != null">
+                PICTURE_URL = #{pictureUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="deleted != null" >
+                DELETED = #{deleted,jdbcType=BIT},
+            </if>
+        </set>
+        where ID = #{id,jdbcType=VARCHAR}
+    </update>
+
+    <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybatis.model.query.SlideshowQuery">
+        SELECT COUNT(*) FROM ghealth_gopath_slideshow t
+        LEFT JOIN ghealth_gopath_questionnaire_survey q ON t.QUESTIONNAIRE_ID = q.ID
+        WHERE t.DELETED = '0'
+        <include refid="ExpertFilters"/>
+
+    </select>
+
+    <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.SlideshowQuery">
+        SELECT
+        t.ID AS ID,
+        t.NAME AS NAME,
+        t.QUESTIONNAIRE_ID AS QUESTIONNAIRE_ID,
+        q.NAME AS QUESTIONNAIRE_NAME,
+        t.PICTURE_URL AS PICTURE_URL,
+        t.CREATE_TIME AS CREATE_TIME
+        FROM ghealth_gopath_slideshow t
+        LEFT JOIN ghealth_gopath_questionnaire_survey q ON t.QUESTIONNAIRE_ID = q.ID
+        WHERE t.DELETED = '0'
+        <include refid="ExpertFilters"/>
+        ORDER BY t.CREATE_TIME DESC
+        <include refid="OffsetLimitClause" />
+    </select>
+
+    <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        SELECT
+        t.ID AS ID,
+        t.NAME AS NAME,
+        t.QUESTIONNAIRE_ID AS QUESTIONNAIRE_ID,
+        q.NAME AS QUESTIONNAIRE_NAME,
+        t.PICTURE_URL AS PICTURE_URL,
+        t.CREATE_TIME AS CREATE_TIME
+        FROM ghealth_gopath_slideshow t
+        LEFT JOIN ghealth_gopath_questionnaire_survey q ON t.QUESTIONNAIRE_ID = q.ID
+        WHERE t.ID = #{id,jdbcType=VARCHAR}
+    </select>
+</mapper>
