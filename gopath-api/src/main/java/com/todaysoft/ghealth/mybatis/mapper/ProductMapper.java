@@ -18,4 +18,6 @@ public interface ProductMapper
     void modify(Product data);
 
     List<Product> weChatQuery(ProductQuery query);
+
+    List<Product> list(ProductQuery query);
 }

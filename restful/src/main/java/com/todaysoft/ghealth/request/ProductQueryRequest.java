@@ -11,6 +11,8 @@ public class ProductQueryRequest extends QueryRequest
     private String discount;
     
     private Boolean enabledMatch;
+
+    private String questionnaireIds;
     
     public String getCode()
     {
@@ -50,5 +52,13 @@ public class ProductQueryRequest extends QueryRequest
     public void setEnabledMatch(Boolean enabledMatch)
     {
         this.enabledMatch = enabledMatch;
+    }
+
+    public String getQuestionnaireIds() {
+        return questionnaireIds;
+    }
+
+    public void setQuestionnaireIds(String questionnaireIds) {
+        this.questionnaireIds = questionnaireIds;
     }
 }

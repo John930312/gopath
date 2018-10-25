@@ -29,10 +29,9 @@ public class QuestionnaireAction
     {
         List<Questionnaire> questionnaires = questionnaireService.list();
         Map<Integer, List<Questionnaire>> questionnaireMap = questionnaires.stream().collect(groupingBy(Questionnaire::getCategory));
-        questionnaireMap.get(1);
-        model.addAttribute("tumor", questionnaires.get(1));
-        model.addAttribute("nonTumor", questionnaires.get(2));
-        model.addAttribute("daily", questionnaires.get(3));
+        model.addAttribute("tumors", questionnaireMap.containsKey(1) ? questionnaireMap.get(1): null);
+        model.addAttribute("nonTumors",questionnaireMap.containsKey(2) ?questionnaireMap.get(2): null);
+        model.addAttribute("dailys", questionnaireMap.containsKey(3) ? questionnaireMap.get(3) :null);
         return "questionnaire/questionnaire_list";
     }
 }

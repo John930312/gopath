@@ -1,5 +1,6 @@
 package com.todaysoft.ghealth.mybatis.model.query;
 
+import java.util.List;
 import java.util.Set;
 
 public class ProductQuery extends Query
@@ -13,6 +14,8 @@ public class ProductQuery extends Query
     private boolean codeExactMatches;
     
     private Set<String> excludeKeys;
+
+    private List<String> questionnaireList;
     
     public String getCode()
     {
@@ -62,5 +65,13 @@ public class ProductQuery extends Query
     public void setDiscount(String discount)
     {
         this.discount = discount;
+    }
+
+    public List<String> getQuestionnaireList() {
+        return questionnaireList;
+    }
+
+    public void setQuestionnaireList(List<String> questionnaireList) {
+        this.questionnaireList = questionnaireList;
     }
 }
