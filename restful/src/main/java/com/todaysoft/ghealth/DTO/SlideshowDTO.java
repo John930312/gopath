@@ -1,6 +1,7 @@
 package com.todaysoft.ghealth.DTO;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: zyf
@@ -13,9 +14,9 @@ public class SlideshowDTO
     
     private String name;
     
-    private QuestionnaireSurveyDTO questionnaireSurvey;
-    
     private String pictureUrl;
+    
+    private List<Questionnaire> questionnaires;
     
     private String createTime;
     
@@ -41,16 +42,6 @@ public class SlideshowDTO
         this.name = name;
     }
     
-    public QuestionnaireSurveyDTO getQuestionnaireSurvey()
-    {
-        return questionnaireSurvey;
-    }
-    
-    public void setQuestionnaireSurvey(QuestionnaireSurveyDTO questionnaireSurvey)
-    {
-        this.questionnaireSurvey = questionnaireSurvey;
-    }
-    
     public String getPictureUrl()
     {
         return pictureUrl;
@@ -59,6 +50,16 @@ public class SlideshowDTO
     public void setPictureUrl(String pictureUrl)
     {
         this.pictureUrl = pictureUrl;
+    }
+    
+    public List<Questionnaire> getQuestionnaires()
+    {
+        return questionnaires;
+    }
+    
+    public void setQuestionnaires(List<Questionnaire> questionnaires)
+    {
+        this.questionnaires = questionnaires;
     }
     
     public String getCreateTime()

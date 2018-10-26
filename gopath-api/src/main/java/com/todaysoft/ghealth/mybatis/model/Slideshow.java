@@ -13,8 +13,6 @@ public class Slideshow
     
     private String name;
     
-    private QuestionnaireSurvey questionnaireSurvey;
-    
     private String pictureUrl;
     
     private Date createTime;
@@ -39,16 +37,6 @@ public class Slideshow
     public void setName(String name)
     {
         this.name = name;
-    }
-    
-    public QuestionnaireSurvey getQuestionnaireSurvey()
-    {
-        return questionnaireSurvey;
-    }
-    
-    public void setQuestionnaireSurvey(QuestionnaireSurvey questionnaireSurvey)
-    {
-        this.questionnaireSurvey = questionnaireSurvey;
     }
     
     public String getPictureUrl()

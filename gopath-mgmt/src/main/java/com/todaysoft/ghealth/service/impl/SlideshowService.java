@@ -2,7 +2,6 @@ package com.todaysoft.ghealth.service.impl;
 
 import com.hsgene.restful.response.DataResponse;
 import com.hsgene.restful.util.CountRecords;
-import com.todaysoft.ghealth.DTO.QuestionnaireSurveyDTO;
 import com.todaysoft.ghealth.DTO.SlideshowDTO;
 import com.todaysoft.ghealth.gateway.Gateway;
 import com.todaysoft.ghealth.model.Slideshow;
@@ -55,14 +54,7 @@ public class SlideshowService implements ISlideshowService
     public void create(Slideshow data)
     {
         SlideshowMaintainRequest request = new SlideshowMaintainRequest();
-        request.setName(data.getName());
-        request.setPictureUrl(data.getPictureUrl());
-        if (Objects.nonNull(data.getQuestionnaireSurvey()))
-        {
-            QuestionnaireSurveyDTO questionnaireSurvey = new QuestionnaireSurveyDTO();
-            BeanUtils.copyProperties(data.getQuestionnaireSurvey(), questionnaireSurvey);
-            request.setQuestionnaireSurveyDTO(questionnaireSurvey);
-        }
+        BeanUtils.copyProperties(data, request);
         gateway.post("/slideshow/create", request);
     }
     
@@ -85,15 +77,7 @@ public class SlideshowService implements ISlideshowService
     public void modify(Slideshow data)
     {
         SlideshowMaintainRequest request = new SlideshowMaintainRequest();
-        request.setId(data.getId());
-        request.setName(data.getName());
-        request.setPictureUrl(data.getPictureUrl());
-        if (Objects.nonNull(data.getQuestionnaireSurvey()))
-        {
-            QuestionnaireSurveyDTO questionnaireSurvey = new QuestionnaireSurveyDTO();
-            BeanUtils.copyProperties(data.getQuestionnaireSurvey(), questionnaireSurvey);
-            request.setQuestionnaireSurveyDTO(questionnaireSurvey);
-        }
+        BeanUtils.copyProperties(data, request);
         gateway.post("/slideshow/modify", request);
     }
     

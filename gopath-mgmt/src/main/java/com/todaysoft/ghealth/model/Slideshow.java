@@ -1,6 +1,9 @@
 package com.todaysoft.ghealth.model;
 
+import com.todaysoft.ghealth.DTO.Questionnaire;
+
 import java.util.Date;
+import java.util.List;
 
 /**
  * @Author: zyf
@@ -13,9 +16,11 @@ public class Slideshow
     
     private String name;
     
-    private QuestionnaireSurvey questionnaireSurvey;
-    
     private String pictureUrl;
+    
+    private String questionnairePlatForm;
+    
+    private List<Questionnaire> questionnaires;
     
     private Date createTime;
     
@@ -41,16 +46,6 @@ public class Slideshow
         this.name = name;
     }
     
-    public QuestionnaireSurvey getQuestionnaireSurvey()
-    {
-        return questionnaireSurvey;
-    }
-    
-    public void setQuestionnaireSurvey(QuestionnaireSurvey questionnaireSurvey)
-    {
-        this.questionnaireSurvey = questionnaireSurvey;
-    }
-    
     public String getPictureUrl()
     {
         return pictureUrl;
@@ -59,6 +54,26 @@ public class Slideshow
     public void setPictureUrl(String pictureUrl)
     {
         this.pictureUrl = pictureUrl;
+    }
+    
+    public String getQuestionnairePlatForm()
+    {
+        return questionnairePlatForm;
+    }
+    
+    public void setQuestionnairePlatForm(String questionnairePlatForm)
+    {
+        this.questionnairePlatForm = questionnairePlatForm;
+    }
+    
+    public List<Questionnaire> getQuestionnaires()
+    {
+        return questionnaires;
+    }
+    
+    public void setQuestionnaires(List<Questionnaire> questionnaires)
+    {
+        this.questionnaires = questionnaires;
     }
     
     public Date getCreateTime()

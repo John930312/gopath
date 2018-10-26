@@ -2,10 +2,11 @@ package com.todaysoft.ghealth.service.impl;
 
 import com.hsgene.restful.response.DataResponse;
 import com.hsgene.restful.util.CountRecords;
+import com.todaysoft.ghealth.DTO.Questionnaire;
 import com.todaysoft.ghealth.DTO.SlideshowDTO;
 import com.todaysoft.ghealth.mybatis.mapper.SlideshowMapper;
-import com.todaysoft.ghealth.mybatis.model.QuestionnaireSurvey;
 import com.todaysoft.ghealth.mybatis.model.Slideshow;
+import com.todaysoft.ghealth.mybatis.model.SlideshowQuestionnaire;
 import com.todaysoft.ghealth.mybatis.model.query.SlideshowQuery;
 import com.todaysoft.ghealth.request.SlideshowMaintainRequest;
 import com.todaysoft.ghealth.request.SlideshowQueryRequest;
@@ -13,14 +14,12 @@ import com.todaysoft.ghealth.service.ISlideshowService;
 import com.todaysoft.ghealth.service.paser.SlideshowQUeryParser;
 import com.todaysoft.ghealth.service.wrapper.SlideshowWrapper;
 import com.todaysoft.ghealth.utils.IdGen;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * @Author: zyf
@@ -38,6 +37,9 @@ public class SlideshowService implements ISlideshowService
     
     @Autowired
     private SlideshowMapper slideshowMapper;
+    
+    @Autowired
+    private SlideshowQuestionnaireService slideshowQuestionnaireService;
     
     @Override
     public DataResponse<CountRecords<SlideshowDTO>> query(SlideshowQueryRequest request)
@@ -94,15 +96,32 @@ public class SlideshowService implements ISlideshowService
         slideshow.setId(IdGen.uuid());
         slideshow.setName(request.getName());
         slideshow.setPictureUrl(request.getPictureUrl());
-        if (Objects.nonNull(request.getQuestionnaireSurveyDTO()))
-        {
-            QuestionnaireSurvey questionnaireSurvey = new QuestionnaireSurvey();
-            questionnaireSurvey.setId(request.getQuestionnaireSurveyDTO().getId());
-            slideshow.setQuestionnaireSurvey(questionnaireSurvey);
-        }
         slideshow.setCreateTime(new Date());
         slideshow.setDeleted(false);
         slideshowMapper.create(slideshow);
+        
+
+        List<SlideshowQuestionnaire> slideshowQuestionnaireList = new ArrayList<>();
+        if (!StringUtils.isEmpty(request.getQuestionnairePlatForm()))
+        {
+            String a = request.getQuestionnairePlatForm();
+            String[] questionnaires = a.split(",");
+            for (int i = 0; i < questionnaires.length; i++)
+            {
+                SlideshowQuestionnaire slideshowQuestionnaire = new SlideshowQuestionnaire();
+                Slideshow slideshow1 = new Slideshow();
+                slideshow1.setId(slideshow.getId());
+                slideshowQuestionnaire.setSlideshow(slideshow1);
+                
+                Questionnaire questionnaire = new Questionnaire();
+                questionnaire.setId(questionnaires[i]);
+                slideshowQuestionnaire.setQuestionnaire(questionnaire);
+                
+                slideshowQuestionnaireList.add(slideshowQuestionnaire);
+            }
+            slideshowQuestionnaireService.createSlideshowQuestionnaires(slideshowQuestionnaireList);
+        }
+        
     }
     
     @Override
@@ -112,13 +131,31 @@ public class SlideshowService implements ISlideshowService
         Slideshow slideshow = slideshowMapper.get(request.getId());
         slideshow.setName(request.getName());
         slideshow.setPictureUrl(request.getPictureUrl());
-        if (Objects.nonNull(request.getQuestionnaireSurveyDTO()))
-        {
-            QuestionnaireSurvey questionnaireSurvey = new QuestionnaireSurvey();
-            questionnaireSurvey.setId(request.getQuestionnaireSurveyDTO().getId());
-            slideshow.setQuestionnaireSurvey(questionnaireSurvey);
-        }
         slideshowMapper.modify(slideshow);
+
+        slideshowQuestionnaireService.deleteBySlideshowId(request.getId());
+
+        List<SlideshowQuestionnaire> slideshowQuestionnaireList = new ArrayList<>();
+        if (!StringUtils.isEmpty(request.getQuestionnairePlatForm()))
+        {
+
+            String a = request.getQuestionnairePlatForm();
+            String[] questionnaires = a.split(",");
+            for (int i = 0; i < questionnaires.length; i++)
+            {
+                SlideshowQuestionnaire slideshowQuestionnaire = new SlideshowQuestionnaire();
+                Slideshow slideshow1 = new Slideshow();
+                slideshow1.setId(slideshow.getId());
+                slideshowQuestionnaire.setSlideshow(slideshow1);
+
+                Questionnaire questionnaire = new Questionnaire();
+                questionnaire.setId(questionnaires[i]);
+                slideshowQuestionnaire.setQuestionnaire(questionnaire);
+
+                slideshowQuestionnaireList.add(slideshowQuestionnaire);
+            }
+            slideshowQuestionnaireService.createSlideshowQuestionnaires(slideshowQuestionnaireList);
+        }
     }
     
     @Override

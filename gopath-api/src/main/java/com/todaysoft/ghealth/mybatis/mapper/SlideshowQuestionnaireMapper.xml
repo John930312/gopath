@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.todaysoft.ghealth.mybatis.mapper.SlideshowQuestionnaireMapper" >
+    <resultMap id="BaseResultMap" type="com.todaysoft.ghealth.mybatis.model.SlideshowQuestionnaire" >
+        <result column="SLIDESHOW_ID" property="slideshow.id" jdbcType="VARCHAR" />
+        <result column="QUESTIONNAIRE_ID" property="questionnaire.id" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="questionnaire" type="com.todaysoft.ghealth.DTO.Questionnaire">
+        <id column="ID" property="id" jdbcType="VARCHAR" />
+        <result column="NAME" property="name" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <sql id="Base_Column_List">
+    SELECT
+    u.*
+    FROM ghealth_gopath_user_role ur
+    LEFT JOIN ghealth_gopath_user u ON ur.USER_ID = u.id
+  </sql>
+
+    <insert id="insertList" parameterType="java.util.List">
+        insert into ghealth_gopath_slideshow_questionnaire (SLIDESHOW_ID, QUESTIONNAIRE_ID)
+        values
+        <foreach collection="list" item="item" index="index" separator=",">
+            (#{item.slideshow.id,jdbcType=VARCHAR}, #{item.questionnaire.id,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <delete id="deleteBySlideshowId" parameterType="java.lang.String">
+    delete from ghealth_gopath_slideshow_questionnaire
+    where SLIDESHOW_ID = #{id,jdbcType=INTEGER}
+  </delete>
+
+
+    <select id="getQuestionnaires" parameterType="com.todaysoft.ghealth.mybatis.model.query.SlideshowQuestionnaireQuery" resultMap="questionnaire">
+    SELECT
+    q.id AS ID,
+    q.name AS NAME
+    FROM ghealth_gopath_slideshow_questionnaire sq
+    LEFT JOIN ghealth_gopath_questionnaire q ON sq.QUESTIONNAIRE_ID = q.id
+    WHERE 1= 1
+        <if test="_parameter.slideshowId != null and _parameter.slideshowId != ''">
+            AND sq.SLIDESHOW_ID = #{slideshowId}
+        </if>
+    </select>
+
+</mapper>

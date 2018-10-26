@@ -5,8 +5,6 @@ public class SlideshowSearcher
     
     private String name;
     
-    private String questionnaireSurveyName;
-    
     public String getName()
     {
         return name;
@@ -17,13 +15,4 @@ public class SlideshowSearcher
         this.name = name;
     }
     
-    public String getQuestionnaireSurveyName()
-    {
-        return questionnaireSurveyName;
-    }
-    
-    public void setQuestionnaireSurveyName(String questionnaireSurveyName)
-    {
-        this.questionnaireSurveyName = questionnaireSurveyName;
-    }
 }

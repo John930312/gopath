@@ -11,8 +11,6 @@ public class SlideshowQueryRequest extends QueryRequest
 {
     private String name;
     
-    private String questionnaireSurveyName;
-    
     public String getName()
     {
         return name;
@@ -23,13 +21,4 @@ public class SlideshowQueryRequest extends QueryRequest
         this.name = name;
     }
     
-    public String getQuestionnaireSurveyName()
-    {
-        return questionnaireSurveyName;
-    }
-    
-    public void setQuestionnaireSurveyName(String questionnaireSurveyName)
-    {
-        this.questionnaireSurveyName = questionnaireSurveyName;
-    }
 }

@@ -9,8 +9,6 @@ public class SlideshowQuery extends Query
 {
     private String name;
     
-    private String questionnaireSurveyName;
-    
     public String getName()
     {
         return name;
@@ -21,13 +19,4 @@ public class SlideshowQuery extends Query
         this.name = name;
     }
     
-    public String getQuestionnaireSurveyName()
-    {
-        return questionnaireSurveyName;
-    }
-    
-    public void setQuestionnaireSurveyName(String questionnaireSurveyName)
-    {
-        this.questionnaireSurveyName = questionnaireSurveyName;
-    }
 }

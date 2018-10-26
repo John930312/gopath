@@ -1,5 +1,7 @@
 package com.todaysoft.ghealth.mvc;
 
+import com.alibaba.fastjson.JSON;
+import com.todaysoft.ghealth.DTO.Questionnaire;
 import com.todaysoft.ghealth.form.FormInputView;
 import com.todaysoft.ghealth.form.FormSubmitHandler;
 import com.todaysoft.ghealth.model.Slideshow;
@@ -17,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * @Author: zyf
@@ -65,8 +68,9 @@ public class SlideshowAction
     public String modify(String id, ModelMap model)
     {
         Slideshow data = slideshowService.get(id);
-        
+        List<Questionnaire> questionnaires = data.getQuestionnaires();
         model.addAttribute("data", data);
+        model.addAttribute("questionnaireList", JSON.toJSON(questionnaires).toString());
         return "slideshow/slideshow_form";
     }
     

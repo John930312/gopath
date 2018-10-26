@@ -44,10 +44,6 @@
                                    placeholder="轮播图名称">
                         </div>
                         <div class="col-sm-2 form-group">
-                            <input type="text" class="form-control" name="questionnaireSurveyName"
-                                   value="${(searcher.questionnaireSurveyName)!?html}" placeholder="问卷名称">
-                        </div>
-                        <div class="col-sm-2 form-group">
                             <button type="submit" class="btn btn-sm btn-success">
                                 <i class="fa fa-search"></i> 查询
                             </button>
@@ -61,7 +57,6 @@
                         <tr>
                             <th class="index">序号</th>
                             <th>轮播图名称</th>
-                            <th>问卷名称</th>
                             <th>轮播图地址</th>
                             <th>创建时间</th>
                             <th class="flexible-btns">操作</th>
@@ -72,7 +67,6 @@
                         <tr>
                             <td>${record_index + 1}</td>
                             <td>${(record.name)!?html}</td>
-                            <td>${(record.questionnaireSurvey.name)!?html}</td>
                             <td>${(record.pictureUrl)!?html}</td>
                             <td><#if record.createTime??>${record.createTime!?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
                             <td class="flexible-btns" style="white-space:nowrap">

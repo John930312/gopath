@@ -1,7 +1,5 @@
 package com.todaysoft.ghealth.request;
 
-import com.todaysoft.ghealth.DTO.QuestionnaireSurveyDTO;
-
 /**
  * @Author: zyf
  * @Date: 2018/10/23 14:35
@@ -13,7 +11,7 @@ public class SlideshowMaintainRequest extends MaintainRequest
     
     private String name;
     
-    private QuestionnaireSurveyDTO questionnaireSurveyDTO;
+    private String questionnairePlatForm;
     
     private String pictureUrl;
     
@@ -37,16 +35,6 @@ public class SlideshowMaintainRequest extends MaintainRequest
         this.name = name;
     }
     
-    public QuestionnaireSurveyDTO getQuestionnaireSurveyDTO()
-    {
-        return questionnaireSurveyDTO;
-    }
-    
-    public void setQuestionnaireSurveyDTO(QuestionnaireSurveyDTO questionnaireSurveyDTO)
-    {
-        this.questionnaireSurveyDTO = questionnaireSurveyDTO;
-    }
-    
     public String getPictureUrl()
     {
         return pictureUrl;
@@ -55,5 +43,15 @@ public class SlideshowMaintainRequest extends MaintainRequest
     public void setPictureUrl(String pictureUrl)
     {
         this.pictureUrl = pictureUrl;
+    }
+    
+    public String getQuestionnairePlatForm()
+    {
+        return questionnairePlatForm;
+    }
+    
+    public void setQuestionnairePlatForm(String questionnairePlatForm)
+    {
+        this.questionnairePlatForm = questionnairePlatForm;
     }
 }

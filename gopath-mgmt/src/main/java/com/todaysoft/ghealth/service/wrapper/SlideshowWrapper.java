@@ -13,19 +13,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class SlideshowWrapper extends Wrapper<SlideshowDTO, Slideshow>
 {
-    @Autowired
-    private QuestionnaireSurveyWrapper questionnaireSurveyWrapper;
 
     @Override
     protected String[] getCopyIgnoreProperties()
     {
-        return new String[] {"createTime", "questionnaireSurvey"};
+        return new String[] {"createTime"};
     }
     
     @Override
     protected void setCopyIgnoreProperties(SlideshowDTO source, Slideshow target)
     {
         target.setCreateTime(parseDate(source.getCreateTime()));
-        target.setQuestionnaireSurvey(questionnaireSurveyWrapper.wrap(source.getQuestionnaireSurvey()));
     }
 }
