@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="${system_css}/styles.css">
 </head>
 <body>
-<div class="swiper-container ja-banner" data-space-between='10' data-pagination='.swiper-pagination' data-autoplay="1000">
+<div class="swiper-container ja-banner">
     <div class="swiper-wrapper">
         <div class="swiper-slide ja-banner__item">
             <img src="${system_images}/banner_20181016.png" alt="" class="ja-banner__img">
@@ -60,6 +60,10 @@
 <script src="${plugins}/jquery-weui.min.js"></script>
 <script src="https://cdn.bootcss.com/jquery-weui/1.2.1/js/swiper.min.js"></script>
 <script type="text/javascript">
+    $(".swiper-container").swiper({
+        loop: true,
+        autoplay: 3000
+    });
 function findProducts() {
     $("form").submit();
 }
