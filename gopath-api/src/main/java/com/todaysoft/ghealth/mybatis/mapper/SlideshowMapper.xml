@@ -103,4 +103,12 @@
         FROM ghealth_gopath_slideshow
         WHERE ID = #{id,jdbcType=VARCHAR}
     </select>
+
+    <select id="indexList" resultMap="BaseResultMap">
+        SELECT
+        ID, NAME, PICTURE_URL, CREATE_TIME
+        FROM ghealth_gopath_slideshow
+        WHERE DELETED = '0'
+        ORDER BY CREATE_TIME DESC
+    </select>
 </mapper>

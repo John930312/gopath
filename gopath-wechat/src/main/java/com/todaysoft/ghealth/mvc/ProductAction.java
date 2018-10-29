@@ -1,9 +1,11 @@
 package com.todaysoft.ghealth.mvc;
 
 import com.todaysoft.ghealth.DTO.ProductDTO;
+import com.todaysoft.ghealth.DTO.SlideshowDTO;
 import com.todaysoft.ghealth.model.searcher.ProductSearcher;
 import com.todaysoft.ghealth.service.IProductService;
 
+import com.todaysoft.ghealth.service.ISlideshowService;
 import com.todaysoft.ghealth.wechat.AccountContextHolder;
 import com.todaysoft.ghealth.wechat.dto.Account;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +29,9 @@ public class ProductAction
     @Autowired
     private AccountContextHolder holder;
 
+    @Autowired
+    private ISlideshowService slideshowService;
+
     /**
      * 首页产品列表
      * @param searcher
@@ -42,7 +47,9 @@ public class ProductAction
         holder.setAccount(account);
 
         List<ProductDTO> productList = productService.indexList(searcher);
+        List<SlideshowDTO> slideshowList = slideshowService.indexList();
         model.addAttribute("products", productList);
+        model.addAttribute("slideshows", slideshowList);
         return "product/index_product_list";
     }
 

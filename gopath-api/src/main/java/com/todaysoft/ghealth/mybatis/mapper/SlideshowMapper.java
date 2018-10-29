@@ -16,4 +16,6 @@ public interface SlideshowMapper
     void create(Slideshow record);
 
     int modify(Slideshow record);
+
+    List<Slideshow> indexList();
 }

@@ -20,10 +20,15 @@
 <body>
 <div class="swiper-container ja-banner">
     <div class="swiper-wrapper">
+        <#if slideshows?has_content>
+        <#list slideshows as slideshow>
         <div class="swiper-slide ja-banner__item">
-            <img src="${system_images}/banner_20181016.png" alt="" class="ja-banner__img">
-            <a href="${base}/questionnaire/list.jsp" class="weui-btn ja-btn__gradient ja-btn__round ja-btn__normal-size">立即填写</a>
+            <img src="${(slideshow.pictureUrl)!?html}" alt="" class="ja-banner__img">
+            <a href="id=${(slideshow.id)!?html}" class="weui-btn ja-btn__gradient ja-btn__round ja-btn__normal-size">立即填写</a>
         </div>
+</#list>
+</#if>
+
     </div>
 </div>
 <article>

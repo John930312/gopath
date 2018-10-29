@@ -165,4 +165,12 @@ public class SlideshowService implements ISlideshowService
         slideshow.setDeleted(true);
         slideshowMapper.modify(slideshow);
     }
+
+    @Override
+    public DataResponse<CountRecords<SlideshowDTO>> indexList(){
+        CountRecords<SlideshowDTO> data = new CountRecords<>();
+        List<Slideshow> records = slideshowMapper.indexList();
+        data.setRecords(slideshowWrapper.wrap(records));
+        return new DataResponse<>(data);
+    }
 }
