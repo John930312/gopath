@@ -25,13 +25,12 @@ public class QuestionnaireService implements IQuestionnaireService
     private Gateway gateway;
 
     @Override
-    public List<Questionnaire> list()
+    public List<Questionnaire> list(String id)
     {
-        QuestionnaireQueryRequest request = new QuestionnaireQueryRequest();
-        request.setCount(false);
-        DataResponse<List<Questionnaire>> response = gateway.post("/wechat/questionnaire/list", request, new ParameterizedTypeReference<DataResponse<List<Questionnaire>>>()
+        DataResponse<List<Questionnaire>> response = gateway.get("/wechat/questionnaire/list/{id}",new ParameterizedTypeReference<DataResponse<List<Questionnaire>>>()
         {
-        });
+        },id);
+
         return response.getData();
     }
 }

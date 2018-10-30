@@ -118,3 +118,41 @@ INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) 
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('295f5d89a1014f2286befc2dd83e8690', '4ff0a7dc08ac4a7eac41c07d14629d20');
 
 INSERT INTO `ghealth_gopath_dict` (`ID`, `PARENT_ID`, `CATEGORY`, `DICT_TEXT`, `DICT_VALUE`, `SORT`, `EDITABLE`) VALUES ('c478ficyr9a654967b35313d6db688a57', '032daff9cd9d11e7a9760f184c352621', 'ORDER_STATUS', '未付款', '4', '5', '0');
+
+
+#体检机构
+INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('53392c98ffc34a80be0f93a4e03d0391', '1e75c88b728742d99ea47c3f32c2409a', '体检机构', '/agency/list.jsp', '2', 'fa fa-tasks');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('38183c6f1a8e49e2a81f4a4406f0d053', NULL, 'OPERATION', '业务管理', '1');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('3109540fdbbc4c57a71ae8e75e220ebe', '38183c6f1a8e49e2a81f4a4406f0d053', 'OPERATION.AGENCY', '体检机构', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('ae9600dd8dbb491cb5d883a20f3f3ab5', '3109540fdbbc4c57a71ae8e75e220ebe', 'OPERATION.AGENCY.CREATE', '新增机构', '1');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('fb98c6fef54c4467aac212f78fa001e4', '3109540fdbbc4c57a71ae8e75e220ebe', 'OPERATION.AGENCY.MODIFY', '修改机构', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('a3c168ccce744f529a5e2f88d64b43fb', '3109540fdbbc4c57a71ae8e75e220ebe', 'OPERATION.AGENCY.LIST', '体检机构查询', '3');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('2f2db9f433304e20862da13763a17e23', '3109540fdbbc4c57a71ae8e75e220ebe', 'OPERATION.AGENCY.DELETE', '机构删除', '4');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('248b28d11f4441c99af1b960c1ac09d1', '3109540fdbbc4c57a71ae8e75e220ebe', 'OPERATION.AGENCY.DETAIL', '体检机构详情', '5');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('96ca8eced4014739adaec4dab219ab40', '体检机构列表', '/agency/list.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('3fdf33d9d3a5487db3e5a832c091278a', '机构新增', '/agency/create.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('4c2497f2cc3645a5a2df03d58698f821', '机构修改', '/agency/modify.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('cc0953572ad74ad0a4f854d818a47cc8', '机构删除', '/agency/delete.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('677daa45958142d18b8422656e18a073', '体检机构详情', '/agency/detail.jsp');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('ae9600dd8dbb491cb5d883a20f3f3ab5', '3fdf33d9d3a5487db3e5a832c091278a');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('fb98c6fef54c4467aac212f78fa001e4', '4c2497f2cc3645a5a2df03d58698f821');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('a3c168ccce744f529a5e2f88d64b43fb', '96ca8eced4014739adaec4dab219ab40');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('2f2db9f433304e20862da13763a17e23', 'cc0953572ad74ad0a4f854d818a47cc8');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('248b28d11f4441c99af1b960c1ac09d1', '677daa45958142d18b8422656e18a073');
+
+
+#问卷轮播图
+INSERT INTO `ghealth_gopath_menu` (`ID`, `PARENT_ID`, `NAME`, `URI`, `SORT`, `ICON`) VALUES ('eac05a8f5eac4b1cbab8975349bedbed', '62e28bd7dfba461499aedaf185f55556', '问卷轮播图', '/slideshow/list.jsp', '3', 'fa fa-tasks');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('3376110f803943cab73faa50a2e82bd2', '23dfe856c79e5f8ea1b5e24a1e475756', 'PRODUCT.SLIDESHOW', '问卷轮播图', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('3ea2871f762d42eb894d421450149f7a', '3376110f803943cab73faa50a2e82bd2', 'PRODUCT.SLIDESHOW.CREATE', '新增轮播图', '1');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('9b731a44af504782a34e6ef237648edb', '3376110f803943cab73faa50a2e82bd2', 'PRODUCT.SLIDESHOW.MODIFY', '修改轮播图', '2');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('80a2e08aa10f4767a025cb50accd1aa6', '3376110f803943cab73faa50a2e82bd2', 'PRODUCT.SLIDESHOW.LIST', '问卷轮播图查询', '3');
+INSERT INTO `ghealth_gopath_authority` (`ID`, `PARENT_ID`, `CODE`, `NAME`, `SORT`) VALUES ('18441634c5f344bbbdb00a26a55e32b8', '3376110f803943cab73faa50a2e82bd2', 'PRODUCT.SLIDESHOW.DELETE', '轮播图删除', '4');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('e4caa1e686654edd8f83a8cc33a2c3c4', '问卷轮播图列表', '/slideshow/list.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('e2cd90ab55bd425e82482d88bac4d611', '轮播图新增', '/slideshow/create.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('c5ee976a821a482db27e5893214189c4', '轮播图修改', '/slideshow/modify.jsp');
+INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('e3c80ca582834677bff065f366b5e678', '轮播图删除', '/slideshow/delete.jsp');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('3ea2871f762d42eb894d421450149f7a', 'e2cd90ab55bd425e82482d88bac4d611');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('9b731a44af504782a34e6ef237648edb', 'c5ee976a821a482db27e5893214189c4');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('80a2e08aa10f4767a025cb50accd1aa6', 'e4caa1e686654edd8f83a8cc33a2c3c4');
+INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('18441634c5f344bbbdb00a26a55e32b8', 'e3c80ca582834677bff065f366b5e678');

@@ -118,4 +118,17 @@
     <include refid="OffsetLimitClause"/>
   </select>
 
+  <select id="getListBySlideshowId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT * FROM ghealth_gopath_questionnaire t,
+    (
+      SELECT q.* FROM ghealth_gopath_slideshow_questionnaire q
+      LEFT JOIN ghealth_gopath_slideshow s ON s.id = q.SLIDESHOW_ID
+      WHERE s.DELETED = 0
+      AND s.ID = #{id,jdbcType=VARCHAR}
+    ) b
+    WHERE
+        t.DELETED = 0
+    AND b.QUESTIONNAIRE_ID = t.id
+  </select>
+
 </mapper>

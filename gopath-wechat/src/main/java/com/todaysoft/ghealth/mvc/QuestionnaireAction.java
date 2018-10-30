@@ -25,9 +25,9 @@ public class QuestionnaireAction
     private IQuestionnaireService questionnaireService;
 
     @RequestMapping("/list.jsp")
-    public String list( ModelMap model, HttpSession session)
+    public String list(String id, ModelMap model, HttpSession session)
     {
-        List<Questionnaire> questionnaires = questionnaireService.list();
+        List<Questionnaire> questionnaires = questionnaireService.list(id);
         Map<Integer, List<Questionnaire>> questionnaireMap = questionnaires.stream().collect(groupingBy(Questionnaire::getCategory));
         model.addAttribute("tumors", questionnaireMap.containsKey(1) ? questionnaireMap.get(1): null);
         model.addAttribute("nonTumors",questionnaireMap.containsKey(2) ?questionnaireMap.get(2): null);

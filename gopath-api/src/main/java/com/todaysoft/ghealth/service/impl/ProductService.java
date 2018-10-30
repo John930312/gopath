@@ -7,8 +7,10 @@ import com.todaysoft.ghealth.DTO.ProductDTO;
 import com.todaysoft.ghealth.DTO.Questionnaire;
 import com.todaysoft.ghealth.mybatis.mapper.ProductMapper;
 import com.todaysoft.ghealth.mybatis.mapper.ProductQuestionnaireMapper;
+import com.todaysoft.ghealth.mybatis.mapper.SlideshowQuestionnaireMapper;
 import com.todaysoft.ghealth.mybatis.model.Product;
 import com.todaysoft.ghealth.mybatis.model.ProductQuestionnaire;
+import com.todaysoft.ghealth.mybatis.model.SlideshowQuestionnaire;
 import com.todaysoft.ghealth.mybatis.model.query.ProductQuery;
 import com.todaysoft.ghealth.request.ProductMaintainRequest;
 import com.todaysoft.ghealth.request.ProductQueryRequest;
@@ -20,7 +22,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
 import java.util.*;
 
@@ -35,6 +36,9 @@ public class ProductService implements IProductService
 
     @Autowired
     private ProductQuestionnaireMapper productQuestionnaireMapper;
+
+    @Autowired
+    private SlideshowQuestionnaireMapper slideshowQuestionnaireMapper;
 
     @Override
     public DataResponse<CountRecords<ProductDTO>> pager(ProductQueryRequest request)
@@ -176,7 +180,11 @@ public class ProductService implements IProductService
     {
         ProductQuery query = new ProductQuery();
         BeanUtils.copyProperties(request,query);
-        Optional.ofNullable(request.getQuestionnaireIds()).ifPresent(x -> query.setQuestionnaireList(Arrays.asList(x.split("-"))));
+        List<SlideshowQuestionnaire> questionnairesIds = slideshowQuestionnaireMapper.getSlideshowQuestionnaireBySlideshowId(request.getQuestionnaireIds());
+//        Optional.ofNullable(request.getQuestionnaireIds()).ifPresent(x -> query.setQuestionnaireList(Arrays.asList(x.split("-"))));
+        ArrayList<String> strings = new ArrayList<>();
+//        Optional.ofNullable(questionnairesIds).ifPresent(x -> x.iterator().forEachRemaining());
+        Optional.ofNullable(questionnairesIds).ifPresent(x -> query.setQuestionnaireList(strings));
         List<Product> records = productMapper.list(query);
         return new DataResponse<List<ProductDTO>>(productWrapper.wrap(records));
     }

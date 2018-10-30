@@ -10,5 +10,5 @@ import java.util.List;
  */
 public interface IQuestionnaireService
 {
-    List<Questionnaire> list();
+    List<Questionnaire> list(String id);
 }

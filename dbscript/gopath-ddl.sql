@@ -291,3 +291,39 @@ CREATE TABLE `ghealth_gopath_order_history` (
   `EVENT_TIME` datetime NOT NULL,
   PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ghealth_gopath_agency`;
+CREATE TABLE `ghealth_gopath_agency` (
+  `ID` varchar(64) NOT NULL,
+  `CODE` varchar(64) NOT NULL COMMENT '代理编号',
+  `NAME` varchar(64) NOT NULL COMMENT '代理名称',
+  `CONTACT_NAME` varchar(64) NOT NULL COMMENT '联系人',
+  `PHONE` varchar(64) NOT NULL COMMENT '联系人号码',
+  `PROVINCE` varchar(64) DEFAULT NULL COMMENT '省',
+  `CITY` varchar(64) DEFAULT NULL COMMENT '市',
+  `ADDRESS` varchar(64) DEFAULT NULL COMMENT '详细地址',
+  `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
+  `CREATOR_NAME` varchar(64) DEFAULT NULL COMMENT '创建人姓名',
+  `DELETED` tinyint(1) NOT NULL COMMENT '删除标记 0-未删除 1-已删除',
+  `DELETE_TIME` datetime DEFAULT NULL COMMENT '删除时间',
+  `DELETOR_NAME` varchar(64) DEFAULT NULL COMMENT '删除人姓名',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ghealth_gopath_slideshow`;
+CREATE TABLE `ghealth_gopath_slideshow` (
+  `ID` varchar(64) NOT NULL,
+  `NAME` varchar(64) NOT NULL COMMENT '名称',
+  `PICTURE_URL` varchar(256) NOT NULL COMMENT '图片地址',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `DELETED` tinyint(1) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+DROP TABLE IF EXISTS `ghealth_gopath_slideshow_questionnaire`;
+CREATE TABLE `ghealth_gopath_slideshow_questionnaire`(
+  `SLIDESHOW_ID` varchar(64) NOT NULL,
+  `QUESTIONNAIRE_ID` varchar(64) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='轮播图问卷关联表';
+
+

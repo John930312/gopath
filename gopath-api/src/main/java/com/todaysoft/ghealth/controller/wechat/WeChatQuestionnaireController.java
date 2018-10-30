@@ -5,6 +5,7 @@ import com.todaysoft.ghealth.DTO.Questionnaire;
 import com.todaysoft.ghealth.request.QuestionnaireQueryRequest;
 import com.todaysoft.ghealth.service.IQuestionnaireService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,9 +23,9 @@ public class WeChatQuestionnaireController
     @Autowired
     private IQuestionnaireService service;
 
-    @RequestMapping("/list")
-    public DataResponse<List<Questionnaire>> list(@RequestBody QuestionnaireQueryRequest request)
+    @RequestMapping("/list/{id}")
+    public DataResponse<List<Questionnaire>> list(@PathVariable String id)
     {
-        return new DataResponse<List<Questionnaire>>(service.pager(request).getData().getRecords());
+        return service.list(id);
     }
 }

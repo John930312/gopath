@@ -26,4 +26,6 @@ public interface IQuestionnaireService
     void delete(QuestionnaireMaintainRequest request);
     
     List<Questionnaire> getQuestionnaires(SlideshowQuestionnaireQuery searcher);
+
+    DataResponse<List<Questionnaire>> list(String id);
 }

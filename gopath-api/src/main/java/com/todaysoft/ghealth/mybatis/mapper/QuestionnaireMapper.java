@@ -17,4 +17,6 @@ public interface QuestionnaireMapper {
     long count(QuestionnaireQuery query);
 
     List<Questionnaire> query(QuestionnaireQuery query);
+
+    List<Questionnaire> getListBySlideshowId(String id);
 }
