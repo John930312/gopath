@@ -26,7 +26,6 @@ import java.util.Properties;
 @EnableTransactionManagement
 public class RootContext
 {
-    
     @Autowired
     private Environment environment;
     

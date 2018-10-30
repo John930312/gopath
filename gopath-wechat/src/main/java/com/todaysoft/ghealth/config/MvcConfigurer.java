@@ -7,11 +7,13 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.todaysoft.ghealth.config.core.GlobalAttributesInterceptor;
 import com.todaysoft.ghealth.config.core.StringTrimmerFormatter;
 import com.todaysoft.ghealth.exception.ExceptionResolver;
+import com.todaysoft.ghealth.model.UploadRequest;
 import com.todaysoft.ghealth.wechat.AccountFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.format.datetime.DateFormatter;
 import org.springframework.http.CacheControl;
@@ -38,9 +40,13 @@ public class MvcConfigurer implements WebMvcConfigurer
     @Autowired
     private GlobalAttributesInterceptor globalAttributesInterceptor;
     
+    @Autowired
+    private UploadRequest request;
+    
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
+        registry.addResourceHandler("/files/**").addResourceLocations("file:/" + request.getFilePath());
         registry.addResourceHandler("/templates/static/**").addResourceLocations("classpath:/templates/static/").setCacheControl(CacheControl.empty());
         registry.addResourceHandler("*.txt").addResourceLocations("classpath:/templates/static/").setCacheControl(CacheControl.empty());
     }
@@ -89,8 +95,7 @@ public class MvcConfigurer implements WebMvcConfigurer
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(mapper);
         converters.add(converter);
     }
-
-
+    
     @Bean
     public FilterRegistrationBean<AccountFilter> accountFilterRegistration()
     {

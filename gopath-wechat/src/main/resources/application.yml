@@ -6,6 +6,8 @@ spring:
       suffix: .html
    messages:
       basename: messages/errors
+   profiles:
+      active: @profileActive@
 
 gateway:
   host: localhost
