@@ -54,7 +54,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.todaysoft.ghealth.gopath-wechat</groupId>
-			<artifactId>restful</artifactId>
+			<artifactId>gopath-restful</artifactId>
 			<version>1.0</version>
 		</dependency>
         <dependency>
