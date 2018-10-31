@@ -14,6 +14,22 @@
     <link href="${plugins}/multiselect/style.css" rel="stylesheet" type="text/css">
     <link href="${system_css}/system.css" rel="stylesheet"></link>
     <link href="${plugins}/magicsuggest/magicsuggest-min.css" rel="stylesheet"></link>
+    <style type="text/css">
+        .fileinput-button {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .fileinput-button input{
+            position:absolute;
+            right: 0px;
+            top: 0px;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -69,11 +85,11 @@
                         <!--</div>-->
 
                         <div class="form-group">
-                            <label class="col-sm-2 control-label required-label">问卷推荐项：</label>
+                            <label class="col-sm-2 control-label required-label">问卷轮播图:</label>
                             <div class="col-sm-3">
-                                <span class="personattr">轮播图:</span>
                                 <input type="hidden" name="pictureUrl"  id="thumbUrl"/>
-                                <input type="file" name="logoFile" id="logoFile" onchange="setImg(this);">
+                                <span class="btn btn-success fileinput-button"><span>上传</span>
+                                <input type="file" name="logoFile" id="logoFile" onchange="setImg(this);"></span>
                                 <span><img id="thumburlShow" src="${(data.pictureUrl)!?html}" /></span>
                      </div>
                  </div>
@@ -220,13 +236,13 @@ function setImg(obj){//用于进行图片上传，返回地址
              $("#thumbUrl").val(suc.message);//将地址存储好
              $("#thumburlShow").attr("src",suc.message);//显示图片
          }else{
-             alertLayel("上传失败");
+             toastr.error("上传失败");
              $("#url").val("");
              $(obj).val('');
          }
      },
      error: function(XMLHttpRequest, textStatus, errorThrown) {
-         alertLayel("上传失败");
+         toastr.error("上传失败");
          $("#url").val("");
          $(obj).val('');
      }

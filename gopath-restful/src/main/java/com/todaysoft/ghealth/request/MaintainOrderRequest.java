@@ -20,6 +20,8 @@ public class MaintainOrderRequest extends MaintainRequest
     private BigDecimal actualPrice;
     
     private Integer status;
+
+    private String orderUrl;
     
     private Integer sampleType;
     
@@ -94,7 +96,11 @@ public class MaintainOrderRequest extends MaintainRequest
     {
         this.status = status;
     }
-    
+
+    public String getOrderUrl() { return orderUrl; }
+
+    public void setOrderUrl(String orderUrl) { this.orderUrl = orderUrl; }
+
     public Integer getSampleType()
     {
         return sampleType;

@@ -86,6 +86,10 @@ public class OrderService implements IOrderService
     {
         MaintainOrderRequest request = new MaintainOrderRequest();
         request.setId(order.getId());
+        if (null != order.getOrderUrl())
+        {
+            request.setOrderUrl(order.getOrderUrl());
+        }
         request.setStatus(order.getStatus());
         if (Objects.nonNull(order.getSampleBox()))
         {
@@ -93,7 +97,7 @@ public class OrderService implements IOrderService
             BeanUtils.copyProperties(order.getSampleBox(), sampleBox);
             request.setSampleBox(sampleBox);
         }
-
+        
         gateway.post("/order/modify", request);
     }
     

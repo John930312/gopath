@@ -13,6 +13,7 @@
         <result column="REPORT_PRINT_REQUIRED" jdbcType="BIT" property="reportPrintRequired"/>
         <result column="SAMPLE_TYPE" jdbcType="INTEGER" property="sampleType"/>
         <result column="STATUS" jdbcType="INTEGER" property="status"/>
+        <result column="ORDER_URL" jdbcType="VARCHAR" property="orderUrl"/>
         <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime"/>
         <result column="SAMPLING_TIME" jdbcType="TIMESTAMP" property="samplingTime"/>
         <result column="DELETED" jdbcType="BIT" property="deleted"/>
@@ -194,6 +195,9 @@
             </if>
             <if test="status != null">
                 STATUS = #{status,jdbcType=INTEGER},
+            </if>
+            <if test="orderUrl != null">
+                ORDER_URL = #{orderUrl,jdbcType=INTEGER},
             </if>
             <if test="createTime != null">
                 CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},

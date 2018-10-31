@@ -11,6 +11,22 @@
     <link href="${plugins}/hplus/animate.min.css" rel="stylesheet"></link>
     <link href="${plugins}/hplus/hplus.min.css" rel="stylesheet"></link>
     <link href="${system_css}/system.css?v=0.1" rel="stylesheet"></link>
+    <style type="text/css">
+        .fileinput-button {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .fileinput-button input{
+            position:absolute;
+            right: 0px;
+            top: 0px;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -179,8 +195,8 @@
                                     </#if>
 
                                     <#if record.status == 2>
-                                        <a href="${base}/order/modify.jsp?id=${record.id}"
-                                           class="btn btn-sm btn-success">
+                                        <a href="javascript:;" class="btn btn-sm btn-success"
+                                           onclick="setUrl('${record.id}',3)">
                                             <i class="fa fa-edit"></i> 上传
                                         </a>
                                     </#if>
@@ -239,6 +255,37 @@
         </div>
     </div>
 </div>
+
+<div class="modal fade" id="uploadModal" tabindex="-1" role="dialog" aria-labelledby="sended_ModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="upload_ModalLabel">订单上传</h4>
+            </div>
+            <form id="uploadForm" method="get" action="${base}/order/modifyStatus.jsp">
+                <input type="hidden" name="id" id="uploadId">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <input type="hidden" name="orderUrl"  id="orderUrl"/>
+                        <input type="hidden" name="status" id="uploadStatus" value=""/>
+                        <span class="btn btn-success fileinput-button"><span>上传</span>
+                            <input type="file" name="logoFile" id="logoFile" onchange="setOrder(this);"></span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <div class="col-lg-4" style="float: right">
+                        <button type="submit" class="btn btn-primary" >提交</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 <script src="${plugins}/jquery/jquery.min.js"></script>
 <script src="${plugins}/bootstrap/bootstrap.min.js"></script>
 <script src="${plugins}/layer/layer.min.js"></script>
@@ -260,6 +307,18 @@
                 $('#myModal').modal('show')
                 $("#orderCode").val(code);
             }
+            layer.close(index);
+        });
+
+    }
+
+    function setUrl(id, status) {
+
+        layer.confirm('确定对该订单做此操作么？', {btn: ['确定', '取消']}, function (index) {
+
+            $("#uploadId").val(id);
+            $("#uploadStatus").val(status);
+            $('#uploadModal').modal('show');
             layer.close(index);
         });
 
@@ -288,6 +347,42 @@
             return;
         }
         $("#sendForm").submit();
+    }
+
+    function setOrder(obj){
+        var f=$(obj).val();
+        if(f == null || f ==undefined || f == ''){
+            return false;
+        }
+
+        var data = new FormData();
+        $.each($(obj)[0].files,function(i,file){
+            data.append('file', file);
+        });
+        $.ajax({
+            type: "POST",
+            url: "/order/uploadOrder",
+            data: data,
+            cache: false,
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            dataType:"json",
+            success: function(suc) {
+                if(suc.code==0){
+                    $("#orderUrl").val(suc.message);//将地址存储好
+                    toastr.success("上传成功");
+                }else{
+                    toastr.error("上传失败");
+                    $("#url").val("");
+                    $(obj).val('');
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error("上传失败");
+                $("#url").val("");
+                $(obj).val('');
+            }
+        });
     }
 </script>
 </body>

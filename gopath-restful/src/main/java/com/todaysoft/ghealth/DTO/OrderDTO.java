@@ -18,6 +18,8 @@ public class OrderDTO
     private BigDecimal actualPrice;
     
     private Integer status;
+
+    private String orderUrl;
     
     private String agencyName;
     
@@ -88,7 +90,11 @@ public class OrderDTO
     {
         this.status = status;
     }
-    
+
+    public String getOrderUrl() { return orderUrl; }
+
+    public void setOrderUrl(String orderUrl) { this.orderUrl = orderUrl; }
+
     public String getAgencyName()
     {
         return agencyName;

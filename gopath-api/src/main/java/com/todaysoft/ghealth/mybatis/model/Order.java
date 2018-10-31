@@ -28,6 +28,8 @@ public class Order
     private Integer sampleType;
     
     private Integer status;
+
+    private String orderUrl;
     
     private Date createTime;
     
@@ -146,7 +148,11 @@ public class Order
     {
         this.status = status;
     }
-    
+
+    public String getOrderUrl() { return orderUrl; }
+
+    public void setOrderUrl(String orderUrl) { this.orderUrl = orderUrl; }
+
     public Date getCreateTime()
     {
         return createTime;

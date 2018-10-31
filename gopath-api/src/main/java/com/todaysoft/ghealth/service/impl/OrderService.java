@@ -162,23 +162,26 @@ public class OrderService implements IOrderService
     {
         Order order = orderMapper.get(request.getId());
         
-        SampleBoxDTO data = request.getSampleBox();
-        SampleBox sampleBox = order.getSampleBox();
-        
-        if (StringUtils.isNotEmpty(data.getCode()))
+        if (null != request.getSampleBox())
         {
-            sampleBox.setCode(data.getCode());
+            SampleBoxDTO data = request.getSampleBox();
+            SampleBox sampleBox = order.getSampleBox();
+            
+            if (StringUtils.isNotEmpty(data.getCode()))
+            {
+                sampleBox.setCode(data.getCode());
+            }
+            else
+            {
+                BeanUtils.copyProperties(data, sampleBox);
+            }
+            sampleBoxMapper.modify(sampleBox);
         }
-        else
-        {
-            BeanUtils.copyProperties(data, sampleBox);
-        }
-        sampleBoxMapper.modify(sampleBox);
-        
         if (null != request.getStatus())
         {
             createOrderHistory(request);
             order.setStatus(request.getStatus());
+            order.setOrderUrl(request.getOrderUrl());
             orderMapper.modify(order);
         }
     }
