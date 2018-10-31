@@ -59,24 +59,34 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
-                            <label class="col-sm-2 control-label required-label">轮播图地址：</label>
-                            <div class="col-sm-3">
-                                <input type="tel" class="form-control" name="pictureUrl"
-                                       value="${(data.pictureUrl)!?html}"
-                                       maxlength="100"/>
-                            </div>
-                        </div>
+                        <!--<div class="form-group">-->
+                            <!--<label class="col-sm-2 control-label required-label">轮播图地址：</label>-->
+                            <!--<div class="col-sm-3">-->
+                                <!--<input type="tel" class="form-control" name="pictureUrl"-->
+                                       <!--value="${(data.pictureUrl)!?html}"-->
+                                       <!--maxlength="100"/>-->
+                            <!--</div>-->
+                        <!--</div>-->
 
-        <div class="form-group">
-            <div class="col-sm-4 col-sm-offset-2">
-                <button class="btn btn-primary" type="submit">保存</button>
-                <button class="btn btn-primary goback" type="button">返回</button>
-            </div>
-        </div>
-        </fieldset>
-        </form>
-    </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label required-label">问卷推荐项：</label>
+                            <div class="col-sm-3">
+                                <span class="personattr">轮播图:</span>
+                                <input type="hidden" name="pictureUrl"  id="thumbUrl"/>
+                                <input type="file" name="logoFile" id="logoFile" onchange="setImg(this);">
+                                <span><img id="thumburlShow" src="${(data.pictureUrl)!?html}" /></span>
+                     </div>
+                 </div>
+
+ <div class="form-group">
+     <div class="col-sm-4 col-sm-offset-2">
+         <button class="btn btn-primary" type="submit">保存</button>
+         <button class="btn btn-primary goback" type="button">返回</button>
+     </div>
+ </div>
+ </fieldset>
+ </form>
+</div>
 </div>
 </div>
 </div>
@@ -97,91 +107,131 @@
 <script src="${plugins}/multiselect/multiselect.min.js" type="text/javascript"></script>
 
 <script type="text/javascript">
-    $(function () {
-        var p = $('#questionnaireName').magicSuggest(
-            {
-                width: 190,
-                highlight: true,
-                data: '${base}/questionnaire/json_list.do',
-                method: 'get',
-                queryParam: "name",
-                displayField: "name",
-                allowFreeEntries: false,
-                renderer: function (v) {
-                    return '<div>' + '<div >' + '<div>'
-                        + v.name + '</div>' + '</div>'
-                        + '<div style="clear:both;"></div>';
-                }
-            });
+$(function () {
+ var p = $('#questionnaireName').magicSuggest(
+     {
+         width: 190,
+         highlight: true,
+         data: '${base}/questionnaire/json_list.do',
+         method: 'get',
+         queryParam: "name",
+         displayField: "name",
+         allowFreeEntries: false,
+         renderer: function (v) {
+             return '<div>' + '<div >' + '<div>'
+                 + v.name + '</div>' + '</div>'
+                 + '<div style="clear:both;"></div>';
+         }
+     });
 
-        $(p).on('selectionchange', function(e,m) {
-            var values = '';
-            var questionnaireId = [];
-            var roleIds = $('#questionnaireName').magicSuggest().getSelection();
-            console.log(roleIds);
-            $.each(roleIds, function (index, obj) {
-                questionnaireId.push(obj.id);
-            })
-            var tIds = questionnaireId.join(",");
-            $('#questionnaireId').val(tIds);
-            $('#questionnaireName .ms-sel-item').each(function(){
-                var value=$(this).text();
-                values=(values+value).trim();
-            })
-        })
-        <#if questionnaireList??>
-        <#if questionnaireList!='[]'>
-        $('#questionnaireName').magicSuggest().setSelection(${questionnaireList});
-        var principalId=[];
-        var productPrincipalList=$('#questionnaireName').magicSuggest().getSelection();
-        $.each(productPrincipalList,function(index,obj){
-            principalId.push(obj.id);
-        })
-        var principalIds = principalId.join(",");
-        $("#questionnaireId").val(principalIds);
-    </#if>
-        </#if>
-
-
+ $(p).on('selectionchange', function(e,m) {
+     var values = '';
+     var questionnaireId = [];
+     var roleIds = $('#questionnaireName').magicSuggest().getSelection();
+     console.log(roleIds);
+     $.each(roleIds, function (index, obj) {
+         questionnaireId.push(obj.id);
+     })
+     var tIds = questionnaireId.join(",");
+     $('#questionnaireId').val(tIds);
+     $('#questionnaireName .ms-sel-item').each(function(){
+         var value=$(this).text();
+         values=(values+value).trim();
+     })
+ })
+ <#if questionnaireList??>
+ <#if questionnaireList!='[]'>
+ $('#questionnaireName').magicSuggest().setSelection(${questionnaireList});
+ var principalId=[];
+ var productPrincipalList=$('#questionnaireName').magicSuggest().getSelection();
+ $.each(productPrincipalList,function(index,obj){
+     principalId.push(obj.id);
+ })
+ var principalIds = principalId.join(",");
+ $("#questionnaireId").val(principalIds);
+</#if>
+ </#if>
 
 
-    <#if data??>
-        $('[name="reportPrintRequired"]:radio').iCheck('uncheck');
-        $("#reportPrintRequired_${(data.reportPrintRequired)!0}").iCheck('check');
-    </#if>
 
-        $('form').validate({
-            rules: {
-                'name': {
-                    required: true
-                },
-                'questionnaireId': {
-                    required: true
-                },
-                'pictureUrl': {
-                    required: true,
-                },
 
-            },
-            messages: {
-                'name': {
-                    required: "请输入轮播图名称"
-                },
-                'questionnaireId': {
-                    required: "请输入关联问卷ID"
-                },
-                'pictureUrl': {
-                    required: "请输入轮播图地址",
-                },
+<#if data??>
+ $('[name="reportPrintRequired"]:radio').iCheck('uncheck');
+ $("#reportPrintRequired_${(data.reportPrintRequired)!0}").iCheck('check');
+</#if>
 
-            },
-            errorPlacement: function (error, element) {
-                error.appendTo(element.parent());
-            }
-        });
+ $('form').validate({
+     rules: {
+         'name': {
+             required: true
+         },
+         'questionnaireId': {
+             required: true
+         },
+         'pictureUrl': {
+             required: true,
+         },
 
-    });
+     },
+     messages: {
+         'name': {
+             required: "请输入轮播图名称"
+         },
+         'questionnaireId': {
+             required: "请输入关联问卷ID"
+         },
+         'pictureUrl': {
+             required: "请输入轮播图地址",
+         },
 
+     },
+     errorPlacement: function (error, element) {
+         error.appendTo(element.parent());
+     }
+ });
+
+});
+
+function setImg(obj){//用于进行图片上传，返回地址
+ var f=$(obj).val();
+ if(f == null || f ==undefined || f == ''){
+     return false;
+ }
+ if(!/\.(?:png|jpg|bmp|gif|PNG|JPG|BMP|GIF)$/.test(f))
+ {
+     alertLayel("类型必须是图片(.png|jpg|bmp|gif|PNG|JPG|BMP|GIF)");
+     $(obj).val('');
+     return false;
+ }
+ var data = new FormData();
+ $.each($(obj)[0].files,function(i,file){
+     data.append('file', file);
+ });
+ $.ajax({
+     type: "POST",
+     url: "/slideshow/uploadImg",
+     data: data,
+     cache: false,
+     contentType: false,    //不可缺
+     processData: false,    //不可缺
+     dataType:"json",
+     success: function(suc) {
+         if(suc.code==0){
+             $("#thumbUrl").val(suc.message);//将地址存储好
+             $("#thumburlShow").attr("src",suc.message);//显示图片
+         }else{
+             alertLayel("上传失败");
+             $("#url").val("");
+             $(obj).val('');
+         }
+     },
+     error: function(XMLHttpRequest, textStatus, errorThrown) {
+         alertLayel("上传失败");
+         $("#url").val("");
+         $(obj).val('');
+     }
+ });
+}
 
 
 

@@ -4,7 +4,9 @@ import com.alibaba.fastjson.JSON;
 import com.todaysoft.ghealth.DTO.Questionnaire;
 import com.todaysoft.ghealth.form.FormInputView;
 import com.todaysoft.ghealth.form.FormSubmitHandler;
+import com.todaysoft.ghealth.model.ResponseResult;
 import com.todaysoft.ghealth.model.Slideshow;
+import com.todaysoft.ghealth.model.UploadRequest;
 import com.todaysoft.ghealth.model.searcher.SlideshowSearcher;
 import com.todaysoft.ghealth.service.ISlideshowService;
 import com.todaysoft.ghealth.support.ModelResolver;
@@ -13,13 +15,14 @@ import com.todaysoft.ghealth.support.PagerArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import java.io.File;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * @Author: zyf
@@ -31,6 +34,8 @@ public class SlideshowAction
 {
     @Autowired
     private ISlideshowService slideshowService;
+    @Autowired
+    private UploadRequest uploadRequest;
     
     @RequestMapping(value = "/list.jsp", produces = "text/html;charset=UTF-8")
     public String pager(SlideshowSearcher searcher, PagerArgs pageArgs, ModelMap model, HttpSession session)
@@ -87,4 +92,36 @@ public class SlideshowAction
         slideshowService.delete(data);
         return redirectList(model, session, "/slideshow/list.jsp");
     }
+    
+    @ResponseBody
+    @RequestMapping("/uploadImg")
+    public String uploadPicture(@RequestParam(value = "file", required = false) MultipartFile file, HttpServletRequest request)
+    {
+        
+        File targetFile = null;
+        String msg = "";//返回存储路径
+        int code = 1;
+        String fileName = file.getOriginalFilename();//获取文件名加后缀
+        if (fileName != null && fileName != "")
+        {
+            String rootPath = uploadRequest.getFilePath();
+            
+            String fileF = fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀
+            fileName = UUID.randomUUID().toString().replaceAll("-", "") + fileF;//新的文件名
+
+            targetFile = new File(rootPath+"/slideshow", fileName);
+            try
+            {
+                file.transferTo(targetFile);
+                msg = "/files/slideshow/" + fileName;
+                code = 0;
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+            }
+        }
+        return JSON.toJSONString(ResponseResult.result(code, msg));
+    }
+    
 }

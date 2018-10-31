@@ -57,7 +57,6 @@
                         <tr>
                             <th class="index">序号</th>
                             <th>轮播图名称</th>
-                            <th>轮播图地址</th>
                             <th>创建时间</th>
                             <th class="flexible-btns">操作</th>
                         </tr>
@@ -67,7 +66,6 @@
                         <tr>
                             <td>${record_index + 1}</td>
                             <td>${(record.name)!?html}</td>
-                            <td>${(record.pictureUrl)!?html}</td>
                             <td><#if record.createTime??>${record.createTime!?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
                             <td class="flexible-btns" style="white-space:nowrap">
                                 <a href="${base}/slideshow/modify.jsp?id=${(record.id)!?html}" class="btn btn-sm btn-success"><i class="fa fa-edit"></i> 修改</a>

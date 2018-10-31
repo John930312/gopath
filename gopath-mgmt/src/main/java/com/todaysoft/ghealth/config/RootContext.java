@@ -2,6 +2,7 @@ package com.todaysoft.ghealth.config;
 
 
 import com.todaysoft.ghealth.gateway.GatewayConfig;
+import com.todaysoft.ghealth.model.UploadRequest;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -46,7 +47,16 @@ public class RootContext implements ApplicationContextAware
     {
         RootContext.context = context;
     }
-    
+
+    @Bean
+    public UploadRequest getUploadRequest()
+    {
+        UploadRequest request = new UploadRequest();
+        request.setFilePath(environment.getRequiredProperty("filePath"));
+        return request;
+    }
+
+
     public static <T> T getBean(Class<T> requiredType)
     {
         return context.getBean(requiredType);

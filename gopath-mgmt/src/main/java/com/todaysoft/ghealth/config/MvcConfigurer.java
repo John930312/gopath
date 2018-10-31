@@ -8,6 +8,7 @@ import com.todaysoft.ghealth.config.core.AccountInterceptor;
 import com.todaysoft.ghealth.config.core.GlobalAttributesInterceptor;
 import com.todaysoft.ghealth.config.core.StringTrimmerFormatter;
 import com.todaysoft.ghealth.exception.ExceptionResolver;
+import com.todaysoft.ghealth.model.UploadRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
@@ -41,11 +42,14 @@ public class MvcConfigurer implements WebMvcConfigurer
     
     @Autowired
     private GlobalAttributesInterceptor globalAttributesInterceptor;
-
+    
+    @Autowired
+    private UploadRequest request;
     
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
+        registry.addResourceHandler("/files/**").addResourceLocations("file:/" + request.getFilePath());
         registry.addResourceHandler("/static/**").addResourceLocations("classpath:templates/static/").setCacheControl(CacheControl.empty());
     }
     
@@ -94,7 +98,7 @@ public class MvcConfigurer implements WebMvcConfigurer
         MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter(mapper);
         converters.add(converter);
     }
-
+    
     @Bean(name = "multipartResolver")
     public CommonsMultipartResolver getCommonsMultipartResolver(ServletContext servletContext)
     {

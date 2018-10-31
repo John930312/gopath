@@ -15,6 +15,9 @@ spring:
           charset: UTF-8
           force: true
           enabled: true
+   profiles:
+     active: @profileActive@
+
 gateway:
   host: localhost
   port: 7002
