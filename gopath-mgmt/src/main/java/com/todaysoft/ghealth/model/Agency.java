@@ -23,6 +23,10 @@ public class Agency
 
     private String city;
 
+    private String provinceText;
+
+    private String cityText;
+
     private String address;
 
     private Date createTime;
@@ -90,6 +94,14 @@ public class Agency
     public void setCity(String city) {
         this.city = city;
     }
+
+    public String getProvinceText() { return provinceText; }
+
+    public void setProvinceText(String provinceText) { this.provinceText = provinceText; }
+
+    public String getCityText() { return cityText; }
+
+    public void setCityText(String cityText) { this.cityText = cityText; }
 
     public String getAddress() {
         return address;
