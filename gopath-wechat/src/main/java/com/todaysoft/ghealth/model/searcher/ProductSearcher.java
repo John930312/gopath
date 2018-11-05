@@ -11,6 +11,8 @@ public class ProductSearcher {
 
     private String questionnaireIds;
 
+    private String agencyId;
+
     public String getCode() {
         return code;
     }
@@ -33,5 +35,13 @@ public class ProductSearcher {
 
     public void setQuestionnaireIds(String questionnaireIds) {
         this.questionnaireIds = questionnaireIds;
+    }
+
+    public String getAgencyId() {
+        return agencyId;
+    }
+
+    public void setAgencyId(String agencyId) {
+        this.agencyId = agencyId;
     }
 }

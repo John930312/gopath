@@ -41,7 +41,7 @@
         <p class="ft_smaller second-txt lh_1">24小时后订单自动关闭</p>
     </div>
     <div class="ft_smaller lh_1">
-        <a href="付款确认.html"  class="weui-btn ja-btn__outline_primary ja-btn__inline-size ja-btn__round">继续付款</a>
+        <a href="${base}/order/payConfirm.jsp?id=${(order.id)!?html}"   class="weui-btn ja-btn__outline_primary ja-btn__inline-size ja-btn__round">继续付款</a>
     </div>
 </div>
 </#if>
@@ -51,7 +51,7 @@
 <div class="ja-default-label ub">
     <h2 class="ja-default-label__title ub-f1">我的采样盒</h2>
     <div class="ft_smaller lh_1 ub ub-ac">
-        <a href="采样盒绑定.html"  class="weui-btn ja-btn__outline_primary ja-btn__inline-size ja-btn__round">绑定新的采样盒</a>
+        <a href="${base}/sampleBox/bind.jsp"  class="weui-btn ja-btn__outline_primary ja-btn__inline-size ja-btn__round">绑定新的采样盒</a>
     </div>
 </div>
 <#if orders?has_content>

@@ -32,6 +32,16 @@ public class ProductAction
     @Autowired
     private ISlideshowService slideshowService;
 
+
+    @RequestMapping("/saoMa.jsp")
+    public String saoMa(ProductSearcher searcher, ModelMap model, HttpSession session)
+    {
+        Account account = holder.getAccount();
+        account.setLivePurchase(2);
+        holder.setAccount(account);
+        return "saoyisao";
+    }
+
     /**
      * 首页产品列表
      * @param searcher
@@ -43,8 +53,11 @@ public class ProductAction
     public String indexList(ProductSearcher searcher, ModelMap model, HttpSession session)
     {
         Account account = holder.getAccount();
-        account.setLivePurchase(1);
-        holder.setAccount(account);
+        account.setAgencyId(searcher.getAgencyId());
+        if (null == account.getLivePurchase()) {
+            account.setLivePurchase(1);
+            holder.setAccount(account);
+        }
 
         List<ProductDTO> productList = productService.indexList(searcher);
         List<SlideshowDTO> slideshowList = slideshowService.indexList();

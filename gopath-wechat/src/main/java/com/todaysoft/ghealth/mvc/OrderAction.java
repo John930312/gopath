@@ -3,6 +3,7 @@ package com.todaysoft.ghealth.mvc;
 import com.todaysoft.ghealth.DTO.OrderDTO;
 import com.todaysoft.ghealth.DTO.ProductDTO;
 import com.todaysoft.ghealth.service.IOrderService;
+import com.todaysoft.ghealth.service.IProductService;
 import com.todaysoft.ghealth.wechat.AccountContextHolder;
 import com.todaysoft.ghealth.wechat.H5.WXPay;
 import com.todaysoft.ghealth.wechat.H5.WXPayUtil;
@@ -41,20 +42,29 @@ public class OrderAction
     
     @Autowired
     private IOrderService orderService;
+
+    @Autowired
+    private IProductService productService;
     
     @RequestMapping("/place.jsp")
-    public String place(ProductDTO product, ModelMap model)
+    public String place(String id, ModelMap model)
     {
         model.addAttribute("livePurchase", 1);
+        ProductDTO product = productService.get(id);
         model.addAttribute("product", product);
         BigDecimal price = product.getDiscount() ? product.getDiscountPrice() : product.getGuidingPrice();
         model.addAttribute("price", price);
         return "order/order_confirm";
     }
     
-    @PostMapping("/payConfirm.jsp")
+    @RequestMapping("/payConfirm.jsp")
     public String payConfirm(OrderDTO data, ModelMap model)
     {
+        if (StringUtils.isNotEmpty(data.getId())) {
+            OrderDTO order = orderService.get(data.getId());
+            model.addAttribute("data", order);
+            return "order/order_pay_confirm";
+        }
         if (StringUtils.isEmpty(data.getSampleBox().getName()))
         {
             data.setSampleBox(null);

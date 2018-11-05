@@ -46,18 +46,18 @@
                                 <th class="col-sm-1">订单编号</th>
                                 <td class="col-sm-3">${(data.code)!?html}</td>
                                 <th class="col-sm-1">收件人</th>
-                                <td class="col-sm-3">${(data.sampleBox.name)!?html}</td>
+                                <td class="col-sm-3"><#if data.sampleBox??>${(data.sampleBox.name)!?html}</#if></td>
                             </tr>
 
                             <tr>
                                 <th class="col-sm-1">联系电话</th>
-                                <td class="col-sm-3">${(data.sampleBox.phone)!?html}</td>
+                                <td class="col-sm-3"><#if data.sampleBox??>${(data.sampleBox.phone)!?html}</#if></td>
                                 <th class="col-sm-1">检测产品</th>
-                                <td class="col-sm-3">${(data.product.name)!?html}</td>
+                                <td class="col-sm-3"><#if data.product??>${(data.product.name)!?html}</#if></td>
                             </tr>
                             <tr>
                                 <th class="col-sm-1">详细地址</th>
-                                <td class="col-sm-3">${(data.sampleBox.provinceText)!?html}&nbsp;${(data.sampleBox.cityText)!?html}&nbsp;${(data.sampleBox.address)!?html}</td>
+                                <td class="col-sm-3"><#if data.sampleBox??>${(data.sampleBox.provinceText)!?html}&nbsp;${(data.sampleBox.cityText)!?html}&nbsp;${(data.sampleBox.address)!?html}</#if></td>
                                 <th class="col-sm-1">纸质报告</th>
                                 <td class="col-sm-3"><@dict_category_value category = "REPORT_PRINT_REQUIRED"
                                     value=data.reportPrintRequired/>
@@ -84,26 +84,26 @@
                             <tbody>
                             <tr>
                                 <th class="col-sm-1">采集器编号</th>
-                                <td class="col-sm-3">${(data.sampleBox.code)!?html}</td>
+                                <td class="col-sm-3"><#if data.sampleBox??>${(data.sampleBox.code)!?html}</#if></td>
                                 <th class="col-sm-1">姓名</th>
-                                <td class="col-sm-3">${(data.customer.name)!?html}</td>
+                                <td class="col-sm-3"><#if data.customer??>${(data.customer.name)!?html}</#if></td>
                             </tr>
 
                             <tr>
                                 <th class="col-sm-1">性别</th>
-                                <td class="col-sm-3"><@dict_category_value category = "GENDER" value=data.customer.sex/></td>
+                                <td class="col-sm-3"><#if data.customer??><@dict_category_value category = "GENDER" value=data.customer.sex/></#if></td>
                                 <th class="col-sm-1">联系电话</th>
-                                <td class="col-sm-3">${(data.customer.phone)!?html}</td>
+                                <td class="col-sm-3"><#if data.customer??>${(data.customer.phone)!?html}</#if></td>
                             </tr>
                             <tr>
                                 <th class="col-sm-1">出生日期</th>
-                                <td class="col-sm-3"><#if data.customer.birthday??>${data.customer.birthday!?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
+                                <td class="col-sm-3"><#if data.customer??>${data.customer.birthday!?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
                                 <th class="col-sm-1">采样日期</th>
                                 <td class="col-sm-3"><#if data.createTime??>${data.createTime!?string('yyyy-MM-dd HH:mm:ss')}</#if></td>
                             </tr>
                             <tr>
                                 <th class="col-sm-1">邮箱</th>
-                                <td class="col-sm-3">${(data.customer.email)!?html}</td>
+                                <td class="col-sm-3"><#if data.customer??>${(data.customer.email)!?html}</#if></td>
                                 <th class="col-sm-1">样本类型</th>
                                 <td class="col-sm-3"><@dict_category_value category = "SAMPLE_TYPE" value=data.sampleType/>
                                 </td>

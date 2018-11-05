@@ -180,11 +180,7 @@ public class ProductService implements IProductService
     {
         ProductQuery query = new ProductQuery();
         BeanUtils.copyProperties(request,query);
-        List<SlideshowQuestionnaire> questionnairesIds = slideshowQuestionnaireMapper.getSlideshowQuestionnaireBySlideshowId(request.getQuestionnaireIds());
-//        Optional.ofNullable(request.getQuestionnaireIds()).ifPresent(x -> query.setQuestionnaireList(Arrays.asList(x.split("-"))));
-        ArrayList<String> strings = new ArrayList<>();
-//        Optional.ofNullable(questionnairesIds).ifPresent(x -> x.iterator().forEachRemaining());
-        Optional.ofNullable(questionnairesIds).ifPresent(x -> query.setQuestionnaireList(strings));
+        Optional.ofNullable(request.getQuestionnaireIds()).ifPresent(x -> query.setQuestionnaireList(Arrays.asList(x.split("-"))));
         List<Product> records = productMapper.list(query);
         return new DataResponse<List<ProductDTO>>(productWrapper.wrap(records));
     }

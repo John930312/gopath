@@ -151,6 +151,7 @@ public class OrderService implements IOrderService
         orderMapper.create(order);
         
         request.setStatus(status);
+        request.setId(order.getId());
         createOrderHistory(request);
         
         return new DataResponse<>(orderCode);

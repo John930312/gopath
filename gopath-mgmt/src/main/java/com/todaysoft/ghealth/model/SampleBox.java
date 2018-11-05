@@ -21,6 +21,10 @@ public class SampleBox
     private String address;
     
     private Date createTime;
+
+    private String provinceText;
+
+    private String cityText;
     
     public String getId()
     {
@@ -110,5 +114,21 @@ public class SampleBox
     public void setBinded(boolean binded)
     {
         this.binded = binded;
+    }
+
+    public String getProvinceText() {
+        return provinceText;
+    }
+
+    public void setProvinceText(String provinceText) {
+        this.provinceText = provinceText;
+    }
+
+    public String getCityText() {
+        return cityText;
+    }
+
+    public void setCityText(String cityText) {
+        this.cityText = cityText;
     }
 }
