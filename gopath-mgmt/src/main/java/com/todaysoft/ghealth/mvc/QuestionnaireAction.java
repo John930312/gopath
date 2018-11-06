@@ -111,6 +111,6 @@ public class QuestionnaireAction
     {
         model.clear();
         new ModelResolver(session.getAttribute("s-searcher"), model).resolve();
-        return "redirect:/role/list.jsp";
+        return "redirect:/questionnaire/list.jsp";
     }
 }

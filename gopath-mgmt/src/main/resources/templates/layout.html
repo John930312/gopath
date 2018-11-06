@@ -91,22 +91,9 @@
                 </div>
                 <ul class="nav navbar-top-links navbar-right">
                     <li>
-                        <div class="dropdown" style="margin-top: 12px;">
-                            <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">
-                                <i class="fa fa-user"></i> ${account_name!?html}
-                                <span class="caret"></span>
-                            </button>
-                            <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1" id="menu1">
-                                <li role="presentation">
-                                    <a role="menuitem" tabindex="-1"
-                                       href="javascript:;">
-                                    <i class="fa fa-gear"></i> 修改密码
-                                    </a>
-                                    <a role="menuitem" tabindex="-1" href="${base}/logout.jsp">
-                                        <i class="fa fa-sign-out"></i> 退出
-                                    </a>
-                                </li>
-                            </ul>
+                        <div class="op-box pull-right">
+                            <a href="javascript:;"><span class="fa fa-user"></span> ${account_details.name!?html}</a>
+                            <a href="${base}/logout.jsp"><span class="fa fa-sign-out"></span> 退出</a>
                         </div>
                     </li>
                 </ul>

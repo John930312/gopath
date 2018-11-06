@@ -52,29 +52,29 @@
             </div>
         </fieldset>
         <fieldset class="ja-sure-form__fieldset_mail">
-            <legend class="ja-sure-form__legend_mail">采集器寄送</legend>
+            <legend class="ja-sure-form__legend_mail" id="chooseType">采集器领取</legend>
             <div id="hidDiv">
                 <div class="ja-sure-form__row ub ub-ac">
                     <label for="" class="ja-sure-form__label">收件人：</label>
                     <div class="ja-input ub-f1">
-                        <input type="text" class="weui-input" name="sampleBox.name">
+                        <input type="text" class="weui-input required_type" name="sampleBox.name" id="recived">
                     </div>
                 </div>
                 <div class="ja-sure-form__row ub ub-ac">
                     <label for="" class="ja-sure-form__label">联系电话：</label>
                     <div class="ja-input ub-f1">
-                        <input type="phone" class="weui-input input_txt" name="sampleBox.phone">
+                        <input type="phone" class="weui-input input_txt required_type" name="sampleBox.phone" id="phone">
                     </div>
                 </div>
                 <div class="ja-sure-form__row ub ub-ac">
                     <label for="" class="ja-sure-form__label">所在区域：</label>
                     <div class="ja-select ub-f1">
-                        <input type="text" class="weui-input" readonly id="sickCity">
+                        <input type="text" class="weui-input required_type" readonly id="sickCity">
                     </div>
                 </div>
                 <div class="ja-sure-form__row">
                     <div class="ja-textarea">
-                        <textarea name="sampleBox.address" id="" class="weui-input" placeholder="详细地址"
+                        <textarea name="sampleBox.address" id="address" class="weui-input required_type" placeholder="详细地址"
                                   style="height: 3.5rem;"></textarea>
                     </div>
                 </div>
@@ -104,7 +104,7 @@
                 <a href="javascript:history.go(-1);" class="weui-btn ja-btn__default ja-btn__angle ja-btn__iherit-size">上一步</a>
             </div>
             <div class="ub-f1">
-                <button type="submit" class="weui-btn ja-btn__primary ja-btn__angle ja-btn__iherit-size">确认提交</button>
+                <button type="button" class="weui-btn ja-btn__primary ja-btn__angle ja-btn__iherit-size" onclick="orderDeal()">确认提交</button>
             </div>
         </div>
     </form>
@@ -113,6 +113,37 @@
 <script src="${plugins}/jquery-weui.min.js"></script>
 <script src="${system_js}/city-picker.min.js"></script>
 <script type="text/javascript">
+
+    function orderDeal() {
+        if ($("#hidDiv").is(":hidden") == false){
+            var r = $("#recived").val();
+            if (r == '' || r == undefined || r == null)
+            {
+                $.toptip("请填写收件人！");
+                return;
+            }
+            var r = $("#phone").val();
+            if (r == '' || r == undefined || r == null)
+            {
+                $.toptip("请填写联系电话！");
+                return;
+            }
+            var r = $("#sickCity").val();
+            if (r == '' || r == undefined || r == null)
+            {
+                $.toptip("请选择区域!");
+                return;
+            }
+            var r = $("#address").val();
+            if (r == '' || r == undefined || r == null)
+            {
+                $.toptip("请填写收件地址！");
+                return;
+            }
+        }
+        $('form').submit();
+    }
+
     // 城市
     $('#sickCity').cityPicker({
         title: '选择您的城市',
@@ -137,8 +168,10 @@
     $(':radio[name="smpleBoxGeted"]').click(function () {
         var value = $(this).val()  //获取选中的radio的值
         if (value == 1) {
+            $("#chooseType").html("采集器领取")
             $("#hidDiv").hide();
         } else {
+            $("#chooseType").html("采集器寄送")
             $("#hidDiv").show();
         }
     });

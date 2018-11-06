@@ -112,7 +112,7 @@
   <sql id="Base_Query">
 
   </sql>
-  <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.ProductQuery">
+  <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.QuestionnaireQuery">
     SELECT * FROM ghealth_gopath_questionnaire t
     <include refid="ExpertFilters"/>
     <include refid="OffsetLimitClause"/>
@@ -128,6 +128,7 @@
     ) b
     WHERE
         t.DELETED = 0
+    AND t.`STATUS` = 1
     AND b.QUESTIONNAIRE_ID = t.id
   </select>
 
