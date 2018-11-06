@@ -151,13 +151,13 @@
         <if test="_parameter.excludeKeys != null and _parameter.excludeKeys.size != 0">
             <choose>
                 <when test="_parameter.excludeKeys.size == 1">
-                    AND ${user}.ID !=
+                    AND ${agency}.ID !=
                     <foreach collection="_parameter.excludeKeys" item="excludeKey" index="index" open="" close="" separator="">
                         #{excludeKey}
                     </foreach>
                 </when>
                 <otherwise>
-                    AND ${user}.ID NOT IN
+                    AND ${agency}.ID NOT IN
                     <foreach collection="_parameter.excludeKeys" item="excludeKey" index="index" open="(" close=")" separator=",">
                         #{excludeKey}
                     </foreach>
