@@ -109,7 +109,7 @@ public class SlideshowAction
             String fileF = fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀
             fileName = UUID.randomUUID().toString().replaceAll("-", "") + fileF;//新的文件名
 
-            targetFile = new File(rootPath+"/slideshow", fileName);
+            targetFile = new File(rootPath+"slideshow/", fileName);
             try
             {
                 file.transferTo(targetFile);

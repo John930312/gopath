@@ -140,7 +140,7 @@ public class OrderAction
             String fileF = fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀
             fileName = UUID.randomUUID().toString().replaceAll("-", "") + fileF;//新的文件名
 
-            targetFile = new File(rootPath+"/order", fileName);
+            targetFile = new File(rootPath+"order/", fileName);
             try
             {
                 file.transferTo(targetFile);

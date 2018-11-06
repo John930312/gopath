@@ -19,4 +19,7 @@ public interface IAgencyService {
     void modify(Agency data);
 
     void delete(Agency data);
+
+    boolean isCodeUnique(String code, String id);
+
 }

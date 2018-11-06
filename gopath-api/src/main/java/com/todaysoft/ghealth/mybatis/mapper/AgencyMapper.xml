@@ -148,6 +148,22 @@
             <bind name="phonePattern" value="'%' + _parameter.phone + '%'" />
             AND ${agency}.PHONE LIKE #{phonePattern}
         </if>
+        <if test="_parameter.excludeKeys != null and _parameter.excludeKeys.size != 0">
+            <choose>
+                <when test="_parameter.excludeKeys.size == 1">
+                    AND ${agency}.ID !=
+                    <foreach collection="_parameter.excludeKeys" item="excludeKey" index="index" open="" close="" separator="">
+                        #{excludeKey}
+                    </foreach>
+                </when>
+                <otherwise>
+                    AND ${agency}.ID NOT IN
+                    <foreach collection="_parameter.excludeKeys" item="excludeKey" index="index" open="(" close=")" separator=",">
+                        #{excludeKey}
+                    </foreach>
+                </otherwise>
+            </choose>
+        </if>
     </sql>
     <sql id="OffsetLimitClause">
         <if test="_parameter.limit != null">

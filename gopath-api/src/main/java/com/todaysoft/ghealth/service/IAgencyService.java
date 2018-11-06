@@ -22,4 +22,6 @@ public interface IAgencyService
     void modify(AgencyMaintainRequest request);
 
     void delete(AgencyMaintainRequest request);
+
+    DataResponse<Boolean> isCodeUnique(AgencyMaintainRequest request);
 }

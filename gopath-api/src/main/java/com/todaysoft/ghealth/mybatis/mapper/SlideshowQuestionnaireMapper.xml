@@ -31,6 +31,10 @@
     where SLIDESHOW_ID = #{id,jdbcType=INTEGER}
   </delete>
 
+    <delete id="deleteByQuestionnaireId" parameterType="java.lang.String">
+    delete from ghealth_gopath_slideshow_questionnaire
+    where QUESTIONNAIRE_ID = #{id,jdbcType=INTEGER}
+  </delete>
 
     <select id="getQuestionnaires" parameterType="com.todaysoft.ghealth.mybatis.model.query.SlideshowQuestionnaireQuery" resultMap="questionnaire">
     SELECT

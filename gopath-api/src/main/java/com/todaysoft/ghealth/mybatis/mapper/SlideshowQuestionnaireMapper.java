@@ -11,6 +11,8 @@ public interface SlideshowQuestionnaireMapper
     int insertList(List<SlideshowQuestionnaire> questionnaires);
     
     void deleteBySlideshowId(String id);
+
+    void deleteByQuestionnaireId(String id);
     
     List<SlideshowQuestionnaire> getSlideshowQuestionnaireBySlideshowId(String id);
 
