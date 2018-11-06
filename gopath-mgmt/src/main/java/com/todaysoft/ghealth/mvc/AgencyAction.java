@@ -31,9 +31,10 @@ public class AgencyAction
 {
     @Autowired
     private IAgencyService agencyService;
+    
     @Autowired
     private IAreaService areaService;
-
+    
     @RequestMapping(value = "/list.jsp", produces = "text/html;charset=UTF-8")
     public String pager(AgencySearcher searcher, PagerArgs pageArgs, ModelMap model, HttpSession session)
     {
@@ -43,17 +44,16 @@ public class AgencyAction
         session.setAttribute("s-searcher", searcher);
         return "agency/agency_list";
     }
-
+    
     @RequestMapping(value = "/detail.jsp", produces = "text/html;charset=UTF-8")
     public String getDetail(String id, ModelMap model)
     {
         Agency data = agencyService.get(id);
-
-
+        
         model.addAttribute("data", data);
         return "agency/agency_detail";
     }
-
+    
     @RequestMapping(value = "/create.jsp", method = RequestMethod.GET)
     @FormInputView
     public String create(ModelMap model)
@@ -61,7 +61,7 @@ public class AgencyAction
         model.addAttribute("list", areaService.findProvince());
         return "agency/agency_form";
     }
-
+    
     @RequestMapping(value = "/create.jsp", method = RequestMethod.POST)
     @FormSubmitHandler
     public String create(Agency data, ModelMap model, HttpSession session)
@@ -69,12 +69,12 @@ public class AgencyAction
         agencyService.create(data);
         return redirectList(model, session, "/agency/list.jsp");
     }
-
+    
     @GetMapping(value = "/modify.jsp")
     public String modify(String id, ModelMap model)
     {
         Agency data = agencyService.get(id);
-
+        
         if (!StringUtils.isEmpty(data.getProvince()))
         {
             List<AreaDTO> province = areaService.findByParentId(data.getProvince());
@@ -84,28 +84,35 @@ public class AgencyAction
         model.addAttribute("list", areaService.findProvince());
         return "agency/agency_form";
     }
-
+    
     @PostMapping(value = "/modify.jsp")
     public String modify(Agency data, ModelMap model, HttpSession session)
     {
         agencyService.modify(data);
         return redirectList(model, session, "/agency/list.jsp");
     }
-
+    
     @RequestMapping("/delete.jsp")
     public String delete(Agency data, ModelMap model, HttpSession session)
     {
         agencyService.delete(data);
         return redirectList(model, session, "/agency/list.jsp");
     }
-
+    
     @RequestMapping("/getAreas")
     @ResponseBody
     public List<AreaDTO> findByParentId(ModelMap model, String parentId)
     {
         return areaService.findByParentId(parentId);
     }
-
+    
+    @RequestMapping("/validate.do")
+    @ResponseBody
+    public boolean validate(String code, String id)
+    {
+        return agencyService.isCodeUnique(code, id);
+    }
+    
     private String redirectList(ModelMap model, HttpSession session, String url)
     {
         model.clear();

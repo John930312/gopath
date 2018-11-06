@@ -107,7 +107,7 @@ public class QuestionnaireService implements IQuestionnaireService
         Questionnaire data = new Questionnaire();
         BeanUtils.copyProperties(request, data);
         questionnaireMapper.modify(data);
-        
+        slideshowQuestionnaireMapper.deleteByQuestionnaireId(request.getId());
         productQuestionnaireMapper.deleteByQuestionnaireId(request.getId());
     }
     

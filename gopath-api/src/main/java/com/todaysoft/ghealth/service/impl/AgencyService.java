@@ -12,6 +12,7 @@ import com.todaysoft.ghealth.service.IAgencyService;
 import com.todaysoft.ghealth.service.paser.AgencyQueryParser;
 import com.todaysoft.ghealth.service.wrapper.AgencyWrapper;
 import com.todaysoft.ghealth.utils.IdGen;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -123,6 +124,19 @@ public class AgencyService implements IAgencyService
         agency.setDeletorName(request.getOperatorName());
         agency.setDeleteTime(new Date());
         agencyMapper.modify(agency);
+    }
+
+    @Override
+    public DataResponse<Boolean> isCodeUnique(AgencyMaintainRequest request)
+    {
+        AgencyQuery query = new AgencyQuery();
+        query.setCode(request.getCode());
+        if (!StringUtils.isEmpty(request.getId()))
+        {
+            query.setExcludeKeys(Collections.singleton(request.getId()));
+        }
+        long count = agencyMapper.count(query);
+        return new DataResponse<Boolean>(count == 0);
     }
 
 }

@@ -94,4 +94,18 @@ public class AgencyService implements IAgencyService
         request.setOperatorName(accountHolder.get().getName());
         gateway.post("/agency/delete", request);
     }
+
+    @Override
+    public boolean isCodeUnique(String code, String id)
+    {
+        AgencyMaintainRequest request = new AgencyMaintainRequest();
+        request.setCode(code);
+        request.setId(id);
+
+        DataResponse<Boolean> response = gateway.post("/agency/isCodeUnique", request, new ParameterizedTypeReference<DataResponse<Boolean>>()
+        {
+        });
+
+        return response.getData();
+    }
 }

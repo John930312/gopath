@@ -49,4 +49,10 @@ public class AgencyController
     {
         agencyService.delete(request);
     }
+
+    @RequestMapping("/isCodeUnique")
+    public DataResponse<Boolean> isCodeUnique(@RequestBody AgencyMaintainRequest request)
+    {
+        return agencyService.isCodeUnique(request);
+    }
 }

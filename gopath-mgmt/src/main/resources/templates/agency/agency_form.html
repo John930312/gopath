@@ -103,7 +103,7 @@
                                 <div class="area-select-group col-sm-3">
                                     <select class="form-control" name="province"
                                             data-value="${(data.province)!?html}"
-                                            onchange="selectOpt(this)" required data-msg="请选择省份！">
+                                            onchange="selectOpt(this)">
                                         <option value="">请选择省</option>
                                         <#if list?has_content>
                                         <#list list as record>
@@ -114,7 +114,7 @@
                             </div>
                             <div class="area-select-group col-sm-3">
                                 <select class="form-control" name="city"
-                                        data-value="${(data.city)!?html}" required data-msg="请选择城市！">
+                                        data-value="${(data.city)!?html}">
                                     <option value="">请选择市</option>
                                     <#if province?has_content>
                                     <#list province as record>
@@ -174,7 +174,21 @@
         $('form').validate({
             rules: {
                 'code': {
-                    required: true
+                    required: true,
+                    remote:{
+
+                        url: "${base}/agency/validate.do",     //后台处理程序
+                        type: "post",               //数据发送方式
+                        dataType: "json",           //接受数据格式
+                        data: {                     //要传递的数据
+                            username: function() {
+                                return $("#code").val();
+                            },
+                            id: function() {
+                                return $("#id").val();
+                            },
+                        }
+                    }
                 },
                 'name': {
                     required: true
@@ -190,6 +204,7 @@
             },
             messages: {
                 'code': {
+                    remote: "已经存在",
                     required: "请输入代理编号"
                 },
                 'name': {
