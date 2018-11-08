@@ -37,7 +37,7 @@
         </li>
         <li class="ja-info-list__item">
             <div class="ja-info-list__item-name">指导价：</div>
-            <div class="ja-info-list__item-txt"><#if  data.discountPrice??>${(data.discountPrice)!?html}元<#else>${(data.guidingPrice)!?html}元</#if></div>
+            <div class="ja-info-list__item-txt"><#if  data.discount>${(data.discountPrice)!?html}元<#else>${(data.guidingPrice)!?html}元</#if></div>
         </li>
         <li class="ja-info-list__item ja-info-list__item_cot">
             <div class="ja-info-list__item-name">检测项目：</div>

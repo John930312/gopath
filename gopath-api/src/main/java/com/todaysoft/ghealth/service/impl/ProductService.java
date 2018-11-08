@@ -92,6 +92,20 @@ public class ProductService implements IProductService
     {
         Product data = new Product();
         BeanUtils.copyProperties(request,data);
+        if (null != request.getEndTime())
+        {
+            if(request.getEndTime().before(new Date()))
+            {
+                data.setDiscount(false);
+            }
+        }
+        if (null != request.getStartTime())
+        {
+            if(request.getStartTime().after(new Date()))
+            {
+                data.setDiscount(false);
+            }
+        }
         data.setId(IdGen.uuid());
         data.setCreateTime(new Date());
         data.setDeleted(false);
@@ -143,6 +157,20 @@ public class ProductService implements IProductService
     {
         Product data = new Product();
         BeanUtils.copyProperties(request,data);
+        if (null != request.getEndTime())
+        {
+            if(request.getEndTime().before(new Date()))
+            {
+                data.setDiscount(false);
+            }
+        }
+        if (null != request.getStartTime())
+        {
+            if(request.getStartTime().after(new Date()))
+            {
+                data.setDiscount(false);
+            }
+        }
         data.setUpdateTime(new Date());
         productMapper.modify(data);
 

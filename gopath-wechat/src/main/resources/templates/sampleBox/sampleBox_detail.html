@@ -46,8 +46,10 @@
                     <li class="ja-info-list__item">
                         <div class="ja-info-list__item-name">性别：</div>
                         <div class="ja-info-list__item-txt">
-                            <#if (data.customer.sex) == "1">男</#if>
-                            <#if (data.customer.sex) == "2">女</#if>
+                            <#if data.customer??>
+                                <#if (data.customer.sex) == "1">男</#if>
+                                <#if (data.customer.sex) == "2">女</#if>
+                            </#if>
                         </div>
                     </li>
                     <li class="ja-info-list__item">
@@ -72,9 +74,11 @@
                     <li class="ja-info-list__item">
                         <div class="ja-info-list__item-name">样本类型：</div>
                         <div class="ja-info-list__item-txt">
-                            <#if data.sampleType == 1>口腔黏膜</#if>
-                            <#if data.sampleType == 2>抗凝血</#if>
-                            <#if data.sampleType == 3>其他</#if>
+                            <#if data.sampleType??>
+                                <#if data.sampleType == 1>口腔黏膜</#if>
+                                <#if data.sampleType == 2>抗凝血</#if>
+                                <#if data.sampleType == 3>其他</#if>
+                            </#if>
                         </div>
                     </li>
                 </ul>

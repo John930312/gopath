@@ -69,7 +69,7 @@
                                 </div>
                             </div>
                         </form>
-                        <table class="table table-striped table-bordered table-hover">
+                        <table class="table table-striped table-bordered table-hover" style="table-layout:fixed">
                             <thead>
                                 <tr>
                                     <th class="index">序号</th>
@@ -88,7 +88,7 @@
                                     <td>
                                         <@dict_category_value category = "PROJECT_CATEGORY" value = record.category/>
                                     </td>
-                                    <td>${(record.remark)!?html}</td>
+                                    <td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"title="${record.remark!?html}">${(record.remark)!?html}</td>
                                     <td>
                                         <#if record.status><label class="label label-primary">启用</label><#else><label class="label label-warning">停用</label></#if>
                                     </td>

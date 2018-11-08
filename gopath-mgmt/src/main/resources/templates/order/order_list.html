@@ -176,10 +176,12 @@
                                         </a>
                                     </@security_resource>
                                     <@security_resource resource = "/order/modify.jsp">
-                                    <a href="${base}/order/modify.jsp?id=${record.id}"
-                                       class="btn btn-sm btn-success">
-                                        <i class="fa fa-edit"></i> 修改
-                                    </a>
+                                    <#if record.sampleBox??>
+                                        <a href="${base}/order/modify.jsp?id=${record.id}"
+                                           class="btn btn-sm btn-success">
+                                            <i class="fa fa-edit"></i> 修改
+                                        </a>
+                                    </#if>
 
                                     <#if record.status == 0>
                                         <a href="javascript:;" class="btn btn-sm btn-success"
