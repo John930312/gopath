@@ -77,7 +77,7 @@
     <div class="weui-cell weui-cell_ja-select">
         <div class="weui-cell__hd"><label class="weui-label">样本类型：</label></div>
         <div class="weui-cell__bd">
-            <select class="weui-select">
+            <select class="weui-select" name="sampleType" value="${(data.sampleType)!?html}">
                 <option value="1">口腔黏膜</option>
                 <option value="3">其他</option>
             </select>
@@ -86,7 +86,7 @@
     <div class="weui-cell weui-cell_ja-select">
         <div class="weui-cell__hd"><label class="weui-label">纸质报告：</label></div>
         <div class="weui-cell__bd">
-            <select class="weui-select">
+            <select class="weui-select" name="reportPrintRequired" value="${(data.reportPrintRequired)!?html}">
                 <option value="0">不需要</option>
                 <option value="1">需要</option>
             </select>

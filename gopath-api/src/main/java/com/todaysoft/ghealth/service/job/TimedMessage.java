@@ -42,6 +42,7 @@ public class TimedMessage
         query.setDiscount("1");
         List<Product> products = productMapper.query(query);
 
+        System.out.println("--------------开始比较---------------");
         if (!CollectionUtils.isEmpty(products)){
             products.forEach(p->{
                 Optional.ofNullable(p.getEndTime()).ifPresent(x->{

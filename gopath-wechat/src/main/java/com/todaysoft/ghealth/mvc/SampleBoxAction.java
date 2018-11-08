@@ -27,12 +27,11 @@ public class SampleBoxAction
         return "sampleBox/sampleBox_bind";
     }
     
-    @ResponseBody
     @PostMapping("/binding.jsp")
     public String bind(OrderDTO data)
     {
         sampleBoxService.bind(data);
-        return "OK";
+        return "redirect:/order/list.jsp";
     }
     
     @GetMapping("/detail.jsp")

@@ -251,9 +251,19 @@
         $('form').validate({
             submitHandler: function (form) {
                 var discountPrice = $("#discountPrice").val();
+                var startTime = $("#startTime").val();
+                var endTime = $("#endTime").val();
                 if ($("#discount_1").is(':checked')) {
                     if (null == discountPrice || "" == discountPrice) {
                         layer.confirm("优惠已启用,请输入优惠价格！", {title: "提示"});
+                        return false;
+                    }
+                    if (null == startTime || "" == startTime) {
+                        layer.confirm("优惠已启用,请选择优惠开始时间！", {title: "提示"});
+                        return false;
+                    }
+                    if (null == endTime || "" == endTime) {
+                        layer.confirm("优惠已启用,请选择优惠结束时间！", {title: "提示"});
                         return false;
                     }
                 };
