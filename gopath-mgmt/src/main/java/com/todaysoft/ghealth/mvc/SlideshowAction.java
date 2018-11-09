@@ -12,6 +12,8 @@ import com.todaysoft.ghealth.service.ISlideshowService;
 import com.todaysoft.ghealth.support.ModelResolver;
 import com.todaysoft.ghealth.support.Pager;
 import com.todaysoft.ghealth.support.PagerArgs;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -36,7 +38,9 @@ public class SlideshowAction
     private ISlideshowService slideshowService;
     @Autowired
     private UploadRequest uploadRequest;
-    
+
+    private static final Logger log = LoggerFactory.getLogger(SlideshowAction.class);
+
     @RequestMapping(value = "/list.jsp", produces = "text/html;charset=UTF-8")
     public String pager(SlideshowSearcher searcher, PagerArgs pageArgs, ModelMap model, HttpSession session)
     {
@@ -110,6 +114,7 @@ public class SlideshowAction
             fileName = UUID.randomUUID().toString().replaceAll("-", "") + fileF;//新的文件名
 
             targetFile = new File(rootPath+"slideshow/", fileName);
+            log.info(rootPath+"slideshow/"+fileName);
             try
             {
                 file.transferTo(targetFile);
