@@ -114,18 +114,19 @@ public class SlideshowAction
             fileName = UUID.randomUUID().toString().replaceAll("-", "") + fileF;//新的文件名
 
             targetFile = new File(rootPath+"slideshow/", fileName);
-            log.info(rootPath+"slideshow/"+fileName);
             try
             {
                 file.transferTo(targetFile);
                 msg = "/files/slideshow/" + fileName;
                 code = 0;
             }
+
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
+        System.out.println(JSON.toJSONString(ResponseResult.result(code, msg)));
         return JSON.toJSONString(ResponseResult.result(code, msg));
     }
     
