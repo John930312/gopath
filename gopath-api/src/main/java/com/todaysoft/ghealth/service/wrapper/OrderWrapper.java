@@ -2,6 +2,7 @@ package com.todaysoft.ghealth.service.wrapper;
 
 import com.todaysoft.ghealth.DTO.OrderDTO;
 import com.todaysoft.ghealth.mybatis.model.Order;
+import org.apache.commons.lang3.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -31,7 +32,7 @@ public class OrderWrapper extends Wrapper<Order, OrderDTO>
     public void setCopyIgnoreProperties(Order source, OrderDTO target)
     {
         target.setCreateTime(formatDate(source.getCreateTime()));
-        target.setSamplingTime(formatDate(source.getSamplingTime()));
+        target.setSamplingTime(null == (source.getSamplingTime()) ? null : DateFormatUtils.format(source.getSamplingTime(), "yyyy-MM-dd"));
         target.setProduct(productWrapper.wrap(source.getProduct()));
         target.setCustomer(customerWrapper.wrap(source.getCustomer()));
         target.setSampleBox(sampleBoxWrapper.wrap(source.getSampleBox()));
