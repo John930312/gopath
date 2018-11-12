@@ -13,9 +13,9 @@ public class WXPayConstants
         MD5, HMACSHA256
     }
     
-    public static final String APPID = ""; //公众账号ID
+    public static final String APPID = "wxd5300069594241a8"; //公众账号ID
     
-    public static final String MCH_ID = ""; //商户号
+    public static final String MCH_ID = "1518540991"; //商户号
     
     public static final String KEY = "9e50f924d34c11e8beea408d5c9494ce";
     

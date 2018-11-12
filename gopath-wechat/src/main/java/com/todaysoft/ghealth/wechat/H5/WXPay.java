@@ -45,28 +45,22 @@ public class WXPay
     
     private Map<String, String> getUnifiedorderParams(OrderDTO data) throws Exception
     {
+
+        log.info( "发起支付参数:"+data.toString() );
+
         Map<String, String> paramMap = new HashMap<String, String>();
-        // 商品描述  *-*  商户-
-        paramMap.put("body", "腾讯充值中心-QQ会员充值");
-        //商户订单号
-        paramMap.put("out_trade_no", data.getCode());
-        // 交易金额  接口中参数支付金额单位为【分】，参数值不能带小数。对账单中的交易金额单位为【元】。
-        paramMap.put("total_fee", data.getActualPrice().toString());
-        // 终端IP APP和网页支付提交用户端ip，Native支付填调用微信支付API的机器IP。
-        paramMap.put("spbill_create_ip", "123.12.12.123");
-        //通知地址 异步接收微信支付结果通知的回调地址，通知url必须为外网可访问的url，不能携带参数
-        paramMap.put("notify_url", "http://www.example.com/wxpay/notify");
-        //交易类型 JSAPI 公众号支付  NATIVE 扫码支付 APP APP支付
-        paramMap.put("trade_type", "JSAPI");
-        //随机字符串
-        paramMap.put("nonce_str", WXPayUtil.generateNonceStr());
-        
-        paramMap.put("appid", WXPayConstants.APPID);
-        
-        paramMap.put("mch_id", WXPayConstants.MCH_ID);
-        
-        paramMap.put("sign", WXPayUtil.generateSignature(paramMap, WXPayConstants.KEY));
-        
+
+        paramMap.put("appid", WXPayConstants.APPID);//公众账号ID
+        paramMap.put("mch_id", WXPayConstants.MCH_ID);//商户号
+        paramMap.put("nonce_str", WXPayUtil.generateNonceStr());//随机字符串
+        paramMap.put("sign", WXPayUtil.generateSignature(paramMap, WXPayConstants.KEY));//签名
+        paramMap.put("body", "杰傲");//商品描述
+        paramMap.put("out_trade_no", data.getCode());//商户订单号
+        paramMap.put("total_fee", data.getActualPrice().toString());//标价金额 单位分
+        paramMap.put("spbill_create_ip", "112.82.118.145");//终端IP 用户的ip
+        paramMap.put("notify_url", "http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php");//通知地址
+        paramMap.put("trade_type", "JSAPI");//交易类型
+
         return paramMap;
     }
     

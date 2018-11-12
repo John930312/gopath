@@ -9,6 +9,8 @@ import com.todaysoft.ghealth.wechat.H5.WXPay;
 import com.todaysoft.ghealth.wechat.H5.WXPayUtil;
 import com.todaysoft.ghealth.wechat.dto.Account;
 import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -31,6 +33,8 @@ import java.util.Map;
 @RequestMapping("/order")
 public class OrderAction
 {
+    private static Logger log = LoggerFactory.getLogger(OrderAction.class);
+
     @Autowired
     private WXPay wxPay;
     
@@ -81,6 +85,9 @@ public class OrderAction
     public Map<String, String> pay(OrderDTO data)
     {
         Map<String, String> unifiedorderMap = wxPay.unifiedorder(data);
+
+        log.info("统一下单:"+unifiedorderMap.toString());
+
         return wxPay.getWXNeedData(unifiedorderMap.get("prepay_id"));
     }
     
