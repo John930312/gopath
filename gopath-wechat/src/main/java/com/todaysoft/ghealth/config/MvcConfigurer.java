@@ -46,7 +46,7 @@ public class MvcConfigurer implements WebMvcConfigurer
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry)
     {
-        registry.addResourceHandler("/files/**").addResourceLocations("file:/home/gopath/document/");
+        registry.addResourceHandler("/files/**").addResourceLocations("file:/" + request.getFilePath());
         registry.addResourceHandler("/templates/static/**").addResourceLocations("classpath:/templates/static/").setCacheControl(CacheControl.empty());
         registry.addResourceHandler("*.txt").addResourceLocations("classpath:/templates/static/").setCacheControl(CacheControl.empty());
     }
