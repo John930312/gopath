@@ -12,7 +12,10 @@ import com.todaysoft.ghealth.service.ISlideshowService;
 import com.todaysoft.ghealth.support.ModelResolver;
 import com.todaysoft.ghealth.support.Pager;
 import com.todaysoft.ghealth.support.PagerArgs;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,8 +39,11 @@ public class SlideshowAction
 {
     @Autowired
     private ISlideshowService slideshowService;
+    
     @Autowired
     private UploadRequest uploadRequest;
+    
+    private static final Logger log = LoggerFactory.getLogger(SlideshowAction.class);
     
     @RequestMapping(value = "/list.jsp", produces = "text/html;charset=UTF-8")
     public String pager(SlideshowSearcher searcher, PagerArgs pageArgs, ModelMap model, HttpSession session)
@@ -108,20 +116,40 @@ public class SlideshowAction
             
             String fileF = fileName.substring(fileName.lastIndexOf("."), fileName.length());//文件后缀
             fileName = UUID.randomUUID().toString().replaceAll("-", "") + fileF;//新的文件名
-
-            targetFile = new File(rootPath+"slideshow/", fileName);
+            
+            targetFile = new File(rootPath + "slideshow/", fileName);
             try
             {
                 file.transferTo(targetFile);
-                msg = "/files/slideshow/" + fileName;
+                msg = rootPath + "slideshow/" + fileName;
                 code = 0;
             }
+            
             catch (Exception e)
             {
                 e.printStackTrace();
             }
         }
+        System.out.println(JSON.toJSONString(ResponseResult.result(code, msg)));
         return JSON.toJSONString(ResponseResult.result(code, msg));
+    }
+    
+    @RequestMapping(value = "/getImg", produces = MediaType.IMAGE_PNG_VALUE)
+    @ResponseBody
+    public byte[] getImage(@RequestParam(value = "path", required = false) String path) throws IOException
+    {
+        if (path != null)
+        {
+            File file = new File(path);
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, inputStream.available());
+            return bytes;
+        }
+        else
+        {
+            return null;
+        }
     }
     
 }

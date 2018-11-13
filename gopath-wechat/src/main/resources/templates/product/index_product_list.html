@@ -23,7 +23,7 @@
         <#if slideshows?has_content>
         <#list slideshows as slideshow>
         <div class="swiper-slide ja-banner__item">
-            <img src="${(slideshow.pictureUrl)!?html}" alt="" class="ja-banner__img">
+            <img src="/product/getImg?path=${(slideshow.pictureUrl)!?html}" alt="" class="ja-banner__img">
             <a href="${base}/questionnaire/list.jsp?id=${(slideshow.id)!?html}" class="weui-btn ja-btn__gradient ja-btn__round ja-btn__normal-size">立即填写</a>
         </div>
 </#list>

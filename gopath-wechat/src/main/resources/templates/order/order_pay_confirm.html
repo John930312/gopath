@@ -91,22 +91,19 @@
     function pay() {
         $.post("${base}/order/pay.jsp", {actualPrice: actualPrice, code: code}, function (reslut) {
             var data = new Object();
-            data.appId = result.appId;
-            data.timeStamp = result.timeStamp;
-            data.nonceStr = result.nonceStr;
-            data.package = result.package;
-            data.signType = result.signType;
-            data.paySign = result.paySign;
+            data.appId = reslut.appId;//公众号id
+            data.timeStamp = reslut.timeStamp;//时间戳
+            data.nonceStr = reslut.nonceStr;//随机字符串
+            data.package = reslut.package;//订单详情扩展字符串
+            data.signType = reslut.signType;//签名方式
+            data.paySign = reslut.paySign;//签名
 
             if (typeof WeixinJSBridge == "undefined") {
                 if (document.addEventListener) {
-                    document.addEventListener('WeixinJSBridgeReady',
-                        onBridgeReady, false);
+                    document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
                 } else if (document.attachEvent) {
-                    document.attachEvent('WeixinJSBridgeReady',
-                        onBridgeReady);
-                    document.attachEvent('onWeixinJSBridgeReady',
-                        onBridgeReady);
+                    document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
+                    document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
                 }
             } else {
                 onBridgeReady(data);
