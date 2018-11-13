@@ -91,12 +91,12 @@
     function pay() {
         $.post("${base}/order/pay.jsp", {actualPrice: actualPrice, code: code}, function (reslut) {
             var data = new Object();
-            data.appId = result.appId;//公众号id
-            data.timeStamp = result.timeStamp;//时间戳
-            data.nonceStr = result.nonceStr;//随机字符串
-            data.package = result.package;//订单详情扩展字符串
-            data.signType = result.signType;//签名方式
-            data.paySign = result.paySign;//签名
+            data.appId = reslut.appId;//公众号id
+            data.timeStamp = reslut.timeStamp;//时间戳
+            data.nonceStr = reslut.nonceStr;//随机字符串
+            data.package = reslut.package;//订单详情扩展字符串
+            data.signType = reslut.signType;//签名方式
+            data.paySign = reslut.paySign;//签名
 
             if (typeof WeixinJSBridge == "undefined") {
                 if (document.addEventListener) {
