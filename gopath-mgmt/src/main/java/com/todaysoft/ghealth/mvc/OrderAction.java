@@ -14,6 +14,7 @@ import com.todaysoft.ghealth.support.ModelResolver;
 import com.todaysoft.ghealth.support.Pager;
 import com.todaysoft.ghealth.support.PagerArgs;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.util.StringUtils;
@@ -23,6 +24,8 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
@@ -144,7 +147,7 @@ public class OrderAction
             try
             {
                 file.transferTo(targetFile);
-                msg = "/files/order/" + fileName;
+                msg = "/order/getPDF?path="+rootPath+"order/" + fileName;
                 code = 0;
             }
             catch (Exception e)
@@ -153,5 +156,23 @@ public class OrderAction
             }
         }
         return JSON.toJSONString(ResponseResult.result(code, msg));
+    }
+
+    @RequestMapping(value = "/getPDF", produces = MediaType.APPLICATION_PDF_VALUE)
+    @ResponseBody
+    public byte[] getPDF(@RequestParam(value = "path", required = false) String path) throws IOException
+    {
+        if (path != null)
+        {
+            File file = new File(path);
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, inputStream.available());
+            return bytes;
+        }
+        else
+        {
+            return null;
+        }
     }
 }
