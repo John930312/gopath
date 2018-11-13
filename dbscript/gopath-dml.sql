@@ -157,4 +157,4 @@ INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) 
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('80a2e08aa10f4767a025cb50accd1aa6', 'e4caa1e686654edd8f83a8cc33a2c3c4');
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('18441634c5f344bbbdb00a26a55e32b8', 'e3c80ca582834677bff065f366b5e678');
 
-ALTER TABLE `ghealth_gopath_order` ADD COLUMN `ORDER_URL` varchar(64) DEFAULT NULL COMMENT '订单url'
+ALTER TABLE `ghealth_gopath_order` ADD COLUMN `ORDER_URL` varchar(256) DEFAULT NULL COMMENT '订单url'
