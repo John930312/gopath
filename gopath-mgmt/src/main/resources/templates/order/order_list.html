@@ -358,7 +358,12 @@
         if(f == null || f ==undefined || f == ''){
             return false;
         }
-
+        if(!/\.(?:pdf|PDF)$/.test(f))
+        {
+            toastr.error("类型必须pdf");
+            $(obj).val('');
+            return false;
+        }
         var data = new FormData();
         $.each($(obj)[0].files,function(i,file){
             data.append('file', file);
