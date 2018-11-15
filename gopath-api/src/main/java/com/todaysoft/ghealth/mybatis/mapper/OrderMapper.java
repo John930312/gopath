@@ -18,4 +18,6 @@ public interface OrderMapper
     List<Order> query(OrderQuery query);
 
     List<Order> getByOpenid(String openid);
+
+    void updateByCode(Order order);
 }

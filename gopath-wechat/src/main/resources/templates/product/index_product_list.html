@@ -51,7 +51,7 @@
     <#if products?has_content>
         <#list products as product>
             <section class="ja-cells mb-space-cell">
-                <a href="${base}/product/detail.jsp?id=${(product.id)!?html}" class="ja-cell lh_1">
+                <a href="${base}/product/detail.jsp?id=${(product.id)!?html}&openId=${(openId)!?html}" class="ja-cell lh_1">
                     <div class="ja-product-info-cell">
                         <p class="txt_default">${(product.name)!?html} <#if product.discount><strong class="f_r txt_xl ntc-price">¥${(product.discountPrice)!?html}</strong><#else><strong class="f_r txt_xl ntc-price">¥${(product.guidingPrice)!?html}</strong></#if></p>
                         <p class="txt_sm">适用人群：<#if product.sexRestraint == 0>通用<#elseif product.sexRestraint == 1>男性<#else>女性</#if>  <#if product.discount><del class="f_r txt_default second-txt">¥${(product.guidingPrice)!?html}</del></#if></p>

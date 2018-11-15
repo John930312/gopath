@@ -1,14 +1,20 @@
 package com.todaysoft.ghealth.wechat;
 
-
+import com.alibaba.fastjson.JSONObject;
 import com.todaysoft.ghealth.wechat.dto.SNSTokenDTO;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.impl.client.HttpClientBuilder;
+import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
 import javax.servlet.http.HttpServletRequest;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -20,9 +26,9 @@ public class WechatService
 {
     private static Logger log = LoggerFactory.getLogger(WechatService.class);
 
-    private static final String APPID = "wxbd6b5a4386023b26";
+    private static final String APPID = "wxd5300069594241a8";
 
-    private static final String SECRET = "8f345bbfab41394614adf3ea7182027e";
+    private static final String SECRET = "d9561e75e4b3d3db7bb017572598e824";
 
     // 永久二维码(字符串)
     public static final String QR_LIMIT_STR_SCENE = "QR_LIMIT_STR_SCENE";
@@ -40,8 +46,7 @@ public class WechatService
         try
         {
             String url = request.getRequestURL() + (request.getQueryString() != null ? "?" + request.getQueryString() : "");
-            String pattern =
-                "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope={2}&state={3}#wechat_redirect";
+            String pattern = "https://open.weixin.qq.com/connect/oauth2/authorize?appid={0}&redirect_uri={1}&response_type=code&scope={2}&state={3}#wechat_redirect";
             return MessageFormat.format(pattern, APPID, URLEncoder.encode(url, "UTF-8"), "snsapi_base", "2");
         }
         catch (UnsupportedEncodingException e)
@@ -54,11 +59,26 @@ public class WechatService
     {
         try
         {
-            String url = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code&appid={key}&secret={security}&code={code}";
-            MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-            converter.setSupportedMediaTypes(Collections.singletonList(MediaType.TEXT_PLAIN));
-            template.setMessageConverters(Collections.singletonList(converter));
-            SNSTokenDTO token = template.getForObject(url, SNSTokenDTO.class, APPID, SECRET, code);
+            String url = "https://api.weixin.qq.com/sns/oauth2/access_token?grant_type=authorization_code&appid="+APPID+"&secret="+SECRET+"&code="+code;
+
+            HttpClient httpClient = HttpClientBuilder.create().build();
+            HttpGet httpGet = new HttpGet(url);
+
+
+            RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(30000).setConnectTimeout(30000).build();
+            httpGet.setConfig(requestConfig);
+
+            HttpResponse httpResponse = httpClient.execute(httpGet);
+            HttpEntity httpEntity = httpResponse.getEntity();
+
+            JSONObject jsStr = JSONObject.parseObject(EntityUtils.toString( httpEntity, "UTF-8" ));
+
+            SNSTokenDTO token = new SNSTokenDTO();
+            token.setAccessToken(String.valueOf( jsStr.get("access_token")));
+            token.setExpires(String.valueOf( jsStr.get("expires_in")));
+            token.setRefreshToken(String.valueOf( jsStr.get("refresh_token")));
+            token.setOpenid(String.valueOf( jsStr.get("openid")));
+            token.setScope(String.valueOf( jsStr.get("scope")));
 
             if (null == token)
             {

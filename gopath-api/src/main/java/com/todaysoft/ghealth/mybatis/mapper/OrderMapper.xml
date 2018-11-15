@@ -44,6 +44,7 @@
     <select id="get" resultMap="BaseResultMap" parameterType="java.lang.String">
       SELECT
         o.*, a. NAME AS AGENCY_NAME,
+        o.OPEN_ID AS OPEN_ID,
         a.PHONE AS AGENCY_PHONE,
         p.NAME AS PRODUCT_NAME,
         sb.CODE AS SAMPLEBOX_CODE,
@@ -322,4 +323,15 @@
         WHERE o.OPEN_ID = #{openid,jdbcType=VARCHAR}
         ORDER BY o.CREATE_TIME DESC
     </select>
+
+    <update id="updateByCode" parameterType="com.todaysoft.ghealth.mybatis.model.Order">
+		UPDATE ghealth_gopath_order
+            <set>
+                <if test="status != null">
+                    STATUS = #{status,jdbcType=INTEGER},
+                </if>
+            </set>
+		WHERE CODE = #{code,jdbcType=VARCHAR}
+	</update>
+
 </mapper>

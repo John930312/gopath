@@ -32,7 +32,7 @@ public class OrderDTO
     private String samplingTime;
     
     private String samplingName;
-    
+
     private Integer sampleType;
     
     private ProductDTO product;
@@ -194,4 +194,17 @@ public class OrderDTO
     {
         this.orderHistory = orderHistory;
     }
+
+    private String openId;
+
+    public String getOpenId()
+    {
+        return openId;
+    }
+
+    public void setOpenId(String openId)
+    {
+        this.openId = openId;
+    }
+
 }

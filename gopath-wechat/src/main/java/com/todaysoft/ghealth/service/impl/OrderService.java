@@ -76,4 +76,13 @@ public class OrderService implements IOrderService
 
         return response.getData();
     }
+
+    @Override
+    public void updateByCode(OrderDTO order) {
+        MaintainOrderRequest request = new MaintainOrderRequest();
+        BeanUtils.copyProperties(order, request);
+        request.setCode(order.getCode());
+        request.setStatus(order.getStatus());
+        gateway.post("/order/updateByCode", request, new ParameterizedTypeReference<DataResponse<String>>() {});
+    }
 }

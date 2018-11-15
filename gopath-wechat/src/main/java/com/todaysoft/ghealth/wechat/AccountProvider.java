@@ -80,9 +80,9 @@ public class AccountProvider
         account.setOpenid(openid);
         
         // 根据openid获取微信绑定的客户账号的token，用于后续请求的身份认证
-        Token accountToken = tokenService.getToken(openid);
+        //Token accountToken = tokenService.getToken(openid);
         
-        if (null != accountToken)
+        /*if (null != accountToken)
         {
             if (log.isDebugEnabled())
             {
@@ -97,7 +97,7 @@ public class AccountProvider
             {
                 log.debug("Account is not exists for openid {}.", openid);
             }
-        }
+        }*/
         
         if (log.isDebugEnabled())
         {

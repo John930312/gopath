@@ -68,6 +68,7 @@ public class ProductAction
         List<SlideshowDTO> slideshowList = slideshowService.indexList();
         model.addAttribute("products", productList);
         model.addAttribute("slideshows", slideshowList);
+        model.addAttribute("openId", account.getOpenid());
         return "product/index_product_list";
     }
 
@@ -87,10 +88,11 @@ public class ProductAction
     }
 
     @GetMapping("/detail.jsp")
-    public String detail(String id, ModelMap model)
+    public String detail(String id,String openId, ModelMap model)
     {
         ProductDTO product = productService.get(id);
         model.addAttribute("data", product);
+        model.addAttribute("openId", openId);
         return "product/product_detail";
     }
 

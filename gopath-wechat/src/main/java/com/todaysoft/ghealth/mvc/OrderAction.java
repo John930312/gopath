@@ -54,23 +54,31 @@ public class OrderAction
 
     @Autowired
     private IProductService productService;
-    
+
     @RequestMapping("/place.jsp")
-    public String place(String id, ModelMap model)
+    public String place(String id,String openId, ModelMap model)
     {
         model.addAttribute("livePurchase", 1);
         ProductDTO product = productService.get(id);
         model.addAttribute("product", product);
         BigDecimal price = product.getDiscount() ? product.getDiscountPrice() : product.getGuidingPrice();
         model.addAttribute("price", price);
+        model.addAttribute("openId", openId);
         return "order/order_confirm";
     }
-    
+
     @RequestMapping("/payConfirm.jsp")
-    public String payConfirm(OrderDTO data, ModelMap model)
+    public String payConfirm(OrderDTO data,String openId,String getWay, ModelMap model)
     {
         if (StringUtils.isNotEmpty(data.getId())) {
             OrderDTO order = orderService.get(data.getId());
+            if(org.springframework.util.StringUtils.isEmpty(order)&&org.springframework.util.StringUtils.isEmpty(order.getSampleBox())&& org.springframework.util.StringUtils.isEmpty(order.getSampleBox().getAddress())){
+                getWay = "0";
+            }else{
+                getWay = "1";
+            }
+            model.addAttribute("getWay", getWay);
+            model.addAttribute("openId",holder.getAccount().getOpenid());
             model.addAttribute("data", order);
             return "order/order_pay_confirm";
         }
@@ -82,6 +90,8 @@ public class OrderAction
         data.setActualPrice(actualPrice);
         data.setCode(orderService.create(data));
         model.addAttribute("data", data);
+        model.addAttribute("openId", openId);
+        model.addAttribute("getWay", getWay);
         return "order/order_pay_confirm";
     }
     

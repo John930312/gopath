@@ -22,7 +22,13 @@
        <h2 class="ja-head__title"><img src="${system_images}/order_20181016.png" alt="" class="ja-head__img"> 订单信息</h2>
        <section class="ub lh_1">
            <div class="ub-f1 ub ub-ac ub-pc"><p class="ja-head__num">¥${(order.actualPrice)!?html}</p></div>
-           <div class="ub-f1 ub ub-ac ub-pc"><p class="ja-head__txt">采样盒<#if order.status == 0>待寄送<#else>已寄送</#if></p></div>
+           <div class="ub-f1 ub ub-ac ub-pc"><p class="ja-head__txt">
+                <#if order.status == 0>采样盒待寄送</#if>
+                <#if order.status == 1>采样盒已寄送</#if>
+                <#if order.status == 2>采样盒已寄送</#if>
+                <#if order.status == 3>采样盒已寄送</#if>
+                <#if order.status == 4>待付款</#if>
+               </p></div>
        </section>
    </header>
    <article class="ja-cells ja-cells_trans">

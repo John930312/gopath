@@ -30,4 +30,6 @@ public interface IOrderService
     DataResponse<List<OrderDTO>> getByOpenid(String openid);
 
     void payed(MaintainOrderRequest request);
+
+    void updateByCode(MaintainOrderRequest request);
 }

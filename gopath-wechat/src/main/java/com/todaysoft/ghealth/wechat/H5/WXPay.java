@@ -16,6 +16,7 @@ import org.springframework.stereotype.Component;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -45,22 +46,20 @@ public class WXPay
     
     private Map<String, String> getUnifiedorderParams(OrderDTO data) throws Exception
     {
-
         log.info( "发起支付参数:"+data.toString() );
-
         Map<String, String> paramMap = new HashMap<String, String>();
-
         paramMap.put("appid", WXPayConstants.APPID);//公众账号ID
         paramMap.put("mch_id", WXPayConstants.MCH_ID);//商户号
         paramMap.put("nonce_str", WXPayUtil.generateNonceStr());//随机字符串
-        paramMap.put("sign", WXPayUtil.generateSignature(paramMap, WXPayConstants.KEY));//签名
         paramMap.put("body", "杰傲");//商品描述
         paramMap.put("out_trade_no", data.getCode());//商户订单号
-        paramMap.put("total_fee", data.getActualPrice().toString());//标价金额 单位分
+        String s = data.getActualPrice().multiply( new BigDecimal( "100" ) ).toString();
+        paramMap.put("total_fee", s.substring(0, s.indexOf( "." )));//标价金额 单位分
         paramMap.put("spbill_create_ip", "112.82.118.145");//终端IP 用户的ip
-        paramMap.put("notify_url", "http://wxpay.wxutil.com/pub_v2/pay/notify.v2.php");//通知地址
+        paramMap.put("notify_url", "http://x2vz3u.natappfree.cc/callBack/notification");//通知地址
         paramMap.put("trade_type", "JSAPI");//交易类型
-
+        paramMap.put("openid", data.getOpenId());
+        paramMap.put("sign", WXPayUtil.generateSignature(paramMap, WXPayConstants.KEY));//签名
         return paramMap;
     }
     
