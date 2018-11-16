@@ -29,6 +29,7 @@ import java.util.Map;
 import org.jdom.Document;
 import org.jdom.Element;
 import org.jdom.input.SAXBuilder;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
  * <微信支付 查询 回调>
@@ -53,6 +54,7 @@ public class CallBackAction {
      * @return void
      */
     @RequestMapping("/getPayOrder")
+    @ResponseBody
     public void getPayOrder(HttpServletRequest request) {
         try {
 
@@ -108,6 +110,7 @@ public class CallBackAction {
      * @return String
      */
     @RequestMapping("/notification")
+    @ResponseBody
     public String notification(HttpServletRequest request,HttpServletResponse response) {
         try{
            response.getWriter();
