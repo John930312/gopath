@@ -100,6 +100,7 @@ public class OrderAction
     public Map<String, String> pay(OrderDTO data)
     {
         data.setOpenId(holder.getAccount().getOpenid());
+        log.info("openId"+ holder.getAccount().getOpenid());
         Map<String, String> unifiedorderMap = wxPay.unifiedorder(data);
         return wxPay.getWXNeedData(unifiedorderMap.get("prepay_id"));
     }
