@@ -46,7 +46,6 @@ public class WXPay
     
     private Map<String, String> getUnifiedorderParams(OrderDTO data) throws Exception
     {
-        log.info( "发起支付参数:"+data.toString() );
         Map<String, String> paramMap = new HashMap<String, String>();
         paramMap.put("appid", WXPayConstants.APPID);//公众账号ID
         paramMap.put("mch_id", WXPayConstants.MCH_ID);//商户号
@@ -60,6 +59,7 @@ public class WXPay
         paramMap.put("trade_type", "JSAPI");//交易类型
         paramMap.put("openid", data.getOpenId());
         paramMap.put("sign", WXPayUtil.generateSignature(paramMap, WXPayConstants.KEY));//签名
+        log.info( "发起支付参数:"+paramMap.toString() );
         return paramMap;
     }
     
