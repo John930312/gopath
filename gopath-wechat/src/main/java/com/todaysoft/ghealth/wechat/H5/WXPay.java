@@ -21,6 +21,8 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.todaysoft.ghealth.wechat.H5.WXPayConstants.UNIFIEDORDER_URL;
+
 /**
  * @Author: xjw
  * @Date: 2018/10/19 10:34
@@ -34,11 +36,14 @@ public class WXPay
     {
         try
         {
+            log.info("22222222222222222"+data.toString());
+
             String reqXML = unifiedorder(WXPayUtil.mapToXml(getUnifiedorderParams(data)), 6 * 1000, 8 * 1000);
             return this.processResponseXml(reqXML);
         }
         catch (Exception e)
         {
+            log.error(00000000000+"");
             log.error(e.getMessage());
             return null;
         }
@@ -46,6 +51,10 @@ public class WXPay
     
     private Map<String, String> getUnifiedorderParams(OrderDTO data) throws Exception
     {
+
+
+        log.info("66666666666666666"+WXPayConstants.APPID+"6666666"+WXPayConstants.MCH_ID);
+
         Map<String, String> paramMap = new HashMap<String, String>();
         paramMap.put("appid", WXPayConstants.APPID);//公众账号ID
         paramMap.put("mch_id", WXPayConstants.MCH_ID);//商户号
@@ -74,8 +83,11 @@ public class WXPay
     private String unifiedorder(String reqBody, int connectTimeoutMs, int readTimeoutMs) throws IOException
     {
         HttpClient httpClient = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(WXPayConstants.UNIFIEDORDER_URL);
-        
+        HttpPost httpPost = new HttpPost(UNIFIEDORDER_URL);
+
+        log.info("44444444444444"+UNIFIEDORDER_URL);
+
+
         RequestConfig requestConfig = RequestConfig.custom().setSocketTimeout(connectTimeoutMs).setConnectTimeout(readTimeoutMs).build();
         httpPost.setConfig(requestConfig);
         

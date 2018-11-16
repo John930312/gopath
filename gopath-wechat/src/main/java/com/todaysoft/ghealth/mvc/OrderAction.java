@@ -99,6 +99,8 @@ public class OrderAction
     @PostMapping("/pay.jsp")
     public Map<String, String> pay(OrderDTO data)
     {
+        log.info("统一下单之前参数:"+data.toString());
+
         Map<String, String> unifiedorderMap = wxPay.unifiedorder(data);
 
         log.info("统一下单:"+unifiedorderMap.toString());
