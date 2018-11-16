@@ -39,6 +39,9 @@ public class WXPay
             log.info("22222222222222222"+data.toString());
 
             String reqXML = unifiedorder(WXPayUtil.mapToXml(getUnifiedorderParams(data)), 6 * 1000, 8 * 1000);
+
+            log.info("888888888888888:"+reqXML);
+
             return this.processResponseXml(reqXML);
         }
         catch (Exception e)
