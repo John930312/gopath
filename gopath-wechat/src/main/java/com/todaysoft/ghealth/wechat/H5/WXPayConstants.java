@@ -17,7 +17,7 @@ public class WXPayConstants
     
     public static final String MCH_ID = "1518540991"; //商户号
     
-    public static final String KEY = "9cbdd0bb06fc3b9efc98a449aa81b631";
+    public static final String KEY = "tHoRAEdX4gAW0FgCg67iGKqwehJYHKkG";//key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置
     
     public static final String FAIL = "FAIL";
     
