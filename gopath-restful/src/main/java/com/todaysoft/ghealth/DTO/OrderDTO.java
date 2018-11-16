@@ -40,6 +40,8 @@ public class OrderDTO
     private SampleBoxDTO sampleBox;
     
     private List<OrderHistoryDTO> orderHistory;
+
+    private String openId;
     
     public String getId()
     {
@@ -194,8 +196,6 @@ public class OrderDTO
     {
         this.orderHistory = orderHistory;
     }
-
-    private String openId;
 
     public String getOpenId()
     {
