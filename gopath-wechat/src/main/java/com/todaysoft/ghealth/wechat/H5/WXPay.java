@@ -52,7 +52,6 @@ public class WXPay
     private Map<String, String> getUnifiedorderParams(OrderDTO data) throws Exception
     {
 
-
         log.info("66666666666666666"+WXPayConstants.APPID+"6666666"+WXPayConstants.MCH_ID);
 
         Map<String, String> paramMap = new HashMap<String, String>();
