@@ -19,9 +19,13 @@ public class IndexAction {
 
     @RequestMapping("/MP_verify_SfVPe5ZrWfrQs6fX.txt")
     @ResponseBody
-    public void electronicPolicyDownload(HttpServletRequest request, HttpServletResponse response) {
+    public String electronicPolicyDownload(HttpServletRequest request, HttpServletResponse response) {
         log.info("进入文件下载页面");
-        String path = Class.class.getClass().getResource("/").getPath()+"templates/static/MP_verify_SfVPe5ZrWfrQs6fX.txt";
+
+        return "SfVPe5ZrWfrQs6fX";
+
+    }
+        /*String path = Class.class.getClass().getResource("/").getPath()+"templates/static/MP_verify_SfVPe5ZrWfrQs6fX.txt";
         File file = new File(path);
         if (file.exists()) {
             //打开后,强制下载
@@ -58,5 +62,5 @@ public class IndexAction {
                 }
             }
         }
-    }
+    }*/
 }
