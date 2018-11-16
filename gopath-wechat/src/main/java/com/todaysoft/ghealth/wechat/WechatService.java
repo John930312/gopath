@@ -28,7 +28,7 @@ public class WechatService
 
     private static final String APPID = "wxd5300069594241a8";
 
-    private static final String SECRET = "d9561e75e4b3d3db7bb017572598e824";
+    private static final String SECRET = "9cbdd0bb06fc3b9efc98a449aa81b631";
 
     // 永久二维码(字符串)
     public static final String QR_LIMIT_STR_SCENE = "QR_LIMIT_STR_SCENE";
