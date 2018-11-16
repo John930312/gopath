@@ -52,21 +52,36 @@ public class WXPay
     private Map<String, String> getUnifiedorderParams(OrderDTO data) throws Exception
     {
 
-        log.info("66666666666666666"+WXPayConstants.APPID+"6666666"+WXPayConstants.MCH_ID);
+        log.info("66666666666666666"+WXPayConstants.APPID+"6666666"+WXPayConstants.MCH_ID+":pppppppp___"+data.toString());
 
         Map<String, String> paramMap = new HashMap<String, String>();
         paramMap.put("appid", WXPayConstants.APPID);//公众账号ID
+        log.info("1"+paramMap.toString());
         paramMap.put("mch_id", WXPayConstants.MCH_ID);//商户号
+        log.info("2"+paramMap.toString());
         paramMap.put("nonce_str", WXPayUtil.generateNonceStr());//随机字符串
+        log.info("3"+paramMap.toString());
+
         paramMap.put("body", "杰傲");//商品描述
+        log.info("4"+paramMap.toString());
+
         paramMap.put("out_trade_no", data.getCode());//商户订单号
+        log.info("5"+paramMap.toString());
+
         String s = data.getActualPrice().multiply( new BigDecimal( "100" ) ).toString();
+        log.info("6"+paramMap.toString());
+
         paramMap.put("total_fee", s.substring(0, s.indexOf( "." )));//标价金额 单位分
+        log.info("7"+paramMap.toString());
+
         paramMap.put("spbill_create_ip", "112.82.118.145");//终端IP 用户的ip
         paramMap.put("notify_url", "http://szeeyn.natappfree.cc/callBack/notification");//通知地址
         paramMap.put("trade_type", "JSAPI");//交易类型
         paramMap.put("openid", data.getOpenId());
+        log.info("8"+paramMap.toString());
         paramMap.put("sign", WXPayUtil.generateSignature(paramMap, WXPayConstants.KEY));//签名
+        log.info("9"+paramMap.toString());
+
         log.info( "发起支付参数:"+paramMap.toString() );
         return paramMap;
     }
