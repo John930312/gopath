@@ -1,7 +1,11 @@
 package com.todaysoft.ghealth.mvc;
 
+import com.todaysoft.ghealth.wechat.AccountFilter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -11,8 +15,12 @@ import java.io.*;
 @RequestMapping("/")
 public class IndexAction {
 
+    private static Logger log = LoggerFactory.getLogger(IndexAction.class);
+
     @RequestMapping("/MP_verify_SfVPe5ZrWfrQs6fX.txt")
+    @ResponseBody
     public void electronicPolicyDownload(HttpServletRequest request, HttpServletResponse response) {
+        log.info("进入文件下载页面");
         String path = Class.class.getClass().getResource("/").getPath()+"templates/static/MP_verify_SfVPe5ZrWfrQs6fX.txt";
         File file = new File(path);
         if (file.exists()) {
