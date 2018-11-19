@@ -189,14 +189,6 @@
                                             <i class="fa fa-edit"></i> 寄送
                                         </a>
                                     </#if>
-
-                                    <#if record.status == 1>
-                                        <a href="javascript:;" class="btn btn-sm btn-success"
-                                           onclick="setValue('${record.id}','${record.code}',2)">
-                                            <i class="fa fa-edit"></i> 收样
-                                        </a>
-                                    </#if>
-
                                     <#if record.status == 2>
                                         <a href="javascript:;" class="btn btn-sm btn-success"
                                            onclick="setUrl('${record.id}',3)">

@@ -76,7 +76,8 @@ public class SampleBoxService implements ISampleBoxService
         customer.setBirthday(customerBirthday);
         customer.setSampleBoxId(sampleBox.getId());
         customerMapper.create(customer);
-        
+
+        order.setStatus(2);
         order.setCustomer(customer);
         order.setSampleType(request.getSampleType());
         order.setSamplingTime(orderSamplingTime);
