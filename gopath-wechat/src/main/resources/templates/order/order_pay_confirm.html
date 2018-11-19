@@ -91,7 +91,7 @@
     });
 
     function pay() {
-        $.post("${base}/order/pay.jsp", {actualPrice: actualPrice, code: code, openId: openId}, function (reslut) {
+        $.post("${base}/order/pay.jsp", {actualPrice: actualPrice, code: code}, function (reslut) {
             var data = new Object();
             data.appId = reslut.appId;//公众号id
             data.timeStamp = reslut.timeStamp;//时间戳

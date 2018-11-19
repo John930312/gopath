@@ -89,11 +89,11 @@ public class ProductAction
     }
 
     @GetMapping("/detail.jsp")
-    public String detail(String id,String openId, ModelMap model)
+    public String detail(String id, ModelMap model)
     {
         ProductDTO product = productService.get(id);
         model.addAttribute("data", product);
-        model.addAttribute("openId", openId);
+        model.addAttribute("openId", holder.getAccount().getOpenid());
         return "product/product_detail";
     }
 
