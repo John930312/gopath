@@ -65,6 +65,8 @@
 <script src="${plugins}/jquery.min.js"></script>
 <script src="${plugins}/jquery-weui.min.js"></script>
 <script type="text/javascript">
+    var openId = "${openId}";
+    var getWay = "${getWay}";
     var actualPrice = "${(data.actualPrice)?c}";
     var code = "${(data.code)!?html}"
     $("#zf").select({
@@ -73,7 +75,7 @@
             {
                 title: "微信支付",
                 value: "001",
-            },
+            }/*,
             {
                 title: "支付宝",
                 value: "002",
@@ -81,7 +83,7 @@
             {
                 title: "银联支付",
                 value: "003",
-            }
+            }*/
         ],
         onClose: function () {
             var v = $('#zf').val();
@@ -89,7 +91,7 @@
     });
 
     function pay() {
-        $.post("${base}/order/pay.jsp", {actualPrice: actualPrice, code: code}, function (reslut) {
+        $.post("${base}/order/pay.jsp", {actualPrice: actualPrice, code: code, openId: openId}, function (reslut) {
             var data = new Object();
             data.appId = reslut.appId;//公众号id
             data.timeStamp = reslut.timeStamp;//时间戳
@@ -123,7 +125,11 @@
             },
             function (res) {
                 if (res.err_msg == "get_brand_wcpay_request:ok") {
-                    window.location.href = "${base}/sampleBox/bind.jsp";
+                    if("0"==getWay){
+                        window.location.href = "${base}/order/list.jsp";
+                    }else{
+                        window.location.href = "${base}/sampleBox/bind.jsp";
+                    }
                 } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
                     console.log('支付取消');
                 } else if (res.err_msg == "get_brand_wcpay_request:fail") {

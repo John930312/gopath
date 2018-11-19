@@ -17,4 +17,6 @@ public interface IOrderService
     void payed(String code);
 
     OrderDTO get(String id);
+
+    void updateByCode(OrderDTO order);
 }

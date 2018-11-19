@@ -70,5 +70,11 @@ public class OrderController
     {
         orderService.payed(request);
     }
+
+    @PostMapping("/updateByCode")
+    public void updateByCode(@RequestBody MaintainOrderRequest request)
+    {
+        orderService.updateByCode(request);
+    }
     
 }

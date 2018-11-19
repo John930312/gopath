@@ -25,6 +25,7 @@
 </header>
 <article class="ja-product-cot" style="padding-bottom: 3rem;">
     <form action="${base}/order/payConfirm.jsp" class="ja-sure-form" method="post">
+        <input type='hidden' name="openId" value="${openId}"/>
         <input type='hidden' name="actualPrice" value="${price?c}"/>
         <input type='hidden' name="product.id" value="${(product.id)!?html}"/>
         <input type='hidden' name="product.name" value="${(product.name)!?html}"/>
@@ -32,19 +33,22 @@
         <input type='hidden' name="sampleBox.city" class="address"/>
         <input type='hidden' name="sampleBox.provinceText" class="addressText"/>
         <input type='hidden' name="sampleBox.cityText" class="addressText"/>
+        <input type='hidden' name="getWay" id = "getWay" value=""/>
+
         <fieldset>
             <legend class="ja-sure-form__legend_rec">采集器领取方式：</legend>
             <div class="ub">
                 <div class="ub-f1 txt_c">
                     <label class="ja-check" style="margin-right: 2.5rem; margin-left: 1rem;">
                         <input type="radio" name="smpleBoxGeted" id="mail" class="ja-check__input" value="0">
+
                         <span class="ja-check__state"></span>
                         邮寄
                     </label>
                 </div>
                 <div class="ub-f1 txt_c">
                     <label class="ja-check" style="margin-right: 2.5rem; margin-left: 1rem;">
-                        <input type="radio" name="smpleBoxGeted" id="scene" class="ja-check__input" value="1">
+                        <input type="radio" name="smpleBoxGeted" id="scene" class="ja-check__input" checked value="1">
                         <span class="ja-check__state"></span>
                         现场
                     </label>
@@ -84,15 +88,13 @@
                 <div class="ub">
                     <div class="ub-f1 txt_c">
                         <label class="ja-btn-check">
-                            <input type="radio" name="reportPrintRequired" class="ja-btn-check__input"
-                                   id="electronicReport" checked value="0">
+                            <input type="radio" name="reportPrintRequired" class="ja-btn-check__input" id="electronicReport" checked value="0">
                             <span class="ja-btn-check__state">电子报告</span>
                         </label>
                     </div>
                     <div class="ub-f1 txt_c">
                         <label class="ja-btn-check">
-                            <input type="radio" name="reportPrintRequired" class="ja-btn-check__input" id="paperReport"
-                                   value="1">
+                            <input type="radio" name="reportPrintRequired" class="ja-btn-check__input" id="paperReport" value="1">
                             <span class="ja-btn-check__state">纸质报告+20元</span>
                         </label>
                     </div>
@@ -113,6 +115,10 @@
 <script src="${plugins}/jquery-weui.min.js"></script>
 <script src="${system_js}/city-picker.min.js"></script>
 <script type="text/javascript">
+
+    $(function(){
+        $('#getWay').val("1");
+    });
 
     function orderDeal() {
         if ($("#hidDiv").is(":hidden") == false){
@@ -167,6 +173,7 @@
 
     $(':radio[name="smpleBoxGeted"]').click(function () {
         var value = $(this).val()  //获取选中的radio的值
+        $('#getWay').val(value);
         if (value == 1) {
             $("#chooseType").html("采集器领取")
             $("#hidDiv").hide();
@@ -195,6 +202,7 @@
         $("textarea").val("");
         $("#hidDiv").hide();
     }
+
 </script>
 </body>
 </html>

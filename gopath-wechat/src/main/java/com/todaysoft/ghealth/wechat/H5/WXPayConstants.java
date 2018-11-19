@@ -17,7 +17,7 @@ public class WXPayConstants
     
     public static final String MCH_ID = "1518540991"; //商户号
     
-    public static final String KEY = "ntPNoiETZWTXNazlmw5V8FIrLyzKekUt";
+    public static final String KEY = "tHoRAEdX4gAW0FgCg67iGKqwehJYHKkG";//key设置路径：微信商户平台(pay.weixin.qq.com)-->账户设置-->API安全-->密钥设置
     
     public static final String FAIL = "FAIL";
     
@@ -28,9 +28,11 @@ public class WXPayConstants
     public static final String WXPAYSDK_VERSION = "WXPaySDK/3.0.9";
     
     public static final String UNIFIEDORDER_URL = "https://api.mch.weixin.qq.com/pay/unifiedorder";
-    
+
+    public static final String ORDERQUERY_URL = "https://api.mch.weixin.qq.com/pay/orderquery";
+
     public static final String USER_AGENT =
         WXPAYSDK_VERSION + " (" + System.getProperty("os.arch") + " " + System.getProperty("os.name") + " " + System.getProperty("os.version") + ") Java/"
-            + System.getProperty("java.version") + " HttpClient/" + HttpClient.class.getPackage().getImplementationVersion();
+            + System.getProperty("java.version") + "HttpClient/" + HttpClient.class.getPackage().getImplementationVersion();
     
 }

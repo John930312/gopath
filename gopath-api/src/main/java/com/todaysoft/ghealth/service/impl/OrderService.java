@@ -121,16 +121,18 @@ public class OrderService implements IOrderService
         order.setProduct(product);
         
         SampleBox sampleBox = new SampleBox();
-        if (Objects.nonNull(request.getSampleBox()))
-        {
-            String sampleBoxId = IdGen.uuid();
-            SampleBoxDTO sampleBoxRequest = request.getSampleBox();
+
+        String sampleBoxId = IdGen.uuid();
+        SampleBoxDTO sampleBoxRequest = request.getSampleBox();
+        if (Objects.nonNull(request.getSampleBox())){
             BeanUtils.copyProperties(sampleBoxRequest, sampleBox);
-            sampleBox.setId(sampleBoxId);
-            sampleBox.setCreateTime(new Date());
-            sampleBox.setCode(serialNumber.getCode(SampleBox.SAMPLEBOX_CODE));
-            sampleBoxMapper.create(sampleBox);
+
         }
+        sampleBox.setId(sampleBoxId);
+        sampleBox.setCreateTime(new Date());
+        sampleBox.setCode(serialNumber.getCode(SampleBox.SAMPLEBOX_CODE));
+        sampleBoxMapper.create(sampleBox);
+
         order.setSampleBox(sampleBox);
         
         Agency agency = new Agency();
@@ -217,7 +219,16 @@ public class OrderService implements IOrderService
             createOrderHistory(request);
         }
     }
-    
+
+    @Override
+    public void updateByCode(MaintainOrderRequest request) {
+        Order order = new Order();
+        order.setStatus(request.getStatus());
+        order.setCode(request.getCode());
+        orderMapper.updateByCode(order);
+
+    }
+
     private void createOrderHistory(MaintainOrderRequest request)
     {
         OrderHistory orderHistory = new OrderHistory();

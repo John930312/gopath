@@ -12,15 +12,20 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
@@ -49,23 +54,31 @@ public class OrderAction
 
     @Autowired
     private IProductService productService;
-    
+
     @RequestMapping("/place.jsp")
-    public String place(String id, ModelMap model)
+    public String place(String id,String openId, ModelMap model)
     {
         model.addAttribute("livePurchase", 1);
         ProductDTO product = productService.get(id);
         model.addAttribute("product", product);
         BigDecimal price = product.getDiscount() ? product.getDiscountPrice() : product.getGuidingPrice();
         model.addAttribute("price", price);
+        model.addAttribute("openId", openId);
         return "order/order_confirm";
     }
-    
+
     @RequestMapping("/payConfirm.jsp")
-    public String payConfirm(OrderDTO data, ModelMap model)
+    public String payConfirm(OrderDTO data,String openId,String getWay, ModelMap model)
     {
         if (StringUtils.isNotEmpty(data.getId())) {
             OrderDTO order = orderService.get(data.getId());
+            if(org.springframework.util.StringUtils.isEmpty(order)&&org.springframework.util.StringUtils.isEmpty(order.getSampleBox())&& org.springframework.util.StringUtils.isEmpty(order.getSampleBox().getAddress())){
+                getWay = "0";
+            }else{
+                getWay = "1";
+            }
+            model.addAttribute("getWay", getWay);
+            model.addAttribute("openId",holder.getAccount().getOpenid());
             model.addAttribute("data", order);
             return "order/order_pay_confirm";
         }
@@ -77,6 +90,8 @@ public class OrderAction
         data.setActualPrice(actualPrice);
         data.setCode(orderService.create(data));
         model.addAttribute("data", data);
+        model.addAttribute("openId", openId);
+        model.addAttribute("getWay", getWay);
         return "order/order_pay_confirm";
     }
     
@@ -84,10 +99,9 @@ public class OrderAction
     @PostMapping("/pay.jsp")
     public Map<String, String> pay(OrderDTO data)
     {
+        data.setOpenId(holder.getAccount().getOpenid());
+        log.info("openId"+ holder.getAccount().getOpenid());
         Map<String, String> unifiedorderMap = wxPay.unifiedorder(data);
-
-        log.info("统一下单:"+unifiedorderMap.toString());
-
         return wxPay.getWXNeedData(unifiedorderMap.get("prepay_id"));
     }
     
@@ -117,4 +131,21 @@ public class OrderAction
         return "order/order_detail";
     }
 
+    @RequestMapping(value = "/getPDF", produces = MediaType.APPLICATION_PDF_VALUE)
+    @ResponseBody
+    public byte[] getPDF(@RequestParam(value = "path", required = false) String path) throws IOException
+    {
+        if (path != null)
+        {
+            File file = new File(path);
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] bytes = new byte[inputStream.available()];
+            inputStream.read(bytes, 0, inputStream.available());
+            return bytes;
+        }
+        else
+        {
+            return null;
+        }
+    }
 }
