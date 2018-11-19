@@ -176,8 +176,10 @@
             <if test="product.id != null">
                 PRODUCT_ID = #{product.id,jdbcType=VARCHAR},
             </if>
-            <if test="customer.id != null">
-                CUSTOMER_ID = #{customer.id,jdbcType=VARCHAR},
+            <if test="customer != null">
+                <if test="customer.id != null">
+                    CUSTOMER_ID = #{customer.id,jdbcType=VARCHAR},
+                </if>
             </if>
             <if test="agency != null">
                 <if test="agency.id != null">
