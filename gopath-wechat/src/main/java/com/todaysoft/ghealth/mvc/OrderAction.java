@@ -56,19 +56,19 @@ public class OrderAction
     private IProductService productService;
 
     @RequestMapping("/place.jsp")
-    public String place(String id,String openId, ModelMap model)
+    public String place(String id, ModelMap model)
     {
         model.addAttribute("livePurchase", 1);
         ProductDTO product = productService.get(id);
         model.addAttribute("product", product);
         BigDecimal price = product.getDiscount() ? product.getDiscountPrice() : product.getGuidingPrice();
         model.addAttribute("price", price);
-        model.addAttribute("openId", openId);
+        model.addAttribute("openId", holder.getAccount().getOpenid());
         return "order/order_confirm";
     }
 
     @RequestMapping("/payConfirm.jsp")
-    public String payConfirm(OrderDTO data,String openId,String getWay, ModelMap model)
+    public String payConfirm(OrderDTO data,String getWay, ModelMap model)
     {
         if (StringUtils.isNotEmpty(data.getId())) {
             OrderDTO order = orderService.get(data.getId());
@@ -90,7 +90,7 @@ public class OrderAction
         data.setActualPrice(actualPrice);
         data.setCode(orderService.create(data));
         model.addAttribute("data", data);
-        model.addAttribute("openId", openId);
+        model.addAttribute("openId", holder.getAccount().getOpenid());
         model.addAttribute("getWay", getWay);
         return "order/order_pay_confirm";
     }

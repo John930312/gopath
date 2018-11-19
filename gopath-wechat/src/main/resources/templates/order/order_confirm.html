@@ -25,7 +25,6 @@
 </header>
 <article class="ja-product-cot" style="padding-bottom: 3rem;">
     <form action="${base}/order/payConfirm.jsp" class="ja-sure-form" method="post">
-        <input type='hidden' name="openId" value="${openId}"/>
         <input type='hidden' name="actualPrice" value="${price?c}"/>
         <input type='hidden' name="product.id" value="${(product.id)!?html}"/>
         <input type='hidden' name="product.name" value="${(product.name)!?html}"/>
