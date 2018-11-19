@@ -26,11 +26,11 @@
     <a href="${base}/order/detail.jsp?id=${(order.id)!?html}" class="ub ub-ac ja-cell ja-cell_nvg">
         <div class="ub-f1">
             <p class="ft_sm lh_1 mb-lh">${(order.createTime)!?html}<span class="f_r ntc-color">
-            <#if order.status == 0>已下单</#if>
-            <#if order.status == 1>已寄送</#if>
-            <#if order.status == 2>实验中</#if>
-            <#if order.status == 3>已完成</#if>
-            <#if order.status == 4>未付款</#if>
+            <#if order.status == 0>待寄送</#if>
+                <#if order.status == 1>已寄送</#if>
+                <#if order.status == 2>实验中</#if>
+                <#if order.status == 3>已完成</#if>
+                <#if order.status == 4>未付款</#if>
             </span></p>
             <p class="ft_default lh_1">${(order.product.name)!?html}<span class="f_r">¥${(order.actualPrice)!?html}</span></p>
         </div>

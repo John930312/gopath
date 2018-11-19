@@ -60,6 +60,7 @@ public class ProductAction
         Account account = holder.getAccount();
         account.setAgencyId(searcher.getAgencyId());
         if (null == account.getLivePurchase()) {
+            account.setAgencyId(searcher.getAgencyId());
             account.setLivePurchase(1);
             holder.setAccount(account);
         }
