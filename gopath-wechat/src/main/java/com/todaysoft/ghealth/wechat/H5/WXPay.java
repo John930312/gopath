@@ -78,7 +78,7 @@ public class WXPay
         log.info("7"+paramMap.toString());
 
         paramMap.put("spbill_create_ip", "112.82.118.145");//终端IP 用户的ip
-        paramMap.put("notify_url", "http://szeeyn.natappfree.cc/callBack/notification");//通知地址
+        paramMap.put("notify_url", "http://2idpww.natappfree.cc/callBack/notification");//通知地址
         paramMap.put("trade_type", "JSAPI");//交易类型
         paramMap.put("openid", data.getOpenId());
         log.info("8"+paramMap.toString());
