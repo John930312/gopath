@@ -222,11 +222,15 @@ public class OrderService implements IOrderService
 
     @Override
     public void updateByCode(MaintainOrderRequest request) {
+        
         Order order = new Order();
         order.setStatus(request.getStatus());
         order.setCode(request.getCode());
-        orderMapper.updateByCode(order);
-
+        Order or = orderMapper.getByCode(request.getCode());
+        if (4 == or.getStatus())
+        {
+            orderMapper.updateByCode(order);
+        }
     }
 
     private void createOrderHistory(MaintainOrderRequest request)

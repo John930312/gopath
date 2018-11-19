@@ -19,8 +19,15 @@
 <body>
 <header class="ja-head ja-head_testing">
     <section class="ja-head__test-item">
-        <p class="ja-head__txt">${(data.product.name)!?html} <span class="f_r ja-head__num">¥1988</span></p>
-        <p class="ja-head__meta">下单时间：${(data.createTime)!?html} <span class="f_r">已完成</span></p>
+        <p class="ja-head__txt">${(data.product.name)!?html} <span class="f_r ja-head__num">¥${(data.product.guidingPrice)!?html}</span></p>
+        <p class="ja-head__meta">下单时间：${(data.createTime)!?html}
+            <span class="f_r">
+            <#if data.status == 0>待寄送</#if>
+                <#if data.status == 1>已寄送</#if>
+                <#if data.status == 2>实验中</#if>
+                <#if data.status == 3>已完成</#if>
+                <#if data.status == 4>未付款</#if>
+        </span></p>
     </section>
 </header>
 <article class="ja-tabs">
@@ -105,6 +112,7 @@
                                             <#if history.eventType == 1>已寄送</#if>
                                             <#if history.eventType == 2>实验中</#if>
                                             <#if history.eventType == 3>已完成</#if>
+                                            <#if history.eventType == 4>待付款</#if>
                                         </p>
                                     </div>
                             </#if>

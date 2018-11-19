@@ -8,6 +8,7 @@ import com.todaysoft.ghealth.mybatis.mapper.OrderMapper;
 import com.todaysoft.ghealth.mybatis.mapper.SampleBoxMapper;
 import com.todaysoft.ghealth.mybatis.model.Customer;
 import com.todaysoft.ghealth.mybatis.model.Order;
+import com.todaysoft.ghealth.mybatis.model.OrderHistory;
 import com.todaysoft.ghealth.mybatis.model.SampleBox;
 import com.todaysoft.ghealth.mybatis.model.query.OrderQuery;
 import com.todaysoft.ghealth.request.MainSampleBoxRequest;
@@ -76,6 +77,13 @@ public class SampleBoxService implements ISampleBoxService
         customer.setBirthday(customerBirthday);
         customer.setSampleBoxId(sampleBox.getId());
         customerMapper.create(customer);
+
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.setId(IdGen.uuid());
+        orderHistory.setOrderId(order.getId());
+        orderHistory.setEventTime(new Date());
+        orderHistory.setEventType(2);
+        orderHistoryMapper.create(orderHistory);
 
         order.setStatus(2);
         order.setCustomer(customer);

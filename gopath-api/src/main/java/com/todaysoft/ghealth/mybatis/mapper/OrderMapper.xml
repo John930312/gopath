@@ -336,4 +336,11 @@
 		WHERE CODE = #{code,jdbcType=VARCHAR}
 	</update>
 
+    <select id="getByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        o.*
+        FROM ghealth_gopath_order o
+        WHERE o.code = #{code,jdbcType=VARCHAR};
+    </select>
+
 </mapper>

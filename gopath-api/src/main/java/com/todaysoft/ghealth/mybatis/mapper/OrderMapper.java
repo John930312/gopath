@@ -20,4 +20,6 @@ public interface OrderMapper
     List<Order> getByOpenid(String openid);
 
     void updateByCode(Order order);
+
+    Order getByCode(String code);
 }

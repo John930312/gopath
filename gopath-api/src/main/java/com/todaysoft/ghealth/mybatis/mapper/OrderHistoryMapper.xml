@@ -15,6 +15,7 @@
     <include refid="Base_Column_List" />
     from ghealth_gopath_order_history
     where ORDER_ID = #{orderId,jdbcType=VARCHAR}
+    ORDER BY EVENT_TIME DESC
   </select>
 
   <insert id="create" parameterType="com.todaysoft.ghealth.mybatis.model.OrderHistory" >
