@@ -99,25 +99,18 @@
                             <div class="ja-records__day">
                                 <p class="ja-records__date">${(history.eventTime)!?html}</p>
                             </div>
-                            <#if data.status == 3>
-                                <div class="ja-records__status ub-f1 ub ub-ac">
-                                    <p class="ja-records__state">生成报告 <a href="${(data.orderUrl)!?html}"
-                                         class="weui-btn ja-btn__primary ja-btn__inline-size ja-btn__round">报告预览</a>
-                                    </p>
-                                </div>
-                                <#else>
-                                    <div class="ja-records__status ub-f1 ub ub-ac">
-                                        <p class="ja-records__state">
-                                            <#if history.eventType == 0>已下单</#if>
-                                            <#if history.eventType == 1>已寄送</#if>
-                                            <#if history.eventType == 2>实验中</#if>
-                                            <#if history.eventType == 3>已完成</#if>
-                                            <#if history.eventType == 4>待付款</#if>
-                                        </p>
-                                    </div>
-                            </#if>
+                            <div class="ja-records__status ub-f1 ub ub-ac">
+                                <p class="ja-records__state">
+                                    <#if history.eventType == 0>已下单</#if>
+                                    <#if history.eventType == 1>已寄送</#if>
+                                    <#if history.eventType == 2>实验中</#if>
+                                    <#if history.eventType == 3>
+                                    <p class="ja-records__state">生成报告 <a href="${(data.orderUrl)!?html}" class="weui-btn ja-btn__primary ja-btn__inline-size ja-btn__round">报告预览</a></p>
+                                    </#if>
+                                    <#if history.eventType == 4>待付款</#if>
+                                </p>
+                            </div>
                         </div>
-
                     </#list>
                 </#if>
             </section>
