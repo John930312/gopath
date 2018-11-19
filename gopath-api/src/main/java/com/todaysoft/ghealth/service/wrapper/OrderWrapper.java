@@ -36,6 +36,7 @@ public class OrderWrapper extends Wrapper<Order, OrderDTO>
         target.setProduct(productWrapper.wrap(source.getProduct()));
         target.setCustomer(customerWrapper.wrap(source.getCustomer()));
         target.setSampleBox(sampleBoxWrapper.wrap(source.getSampleBox()));
+        target.setAgencyName(null == (source.getAgency())? null :source.getAgency().getName());
     }
     
 }

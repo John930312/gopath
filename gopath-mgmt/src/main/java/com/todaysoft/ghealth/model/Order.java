@@ -36,6 +36,8 @@ public class Order
     private Boolean deleted;
     
     private Date deleteTime;
+
+    private String agencyName;
     
     public String getId()
     {
@@ -189,5 +191,13 @@ public class Order
     public void setSamplingTime(Date samplingTime)
     {
         this.samplingTime = samplingTime;
+    }
+
+    public String getAgencyName() {
+        return agencyName;
+    }
+
+    public void setAgencyName(String agencyName) {
+        this.agencyName = agencyName;
     }
 }
