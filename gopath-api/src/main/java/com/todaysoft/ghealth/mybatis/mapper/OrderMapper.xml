@@ -64,7 +64,7 @@
       LEFT JOIN ghealth_gopath_product p ON o.PRODUCT_ID = p.ID
       LEFT JOIN ghealth_gopath_sample_box sb ON o.SAMPLEBOX_ID = sb.ID
       LEFT JOIN ghealth_gopath_customer c ON o.CUSTOMER_ID = c.ID
-      WHERE o.id = #{id,jdbcType=VARCHAR};
+      WHERE o.SAMPLEBOX_ID = #{id,jdbcType=VARCHAR};
   </select>
 
     <insert id="create" parameterType="com.todaysoft.ghealth.mybatis.model.Order">

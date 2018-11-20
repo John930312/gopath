@@ -55,7 +55,7 @@ public class WXPay
         paramMap.put("body", "杰傲");//商品描述
         paramMap.put("out_trade_no", data.getCode());//商户订单号
         String s = data.getActualPrice().multiply( new BigDecimal( "100" ) ).toString();
-        paramMap.put("total_fee", s.substring(0, s.indexOf( "." )));//标价金额 单位分
+        paramMap.put("total_fee", s.contains(".")?s.substring(0, s.indexOf( "." )):s );//标价金额 单位分
         paramMap.put("spbill_create_ip", "112.82.118.145");//终端IP 用户的ip
         paramMap.put("notify_url", "http://ayk4r6.natappfree.cc/callBack/notification");//通知地址
         paramMap.put("trade_type", "JSAPI");//交易类型
