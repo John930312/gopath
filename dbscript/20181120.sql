@@ -11,3 +11,17 @@ INSERT INTO `ghealth_gopath_resource` (`ID`, `NAME`, `URI`) VALUES ('b8b73b66c8b
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('3c7391156c6249c3b83da03bea1ad807', '7bf5d2775da24efcaa64a00e5191f5df');
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('69c52da2537946648c161fcad8eccae1', '7bf5d2775da24efcaa64a00e5191f5df');
 INSERT INTO `ghealth_gopath_authority_resource` (`AUTHORITY_ID`, `RESOURCE_ID`) VALUES ('75547752588a4fbbbbc64ce596d1fe64', 'b8b73b66c8b343e1b3a7eda517f36f53');
+
+
+CREATE TABLE `ghealth_gopath_sample_box` (
+  `ID` varchar(64) NOT NULL,
+  `CODE` varchar(64) DEFAULT NULL,
+  `NAME` varchar(64) DEFAULT NULL,
+  `PHONE` varchar(64) DEFAULT NULL COMMENT '收件人联系电话',
+  `BINDED` tinyint(1) NOT NULL COMMENT '是否已绑定',
+  `PROVINCE` varchar(64) DEFAULT NULL COMMENT '省',
+  `CITY` varchar(64) DEFAULT NULL COMMENT '市',
+  `ADDRESS` varchar(64) DEFAULT NULL COMMENT '详细地址',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='采样盒';
