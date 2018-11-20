@@ -328,6 +328,11 @@
 
         var code = $('[name="sampleBox.code"]').val();
         var isUnique = false;
+        if(code=="" || code==null)
+        {
+            layer.confirm("采集器编号不能为空！", {title: "提示"});
+            return ;
+        }
         $.ajax({
             method: "GET",
             url: "${base}/order/validateSampleBoxCode.do",
