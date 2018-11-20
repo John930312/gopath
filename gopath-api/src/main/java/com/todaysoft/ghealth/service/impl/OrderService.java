@@ -230,6 +230,13 @@ public class OrderService implements IOrderService
         if (4 == or.getStatus())
         {
             orderMapper.updateByCode(order);
+
+            OrderHistory orderHistory = new OrderHistory();
+            orderHistory.setId(IdGen.uuid());
+            orderHistory.setOrderId(or.getId());
+            orderHistory.setEventTime(new Date());
+            orderHistory.setEventType(request.getStatus());
+            orderHistoryMapper.create(orderHistory);
         }
     }
 

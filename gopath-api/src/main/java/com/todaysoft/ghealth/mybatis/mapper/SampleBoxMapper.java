@@ -1,6 +1,9 @@
 package com.todaysoft.ghealth.mybatis.mapper;
 
 import com.todaysoft.ghealth.mybatis.model.SampleBox;
+import com.todaysoft.ghealth.mybatis.model.query.SampleBoxQuery;
+
+import java.util.List;
 
 public interface SampleBoxMapper
 {
@@ -11,4 +14,8 @@ public interface SampleBoxMapper
     SampleBox get(String id);
 
     long getByCode(String code);
+
+    long count(SampleBoxQuery query);
+
+    List<SampleBox> query(SampleBoxQuery query);
 }

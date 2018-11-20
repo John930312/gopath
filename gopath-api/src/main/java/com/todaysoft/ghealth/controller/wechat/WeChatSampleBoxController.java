@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/wechat/sampleBox")
-public class SampleBoxController
+public class WeChatSampleBoxController
 {
     @Autowired
     private ISampleBoxService sampleBoxService;

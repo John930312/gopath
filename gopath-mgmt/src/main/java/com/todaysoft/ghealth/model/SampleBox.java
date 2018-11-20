@@ -1,6 +1,7 @@
 package com.todaysoft.ghealth.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class SampleBox
 {
@@ -25,6 +26,12 @@ public class SampleBox
     private String provinceText;
 
     private String cityText;
+    
+    private String agencyId;
+
+    private Integer type;//采样盒新增类型：0-系统下单；1-后台新增；
+
+    private List<String> sampleBoxCode;
     
     public String getId()
     {
@@ -130,5 +137,31 @@ public class SampleBox
 
     public void setCityText(String cityText) {
         this.cityText = cityText;
+    }
+
+    public String getAgencyId()
+    {
+        return agencyId;
+    }
+
+    public void setAgencyId(String agencyId)
+    {
+        this.agencyId = agencyId;
+    }
+
+    public List<String> getSampleBoxCode() {
+        return sampleBoxCode;
+    }
+
+    public void setSampleBoxCode(List<String> sampleBoxCode) {
+        this.sampleBoxCode = sampleBoxCode;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

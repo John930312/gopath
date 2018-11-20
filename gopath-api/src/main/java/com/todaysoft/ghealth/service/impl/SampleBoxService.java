@@ -1,29 +1,31 @@
 package com.todaysoft.ghealth.service.impl;
 
 import com.hsgene.restful.response.DataResponse;
+import com.hsgene.restful.util.CountRecords;
 import com.todaysoft.ghealth.DTO.OrderDTO;
-import com.todaysoft.ghealth.mybatis.mapper.CustomerMapper;
-import com.todaysoft.ghealth.mybatis.mapper.OrderHistoryMapper;
-import com.todaysoft.ghealth.mybatis.mapper.OrderMapper;
-import com.todaysoft.ghealth.mybatis.mapper.SampleBoxMapper;
-import com.todaysoft.ghealth.mybatis.model.Customer;
-import com.todaysoft.ghealth.mybatis.model.Order;
-import com.todaysoft.ghealth.mybatis.model.OrderHistory;
-import com.todaysoft.ghealth.mybatis.model.SampleBox;
+import com.todaysoft.ghealth.DTO.SampleBoxDTO;
+import com.todaysoft.ghealth.mybatis.mapper.*;
+import com.todaysoft.ghealth.mybatis.model.*;
 import com.todaysoft.ghealth.mybatis.model.query.OrderQuery;
+import com.todaysoft.ghealth.mybatis.model.query.SampleBoxQuery;
 import com.todaysoft.ghealth.request.MainSampleBoxRequest;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
+import com.todaysoft.ghealth.request.SampleBoxMaintainRequest;
+import com.todaysoft.ghealth.request.SampleBoxQueryRequest;
 import com.todaysoft.ghealth.service.ISampleBoxService;
 import com.todaysoft.ghealth.service.wrapper.OrderHistoryWrapper;
 import com.todaysoft.ghealth.service.wrapper.OrderWrapper;
+import com.todaysoft.ghealth.service.wrapper.SampleBoxWrapper;
 import com.todaysoft.ghealth.utils.IdGen;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.text.ParseException;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +53,12 @@ public class SampleBoxService implements ISampleBoxService
     
     @Autowired
     private OrderHistoryWrapper orderHistoryWrapper;
+    
+    @Autowired
+    private SampleBoxWrapper sampleBoxWrapper;
+
+    @Autowired
+    private SampleBoxAgencyMapper sampleBoxAgencyMapper;
     
     @Override
     public void bind(MaintainOrderRequest request)
@@ -121,5 +129,74 @@ public class SampleBoxService implements ISampleBoxService
             return new DataResponse<OrderDTO>(null);
         }
         return new DataResponse<OrderDTO>(orderWrapper.wrap(orders.get(0)));
+    }
+    
+    @Override
+    public DataResponse<CountRecords<SampleBoxDTO>> pager(SampleBoxQueryRequest request)
+    {
+        SampleBoxQuery query = new SampleBoxQuery();
+        BeanUtils.copyProperties(request, query);
+        CountRecords<SampleBoxDTO> data = new CountRecords<>();
+        
+        if (request.isCount())
+        {
+            long count = sampleBoxMapper.count(query);
+            data.setCount(count);
+            
+            if (0 == count)
+            {
+                data.setRecords(Collections.emptyList());
+                return new DataResponse<>(data);
+            }
+            
+            if (null != request.getLimit() && null != request.getOffset() && request.getOffset().intValue() >= count)
+            {
+                int offset;
+                int limit = request.getLimit().intValue();
+                int mod = (int)count % limit;
+                
+                if (0 == mod)
+                {
+                    offset = (((int)count / limit) - 1) * limit;
+                }
+                else
+                {
+                    offset = ((int)count / limit) * limit;
+                }
+                
+                query.setOffset(offset);
+            }
+        }
+        
+        List<SampleBox> records = sampleBoxMapper.query(query);
+        data.setRecords(sampleBoxWrapper.wrap(records));
+        return new DataResponse<>(data);
+    }
+    
+    @Override
+    public DataResponse<Boolean> isUniqueSampleBoxCode(String code)
+    {
+        return new DataResponse<Boolean>(sampleBoxMapper.getByCode(code) != 0);
+    }
+    
+    @Override
+    @Transactional
+    public void create(SampleBoxMaintainRequest request)
+    {
+        request.getSampleBoxCode().forEach(x->{
+            SampleBox sampleBox = new SampleBox();
+            sampleBox.setId(IdGen.uuid());
+            sampleBox.setCode(x);
+            sampleBox.setBinded(false);
+            sampleBox.setCreateTime(new Date());
+            sampleBoxMapper.create(sampleBox);
+
+            SampleBoxAgency sampleBoxAgency = new SampleBoxAgency();
+            sampleBoxAgency.setSampleBoxId(sampleBox.getId());
+            sampleBoxAgency.setAgencyId(request.getAgencyId());
+            sampleBoxAgency.setCreateTime(sampleBox.getCreateTime());
+            sampleBoxAgency.setType(request.getType());
+            sampleBoxAgencyMapper.create(sampleBoxAgency);
+        });
     }
 }

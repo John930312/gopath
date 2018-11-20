@@ -119,4 +119,41 @@
         FROM ghealth_gopath_sample_box b
         WHERE b.CODE = #{code}
     </select>
+
+    <sql id="OffsetLimitClause">
+        <if test="_parameter.limit != null">
+            LIMIT #{limit}
+        </if>
+        <if test="_parameter.offset != null">
+            OFFSET #{offset}
+        </if>
+    </sql>
+
+    <sql id="ExpertFilters">
+        WHERE 1=1
+        <if test="_parameter.code != null and _parameter.code != ''">
+            <bind name="codePattern" value="'%' + _parameter.code + '%'"/>
+            AND t.CODE LIKE #{codePattern}
+        </if>
+        <if test="_parameter.binded != null and _parameter.binded != ''">
+            <bind name="bindedPattern" value="'%' + _parameter.binded + '%'"/>
+            AND t.BINDED LIKE #{bindedPattern}
+        </if>
+    </sql>
+
+    <select id="count" resultType="long" parameterType="com.todaysoft.ghealth.mybatis.model.query.SampleBoxQuery">
+        SELECT COUNT(*) FROM ghealth_gopath_sample_box t
+        <include refid="ExpertFilters"/>
+    </select>
+
+    <sql id="Base_Query">
+
+    </sql>
+    <select id="query" resultMap="BaseResultMap" parameterType="com.todaysoft.ghealth.mybatis.model.query.SampleBoxQuery">
+        SELECT * FROM ghealth_gopath_sample_box t
+        <include refid="ExpertFilters"/>
+        ORDER BY t.CREATE_TIME DESC
+        <include refid="OffsetLimitClause"/>
+    </select>
+
 </mapper>

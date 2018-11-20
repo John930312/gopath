@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="Cache-Control" content="no-siteapp"/>
+    <title>业务管理-新增采样盒</title>
+    <link href="${plugins}/bootstrap/bootstrap.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/font-awesome.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/animate.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/hplus/hplus.min.css" rel="stylesheet"></link>
+    <link href="${plugins}/icheckbox/icheckbox.css" rel="stylesheet"></link>
+    <link href="${system_css}/system.css" rel="stylesheet"></link>
+    <link href="${plugins}/magicsuggest/magicsuggest-min.css" rel="stylesheet"></link>
+</head>
+<body class="gray-bg">
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox">
+                <div class="ibox-title">
+                    <ol class="breadcrumb">
+                        <li>
+                            <a href="${base}/order/list.jsp">业务管理</a>
+                        </li>
+                        <li class="active">
+                            <strong>新增采样盒</strong>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+            <div class="ibox ibox-table">
+                <div class="ibox-title">
+                    <h5>新增采样盒</h5>
+                </div>
+                <div class="ibox-content">
+                    <form class="form-horizontal m-t" action="${base}/sampleBox/create.jsp" method="post">
+                        <input type="hidden" name="id" id="id" value="${(data.id)!}"/>
+                        <input type="hidden" name="${(REPEAT_SUBMIT_TOKEN)!}" value="${(Request[REPEAT_SUBMIT_TOKEN])!}" />
+                        <fieldset>
+                            <div class="form-group">
+                                <label class="col-sm-2 control-label required-label">代理商选择：</label>
+                                <div class="col-sm-3">
+                                    <div class="form-control" id="agencyName" placeholder="请选择代理商"></div>
+                                    <input type="hidden" name="agencyId" id="agencyId"/>
+                                </div>
+                            </div>
+
+                            <div class="ibox-title">
+                                <a onclick="addMain(this)"
+                                   style="position: relative; bottom: 11px"
+                                   class="btn btn-sm btn-success"> 新增采样盒 </a>
+                            </div>
+                            <div class="ibox-content" id="mainContent">
+                                <div class="form-group" >
+                                    <label class="col-sm-2 control-label ">采样盒编号：</label>
+                                    <div class="col-sm-3">
+                                        <input type="text" class="form-control" name="sampleBoxCode" maxlength="12"/>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-sm-4 col-sm-offset-2">
+                                    <button class="btn btn-primary" type="button" id="subBut">保存</button>
+                                    <button class="btn btn-primary goback" type="button">返回</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="${plugins}/jquery/jquery.min.js"></script>
+<script src="${plugins}/bootstrap/bootstrap.min.js"></script>
+<script src="${plugins}/layer/layer.min.js"></script>
+<script src="${plugins}/magicsuggest/magicsuggest-min.js"></script>
+<script src="${plugins}/icheckbox/icheckbox.min.js"></script>
+<script src="${plugins}/validation/jquery.validate.min.js"></script>
+<script src="${plugins}/validation/additional-methods.min.js"></script>
+<script src="${plugins}/validation/localization/messages_zh.min.js"></script>
+<script src="${system_js}/system.js"></script>
+<script src="${system_js}/myValidate.js"></script>
+
+<script>
+    $(function () {
+        var p = $('#agencyName').magicSuggest(
+            {
+                width: 190,
+                highlight: true,
+                maxSelection:1,
+                data: '${base}/agency/json_list.do',
+                method: 'get',
+                queryParam: "name",
+                displayField: "name",
+                allowFreeEntries: false,
+                renderer: function (v) {
+                    return '<div>' + '<div >' + '<div>'
+                        + v.name + '</div>' + '</div>'
+                        + '<div style="clear:both;"></div>';
+                }
+            });
+
+        $(p).on('selectionchange', function(e,m) {
+            var values = '';
+            var agencyId = [];
+            var agencyIds = $('#agencyName').magicSuggest().getSelection();
+            console.log(agencyIds);
+            $.each(agencyIds, function (index, obj) {
+                agencyId.push(obj.id);
+            })
+            var tIds = agencyId.join(",");
+            $('#agencyId').val(tIds);
+            $('#agencyName .ms-sel-item').each(function(){
+                var value=$(this).text();
+                values=(values+value).trim();
+            })
+        })
+        <#if agencyList??>
+    <#if agencyList!='[]'>
+        $('#agencyName').magicSuggest().setSelection(${agencyList});
+        var principalId=[];
+        var productPrincipalList=$('#agencyName').magicSuggest().getSelection();
+        $.each(productPrincipalList,function(index,obj){
+            principalId.push(obj.id);
+        })
+        var principalIds = principalId.join(",");
+        $("#agencyId").val(principalIds);
+    </#if>
+        </#if>
+
+
+
+        $("#subBut").click(function () {
+        var flag = true;
+            if(p.getValue()==""){
+                layer.confirm("请选择代理商！", {title: "提示"});
+                flag = false;
+                return false;
+            }
+
+            var arr = new Array();
+            $("input[name='sampleBoxCode']").each(
+                function () {
+                    var code = $(this).val();
+                    if(code=="" || code==null)
+                    {
+                        layer.confirm("采集器编号不能为空！", {title: "提示"});
+                        flag = false;
+                        return false;
+                    }
+                    var isUnique = false;
+                    $.ajax({
+                        method: "GET",
+                        url: "${base}/sampleBox/validateSampleBoxCode.do",
+                        async: false,
+                        data: {code: code},
+                        success: function (result) {
+                            isUnique = result;
+                        }
+                    });
+
+                    if (isUnique) {
+                        layer.confirm("采集编号"+$(this).val()+"已存在！", {title: "提示"});
+                        flag = false;
+                        return;
+                    }
+                    arr.push($(this).val())
+                }
+            );
+            if ((new Set(arr)).size != arr.length) {
+                layer.confirm("输入的采集编号有重复值！", {title: "提示"});
+                return false;
+            }
+            if (flag){
+                $('form').submit();
+            }
+        });
+
+    })
+
+    var system_images = "${system_images}";
+    var i = 0;
+    function addMain(obj) {
+        i = i + 1;
+        $(obj)
+            .parent()
+            .parent()
+            .find('#mainContent')
+            .append(	'<div><DIV style="BORDER-TOP: #adadad  1px dashed; OVERFLOW: hidden; HEIGHT: 1px"></DIV></div>'
+                + '<div style="margin-top:17px" class="mainGroup">'
+                + '<img src="'
+                + system_images
+                + '/rubish.png" style="float: right;cursor: pointer;" onclick="removeMain(this)"/>'
+                +
+
+                '<div class="form-group">'
+                + '<label class="col-sm-2 control-label ">采样盒编号：</label>'
+                + '<div class="col-sm-3">'
+                + '<input type="text" class="form-control" name="sampleBoxCode" maxlength="12" id="sampleBoxCode'+i+'" /></div></div>'
+                + '</div>'
+
+            );
+    }
+    function removeMain(obj) {
+        $(obj).parent().remove();
+    }
+
+
+</script>
+
+</body>
+</html>

@@ -1,9 +1,13 @@
 package com.todaysoft.ghealth.service;
 
 import com.hsgene.restful.response.DataResponse;
+import com.hsgene.restful.util.CountRecords;
 import com.todaysoft.ghealth.DTO.OrderDTO;
+import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.request.MainSampleBoxRequest;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
+import com.todaysoft.ghealth.request.SampleBoxMaintainRequest;
+import com.todaysoft.ghealth.request.SampleBoxQueryRequest;
 
 /**
  * @Author: xjw
@@ -16,4 +20,10 @@ public interface ISampleBoxService
     DataResponse<OrderDTO> sampleBoxDetails(MainSampleBoxRequest request);
 
     DataResponse<OrderDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request);
+
+    DataResponse<CountRecords<SampleBoxDTO>> pager(SampleBoxQueryRequest request);
+
+    DataResponse<Boolean> isUniqueSampleBoxCode(String code);
+
+    void create(SampleBoxMaintainRequest request);
 }

@@ -13,10 +13,12 @@ import com.todaysoft.ghealth.support.PagerArgs;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -111,6 +113,20 @@ public class AgencyAction
     public boolean validate(String code, String id)
     {
         return agencyService.isCodeUnique(code, id);
+    }
+
+    @RequestMapping("json_list.do")
+    @ResponseBody
+    public List<Agency> jsonList(AgencySearcher searcher)
+    {
+        Pager<Agency> pagination = agencyService.pager(searcher, 1, 10);
+        if (CollectionUtils.isEmpty(pagination.getRecords()))
+        {
+            return Collections.emptyList();
+        }
+
+        List<Agency> agencyList = pagination.getRecords();
+        return agencyList;
     }
     
     private String redirectList(ModelMap model, HttpSession session, String url)
