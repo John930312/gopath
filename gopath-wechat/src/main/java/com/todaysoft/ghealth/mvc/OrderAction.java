@@ -22,6 +22,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -115,7 +116,17 @@ public class OrderAction
     {
         Account account = accountContextHolder.getAccount();
         List<OrderDTO> orders = orderService.getMyOrder(account.getOpenid());
-        model.addAttribute("orders", orders);
+
+        List<OrderDTO> os = new ArrayList<>();
+        for (int i = 0; i < orders.size(); i++) {
+            OrderDTO od = orders.get(i);
+            OrderDTO dto = orderService.get(od.getId());
+            String agencyName = dto.getAgencyName();
+            od.setAgencyName(agencyName);
+            os.add(od);
+        }
+
+        model.addAttribute("orders", os);
         return "order/order_list";
     }
     @RequestMapping("/detail.jsp")

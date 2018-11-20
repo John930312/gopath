@@ -22,4 +22,7 @@ public interface OrderMapper
     void updateByCode(Order order);
 
     Order getByCode(String code);
+
+    void updateSampleboxId (Order order);
+
 }

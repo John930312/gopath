@@ -17,6 +17,8 @@ public interface ISampleBoxService
 {
     void bind(MaintainOrderRequest request);
 
+    void bindByCode(MaintainOrderRequest request);
+
     DataResponse<OrderDTO> sampleBoxDetails(MainSampleBoxRequest request);
 
     DataResponse<CountRecords<SampleBoxDTO>> pager(SampleBoxQueryRequest request);
@@ -25,6 +27,9 @@ public interface ISampleBoxService
 
     void create(SampleBoxMaintainRequest request);
 
-    DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request);
+    DataResponse<OrderDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request);
+
+    DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCodeLocal(MainSampleBoxRequest request);
+
 
 }

@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no">
+    <meta name="format-detection" content="telephone=no,email=no">
+    <meta http-equiv="Cache-Control" content="no-store"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="HandheldFriendly" content="true">
+    <meta name="renderer" content="webkit|ie-comp|ie-stand">
+    <link rel="stylesheet" href="${plugins}/weui.min.css">
+    <link rel="stylesheet" href="${plugins}/jquery-weui.min.css">
+    <link rel="stylesheet" href="${system_css}/common.css">
+    <link rel="stylesheet" href="${system_css}/styles.css?v=1">
+</head>
+<body>
+<form class="weui-cells ja-cells_form clear_top_line" action="${base}/sampleBox/bindingByOrder.jsp" method="post">
+    <input type="hidden" name="sampleBox.id" >
+    <input type="hidden" name="id" value="${code}">
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">采集器编号：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="" onblur="setData(this)" name="sampleBox.code" id="code">
+        </div>
+        <div class="weui-cell__ft">
+            <a href="javascript:;"><img src="${system_images}/sm_20181016.png" alt="扫码" class="sm-img"></a>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">姓名：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" name="customer.name" placeholder="">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">性别：</label></div>
+        <div class="weui-cell__bd">
+            <label class="ja-check" style="margin-right: 2.5rem; margin-left: 1rem;">
+                <input type="radio" name="customer.sex" value="1" class="ja-check__input">
+                <span class="ja-check__state"></span>
+                男
+            </label>
+            <label class="ja-check">
+                <input type="radio" name="customer.sex" value="2" class="ja-check__input">
+                <span class="ja-check__state"></span>
+                女
+            </label>
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">出生日期：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="" id="csDate" name="customer.birthday">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">采样日期：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="text" placeholder="" id="cyDate" name="samplingTime">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">电话：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="phone" placeholder="" name="customer.phone">
+        </div>
+    </div>
+    <div class="weui-cell">
+        <div class="weui-cell__hd"><label class="weui-label">邮箱：</label></div>
+        <div class="weui-cell__bd">
+            <input class="weui-input" type="email" placeholder="" name="customer.email">
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_ja-select">
+        <div class="weui-cell__hd"><label class="weui-label">样本类型：</label></div>
+        <div class="weui-cell__bd">
+            <select class="weui-select" name="sampleType" value="${(data.sampleType)!?html}">
+                <option value="1">口腔黏膜</option>
+                <option value="3">其他</option>
+            </select>
+        </div>
+    </div>
+    <div class="weui-cell weui-cell_ja-select">
+        <div class="weui-cell__hd"><label class="weui-label">纸质报告：</label></div>
+        <div class="weui-cell__bd">
+            <select class="weui-select" name="reportPrintRequired" value="${(data.reportPrintRequired)!?html}">
+                <option value="0">不需要</option>
+                <option value="1">需要</option>
+            </select>
+        </div>
+    </div>
+    <div style="padding:3rem  3.125rem 0.8rem;">
+        <button type="submit" class="weui-btn ja-btn__primary" disabled id="submitBtn">提交绑定</button>
+    </div>
+</form>
+<script src="${plugins}/jquery.min.js"></script>
+<script src="${plugins}/jquery-weui.min.js"></script>
+<script type="text/javascript">
+
+    var crtDate = new Date();
+    var year = crtDate.getFullYear();
+    var moth = crtDate.getMonth();
+    moth = moth < 10 ? '0' + (moth + 1) : (moth + 1)
+    var day = crtDate.getDate();
+    day = day < 10 ? '0' + day : day;
+    var maxDay = year + '-' + moth + '-' + day;
+
+    $('#csDate').calendar({
+        maxDate: maxDay,
+        value: ["2000-10-10"],
+        dateFormat: 'yyyy-mm-dd'
+    });
+
+    $('#cyDate').calendar({
+        maxDate: maxDay,
+        value: [maxDay],
+        dateFormat: 'yyyy-mm-dd'
+    });
+
+    $('form input,form textarea').on('change', function (e) {
+
+        var isFull = true;
+        $('.weui-input').each(function (index, el) {
+            var $me = $(this);
+            var v = $me.val();
+            if ($.trim(v).length <= 0) {
+                isFull = false;
+                return false;
+            }
+        });
+        if (isFull) {
+            $('#submitBtn').attr('disabled', false);
+        } else {
+            $('#submitBtn').attr('disabled', true);
+        }
+    });
+
+    function setData(obj) {
+
+        if (null == $(obj).val() || "" == $(obj).val()) {
+            return;
+        }
+        $.get("${base}/sampleBox/validateSampleCodeLocal.jsp", {code: $(obj).val()}, function (result) {
+            if (null == result || "" == result) {
+                $.toptip("该编号没有关联数据");
+                $("#code").val("");
+                return;
+            }
+            if (result.binded) {
+                $.toptip("该编号已绑定！");
+                $("#code").val("");
+                return;
+            }
+            $("[name='sampleBox.id']").val(result.id);
+            if (result.reportPrintRequired == 1) {
+                $("[name='reportPrintRequired']:eq(0)").attr("checked", true);
+            } else {
+                $("[name='reportPrintRequired']:eq(1)").attr("checked", true);
+            }
+
+        });
+    }
+</script>
+</body>
+</html>

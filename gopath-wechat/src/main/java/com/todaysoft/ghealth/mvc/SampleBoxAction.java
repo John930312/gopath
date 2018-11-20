@@ -27,11 +27,25 @@ public class SampleBoxAction
     {
         return "sampleBox/sampleBox_bind";
     }
+
+    @RequestMapping("/bindByOrder.jsp")
+    public String bindByOrder(String code, ModelMap model)
+    {
+        model.addAttribute("code", code);
+        return "sampleBox/sampleBox_bindByOrder";
+    }
     
     @PostMapping("/binding.jsp")
     public String bind(OrderDTO data)
     {
         sampleBoxService.bind(data);
+        return "redirect:/order/list.jsp";
+    }
+
+    @PostMapping("/bindingByOrder.jsp")
+    public String bindByOrder(OrderDTO data)
+    {
+        sampleBoxService.bindByCode(data);
         return "redirect:/order/list.jsp";
     }
     
@@ -42,10 +56,18 @@ public class SampleBoxAction
         return "sampleBox/sampleBox_detail";
     }
 
+
     @ResponseBody
     @GetMapping("/validateSampleCode.jsp")
-    public SampleBoxDTO getOrderDTOBySampleBoxCode(String code)
+    public OrderDTO getOrderDTOBySampleBoxCode(String code)
     {
         return sampleBoxService.getOrderDTOBySampleBoxCode(code);
+    }
+
+    @ResponseBody
+    @GetMapping("/validateSampleCodeLocal.jsp")
+    public SampleBoxDTO getOrderDTOBySampleBoxCodeLocal(String code)
+    {
+        return sampleBoxService.getOrderDTOBySampleBoxCodeLocal(code);
     }
 }

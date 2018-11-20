@@ -102,6 +102,64 @@ public class SampleBoxService implements ISampleBoxService
         sampleBox.setBinded(true);
         sampleBoxMapper.modify(sampleBox);
     }
+
+    @Override
+    public void bindByCode(MaintainOrderRequest request)
+    {
+        //step1:获取订单
+        String id  = request.getId();
+        Order byCode = orderMapper.getByCode(id);
+
+        //step2:查询采样盒id
+        SampleBoxQuery s = new SampleBoxQuery();
+        s.setCode(request.getSampleBox().getCode());
+        List<SampleBox> query = sampleBoxMapper.query( s );
+
+        //step3:更新订单内容
+        Order or = new Order();
+        or.setCode(query.get(0).getId());
+        or.setId(byCode.getId());
+        orderMapper.updateSampleboxId(or);
+
+        Order order = orderMapper.get(byCode.getId());
+        SampleBox sampleBox = order.getSampleBox();
+
+        String customerId = IdGen.uuid();
+        Customer customer = new Customer();
+        BeanUtils.copyProperties(request.getCustomer(), customer, "birthday");
+        customer.setId(customerId);
+        customer.setCreateTime(new Date());
+        Date customerBirthday = null;
+        Date orderSamplingTime = null;
+        try
+        {
+            customerBirthday = DateUtils.parseDate(request.getCustomer().getBirthday(), "yyyy-MM-dd");
+            orderSamplingTime = DateUtils.parseDate(request.getSamplingTime(), "yyyy-MM-dd");
+        }
+        catch (ParseException e)
+        {
+            e.printStackTrace();
+        }
+        customer.setBirthday(customerBirthday);
+        customer.setSampleBoxId(sampleBox.getId());
+        customerMapper.create(customer);
+
+        OrderHistory orderHistory = new OrderHistory();
+        orderHistory.setId(IdGen.uuid());
+        orderHistory.setOrderId(order.getId());
+        orderHistory.setEventTime(new Date());
+        orderHistory.setEventType(2);
+        orderHistoryMapper.create(orderHistory);
+
+        order.setStatus(2);
+        order.setCustomer(customer);
+        order.setSampleType(request.getSampleType());
+        order.setSamplingTime(orderSamplingTime);
+        orderMapper.modify(order);
+
+        sampleBox.setBinded(true);
+        sampleBoxMapper.modify(sampleBox);
+    }
     
     @Override
     public DataResponse<OrderDTO> sampleBoxDetails(MainSampleBoxRequest request)
@@ -119,7 +177,22 @@ public class SampleBoxService implements ISampleBoxService
     }
 
     @Override
-    public DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request)
+    public DataResponse<OrderDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request)
+    {
+        OrderQuery query = new OrderQuery();
+        query.setSampleBoxCode(request.getCode());
+        List<Order> orders = orderMapper.query(query);
+        if (CollectionUtils.isEmpty(orders))
+        {
+            return new DataResponse<OrderDTO>(null);
+        }
+        OrderDTO dto = orderWrapper.wrap(orders.get(0));
+        dto.setOrderHistory(orderHistoryWrapper.wrap(orderHistoryMapper.getByOrderId(dto.getId())));
+        return new DataResponse<OrderDTO>(dto);
+    }
+
+    @Override
+    public DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCodeLocal(MainSampleBoxRequest request)
     {
         //查询是否存在 是否使用
         List<SampleBox> sampleBox = sampleBoxMapper.checkByCode(request.getCode());

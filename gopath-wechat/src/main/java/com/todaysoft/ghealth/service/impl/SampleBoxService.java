@@ -31,7 +31,15 @@ public class SampleBoxService implements ISampleBoxService
         BeanUtils.copyProperties(data, request);
         gateway.post("/wechat/sampleBox/bind", request);
     }
-    
+
+    @Override
+    public void bindByCode(OrderDTO data)
+    {
+        MaintainOrderRequest request = new MaintainOrderRequest();
+        BeanUtils.copyProperties(data, request);
+        gateway.post("/wechat/sampleBox/bindByCode", request);
+    }
+
     @Override
     public OrderDTO detail(String id)
     {
@@ -46,12 +54,24 @@ public class SampleBoxService implements ISampleBoxService
     }
 
     @Override
-    public SampleBoxDTO getOrderDTOBySampleBoxCode(String code)
+    public OrderDTO getOrderDTOBySampleBoxCode(String code)
     {
         MainSampleBoxRequest request = new MainSampleBoxRequest();
         request.setCode(code);
 
-        DataResponse<SampleBoxDTO> response = gateway.post("/wechat/sampleBox/getOrderDTOBySampleBoxCode", request, new ParameterizedTypeReference<DataResponse<SampleBoxDTO>>()
+        DataResponse<OrderDTO> response = gateway.post("/wechat/sampleBox/getOrderDTOBySampleBoxCode", request, new ParameterizedTypeReference<DataResponse<OrderDTO>>()
+        {
+        });
+        return Objects.isNull(response.getData()) ? null : response.getData();
+    }
+
+    @Override
+    public SampleBoxDTO getOrderDTOBySampleBoxCodeLocal(String code)
+    {
+        MainSampleBoxRequest request = new MainSampleBoxRequest();
+        request.setCode(code);
+
+        DataResponse<SampleBoxDTO> response = gateway.post("/wechat/sampleBox/getOrderDTOBySampleBoxCodeLocal", request, new ParameterizedTypeReference<DataResponse<SampleBoxDTO>>()
         {
         });
         return Objects.isNull(response.getData()) ? null : response.getData();
