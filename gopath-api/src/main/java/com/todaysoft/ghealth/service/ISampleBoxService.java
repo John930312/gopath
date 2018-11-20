@@ -19,11 +19,12 @@ public interface ISampleBoxService
 
     DataResponse<OrderDTO> sampleBoxDetails(MainSampleBoxRequest request);
 
-    DataResponse<OrderDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request);
-
     DataResponse<CountRecords<SampleBoxDTO>> pager(SampleBoxQueryRequest request);
 
     DataResponse<Boolean> isUniqueSampleBoxCode(String code);
 
     void create(SampleBoxMaintainRequest request);
+
+    DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request);
+
 }

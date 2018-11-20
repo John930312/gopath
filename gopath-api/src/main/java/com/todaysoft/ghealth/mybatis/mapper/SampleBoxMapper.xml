@@ -156,4 +156,10 @@
         <include refid="OffsetLimitClause"/>
     </select>
 
+    <select id="checkByCode" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT *
+        FROM ghealth_gopath_sample_box b
+        WHERE b.CODE = #{code}
+    </select>
+
 </mapper>

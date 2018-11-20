@@ -1,6 +1,7 @@
 package com.todaysoft.ghealth.service;
 
 import com.todaysoft.ghealth.DTO.OrderDTO;
+import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
 
 /**
@@ -13,5 +14,5 @@ public interface ISampleBoxService
 
     OrderDTO detail(String id);
 
-    OrderDTO getOrderDTOBySampleBoxCode(String code);
+    SampleBoxDTO getOrderDTOBySampleBoxCode(String code);
 }

@@ -46,12 +46,12 @@ public class SampleBoxService implements ISampleBoxService
     }
 
     @Override
-    public OrderDTO getOrderDTOBySampleBoxCode(String code)
+    public SampleBoxDTO getOrderDTOBySampleBoxCode(String code)
     {
         MainSampleBoxRequest request = new MainSampleBoxRequest();
         request.setCode(code);
 
-        DataResponse<OrderDTO> response = gateway.post("/wechat/sampleBox/getOrderDTOBySampleBoxCode", request, new ParameterizedTypeReference<DataResponse<OrderDTO>>()
+        DataResponse<SampleBoxDTO> response = gateway.post("/wechat/sampleBox/getOrderDTOBySampleBoxCode", request, new ParameterizedTypeReference<DataResponse<SampleBoxDTO>>()
         {
         });
         return Objects.isNull(response.getData()) ? null : response.getData();

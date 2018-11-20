@@ -18,4 +18,6 @@ public interface SampleBoxMapper
     long count(SampleBoxQuery query);
 
     List<SampleBox> query(SampleBoxQuery query);
+
+    List<SampleBox> checkByCode(String code);
 }

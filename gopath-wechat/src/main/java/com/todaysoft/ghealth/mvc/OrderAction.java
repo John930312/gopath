@@ -126,7 +126,7 @@ public class OrderAction
         return "order/order_detail";
     }
 
-    /*@RequestMapping(value = "/getPDF", produces = MediaType.APPLICATION_PDF_VALUE)
+/*    @RequestMapping(value = "/getPDF", produces = MediaType.APPLICATION_PDF_VALUE)
     @ResponseBody
     public byte[] getPDF(@RequestParam(value = "path", required = false) String path) throws IOException
     {
@@ -144,12 +144,9 @@ public class OrderAction
         }
     }*/
 
-
-    @ResponseBody
     @GetMapping("/getPDF")
     public void getPDF(HttpServletRequest request, HttpServletResponse response)
     {
-
         String path = request.getParameter("path");
         File file = new File(path);
         if (file.exists()) {

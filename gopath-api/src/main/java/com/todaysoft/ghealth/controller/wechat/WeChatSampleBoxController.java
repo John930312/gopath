@@ -2,6 +2,7 @@ package com.todaysoft.ghealth.controller.wechat;
 
 import com.hsgene.restful.response.DataResponse;
 import com.todaysoft.ghealth.DTO.OrderDTO;
+import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.request.MainSampleBoxRequest;
 import com.todaysoft.ghealth.request.MaintainOrderRequest;
 import com.todaysoft.ghealth.service.ISampleBoxService;
@@ -33,9 +34,9 @@ public class WeChatSampleBoxController
     {
         return sampleBoxService.sampleBoxDetails(request);
     }
-    
+
     @PostMapping("/getOrderDTOBySampleBoxCode")
-    public DataResponse<OrderDTO> getOrderDTOBySampleBoxCode(@RequestBody MainSampleBoxRequest request)
+    public DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCode(@RequestBody MainSampleBoxRequest request)
     {
         return sampleBoxService.getOrderDTOBySampleBoxCode(request);
     }

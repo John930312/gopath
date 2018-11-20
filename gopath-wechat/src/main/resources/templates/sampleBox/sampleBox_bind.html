@@ -149,12 +149,12 @@
                 $("#code").val("");
                 return;
             }
-            if (result.sampleBox.binded) {
+            if (result.binded) {
                 $.toptip("该编号已绑定！");
                 $("#code").val("");
                 return;
             }
-            $("[name='sampleBox.id']").val(result.sampleBox.id);
+            $("[name='sampleBox.id']").val(result.id);
             $("[name='id']").val(result.id)
             if (result.reportPrintRequired == 1) {
                 $("[name='reportPrintRequired']:eq(0)").attr("checked", true);

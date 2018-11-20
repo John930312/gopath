@@ -117,18 +117,17 @@ public class SampleBoxService implements ISampleBoxService
         dto.setOrderHistory(orderHistoryWrapper.wrap(orderHistoryMapper.getByOrderId(dto.getId())));
         return new DataResponse<OrderDTO>(dto);
     }
-    
+
     @Override
-    public DataResponse<OrderDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request)
+    public DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCode(MainSampleBoxRequest request)
     {
-        OrderQuery query = new OrderQuery();
-        query.setSampleBoxCode(request.getCode());
-        List<Order> orders = orderMapper.query(query);
-        if (CollectionUtils.isEmpty(orders))
+        //查询是否存在 是否使用
+        List<SampleBox> sampleBox = sampleBoxMapper.checkByCode(request.getCode());
+        if (CollectionUtils.isEmpty(sampleBox))
         {
-            return new DataResponse<OrderDTO>(null);
+            return new DataResponse<SampleBoxDTO>(null);
         }
-        return new DataResponse<OrderDTO>(orderWrapper.wrap(orders.get(0)));
+        return new DataResponse<SampleBoxDTO>(sampleBoxWrapper.wrap(sampleBox.get(0)));
     }
     
     @Override

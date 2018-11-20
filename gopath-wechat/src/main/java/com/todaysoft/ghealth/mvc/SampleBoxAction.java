@@ -1,6 +1,7 @@
 package com.todaysoft.ghealth.mvc;
 
 import com.todaysoft.ghealth.DTO.OrderDTO;
+import com.todaysoft.ghealth.DTO.SampleBoxDTO;
 import com.todaysoft.ghealth.service.ISampleBoxService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -43,7 +44,7 @@ public class SampleBoxAction
 
     @ResponseBody
     @GetMapping("/validateSampleCode.jsp")
-    public OrderDTO getOrderDTOBySampleBoxCode(String code)
+    public SampleBoxDTO getOrderDTOBySampleBoxCode(String code)
     {
         return sampleBoxService.getOrderDTOBySampleBoxCode(code);
     }
