@@ -9,6 +9,7 @@ import com.todaysoft.ghealth.wechat.H5.WXPay;
 import com.todaysoft.ghealth.wechat.H5.WXPayUtil;
 import com.todaysoft.ghealth.wechat.dto.Account;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -137,26 +138,36 @@ public class OrderAction
         return "order/order_detail";
     }
 
-/*    @RequestMapping(value = "/getPDF", produces = MediaType.APPLICATION_PDF_VALUE)
-    @ResponseBody
-    public byte[] getPDF(@RequestParam(value = "path", required = false) String path) throws IOException
-    {
-        if (path != null)
-        {
-            File file = new File(path);
-            FileInputStream inputStream = new FileInputStream(file);
-            byte[] bytes = new byte[inputStream.available()];
-            inputStream.read(bytes, 0, inputStream.available());
-            return bytes;
-        }
-        else
-        {
-            return null;
-        }
-    }*/
+   @RequestMapping(value = "/getPDF")
+   public void getPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String path = request.getParameter("path");
+        File file = new File(path);
 
-    @GetMapping("/getPDF")
-    public void getPDF(HttpServletRequest request, HttpServletResponse response)
+        InputStream in = new FileInputStream(file);
+        OutputStream out = null;
+        try
+        {
+            response.setContentType("application/pdf;charset=UTF-8");
+            out = response.getOutputStream();
+            IOUtils.copy(in, out);
+            out.flush();
+        }
+        finally
+        {
+            if (null != in)
+            {
+                in.close();
+            }
+
+            if (null != out)
+            {
+                out.close();
+            }
+        }
+    }
+
+    @GetMapping("/getPDF1")
+    public void getPDF1(HttpServletRequest request, HttpServletResponse response)
     {
         String path = request.getParameter("path");
         File file = new File(path);
