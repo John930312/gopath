@@ -45,6 +45,19 @@
     </div>
 </div>
 </#if>
+
+
+<#if order.status == 0 && !(order.agencyName )??>
+<div class="ub ja-cell ja-cell_sm">
+    <div class="ub-f1 ub ub-ac">
+        <p class="ft_smaller second-txt lh_1">该订单绑定未完成</p>
+    </div>
+    <div class="ft_smaller lh_1">
+        <a href="${base}/sampleBox/bindByOrder.jsp?code=${(order.code)!?html}"   class="weui-btn ja-btn__outline_primary ja-btn__inline-size ja-btn__round">继续绑定</a>
+    </div>
+</div>
+</#if>
+
 </div>
 </#list>
 </#if>

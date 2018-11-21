@@ -28,6 +28,12 @@ public class WeChatSampleBoxController
     {
         sampleBoxService.bind(request);
     }
+
+    @PostMapping("/bindByCode")
+    public void bindByCode(@RequestBody MaintainOrderRequest request)
+    {
+        sampleBoxService.bindByCode(request);
+    }
     
     @PostMapping("/detail")
     public DataResponse<OrderDTO> sampleBoxDetails(@RequestBody MainSampleBoxRequest request)
@@ -36,8 +42,14 @@ public class WeChatSampleBoxController
     }
 
     @PostMapping("/getOrderDTOBySampleBoxCode")
-    public DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCode(@RequestBody MainSampleBoxRequest request)
+    public DataResponse<OrderDTO> getOrderDTOBySampleBoxCode(@RequestBody MainSampleBoxRequest request)
     {
         return sampleBoxService.getOrderDTOBySampleBoxCode(request);
+    }
+
+    @PostMapping("/getOrderDTOBySampleBoxCodeLocal")
+    public DataResponse<SampleBoxDTO> getOrderDTOBySampleBoxCodeLocal(@RequestBody MainSampleBoxRequest request)
+    {
+        return sampleBoxService.getOrderDTOBySampleBoxCodeLocal(request);
     }
 }

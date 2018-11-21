@@ -12,7 +12,11 @@ public interface ISampleBoxService
 {
     void bind(OrderDTO data);
 
+    void bindByCode(OrderDTO data);
+
     OrderDTO detail(String id);
 
-    SampleBoxDTO getOrderDTOBySampleBoxCode(String code);
+    OrderDTO getOrderDTOBySampleBoxCode(String code);
+
+    SampleBoxDTO getOrderDTOBySampleBoxCodeLocal(String code);
 }

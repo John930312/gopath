@@ -128,7 +128,7 @@
                     if("0"==getWay){
                         window.location.href = "${base}/order/list.jsp";
                     }else{
-                        window.location.href = "${base}/sampleBox/bind.jsp";
+                        window.location.href = "${base}/sampleBox/bindByOrder.jsp?code="+code;
                     }
                 } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
                     console.log('支付取消');
