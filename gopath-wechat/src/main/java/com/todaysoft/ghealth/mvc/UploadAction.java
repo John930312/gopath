@@ -1,5 +1,6 @@
 package com.todaysoft.ghealth.mvc;
 
+import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +34,36 @@ public class UploadAction {
         }
     }
 
-    @GetMapping("/getPDF")
-    public void getPDF(HttpServletRequest request, HttpServletResponse response)
+    @RequestMapping(value = "/getPDF")
+    public void getPDF(HttpServletRequest request, HttpServletResponse response) throws Exception {
+        String path = request.getParameter("path");
+        File file = new File(path);
+
+        InputStream in = new FileInputStream(file);
+        OutputStream out = null;
+        try
+        {
+            response.setContentType("application/pdf;charset=UTF-8");
+            out = response.getOutputStream();
+            IOUtils.copy(in, out);
+            out.flush();
+        }
+        finally
+        {
+            if (null != in)
+            {
+                in.close();
+            }
+
+            if (null != out)
+            {
+                out.close();
+            }
+        }
+    }
+
+    @GetMapping("/getPDF1")
+    public void getPDF1(HttpServletRequest request, HttpServletResponse response)
     {
         String path = request.getParameter("path");
         File file = new File(path);
@@ -74,4 +103,5 @@ public class UploadAction {
             }
         }
     }
+
 }
