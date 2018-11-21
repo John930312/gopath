@@ -20,16 +20,15 @@
 <article class="ja-product-cot">
     <ul class="ja-info-list">
         <li class="ja-info-list__item">
+            <div class="ja-info-list__item-txt"><img src="/upload/getImg?path=${(data.imgUrl)!?html}"/></div>
+        </li>
+        <li class="ja-info-list__item">
             <div class="ja-info-list__item-name">产品编码：</div>
             <div class="ja-info-list__item-txt">${(data.code)!?html}</div>
         </li>
         <li class="ja-info-list__item">
             <div class="ja-info-list__item-name">产品名称：</div>
             <div class="ja-info-list__item-txt">${(data.name)!?html}</div>
-        </li>
-        <li class="ja-info-list__item">
-            <div class="ja-info-list__item-name">产品图片：</div>
-            <div class="ja-info-list__item-txt"><img src="/upload/getImg?path=${(data.imgUrl)!?html}"/></div>
         </li>
         <li class="ja-info-list__item">
             <div class="ja-info-list__item-name">适用人群：</div>
@@ -48,7 +47,7 @@
             <div class="ja-info-list__item-txt">${(data.itemIds)!?html}</div>
         </li>
     <li class="ja-info-list__item ja-info-list__item-name">
-        <a href="${(data.pdfUrl)!?html}" target="_blank" class="weui-btn ja-btn__primary ja-btn__inline-size ja-btn__round">了解更多</a>
+        <div class="txt_r ub-f1"><a href="${(data.pdfUrl)!?html}" target="_blank" class="" style="color: #448aca;">了解更多</a></div>
     </li>
 
     </ul>
