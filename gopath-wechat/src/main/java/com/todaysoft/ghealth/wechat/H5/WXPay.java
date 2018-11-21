@@ -37,6 +37,7 @@ public class WXPay
         try
         {
             String reqXML = unifiedorder(WXPayUtil.mapToXml(getUnifiedorderParams(data)), 6 * 1000, 8 * 1000);
+            log.info( "发起支付返回参数:"+reqXML);
             return this.processResponseXml(reqXML);
         }
         catch (Exception e)
@@ -83,6 +84,9 @@ public class WXPay
         StringEntity postEntity = new StringEntity(reqBody, "UTF-8");
         httpPost.addHeader("Content-Type", "text/xml");
         httpPost.addHeader("User-Agent", WXPayConstants.USER_AGENT + " " + WXPayConstants.MCH_ID);
+        log.info( "发起支付马上开始:"+postEntity.toString());
+
+
         httpPost.setEntity(postEntity);
         
         HttpResponse httpResponse = httpClient.execute(httpPost);
