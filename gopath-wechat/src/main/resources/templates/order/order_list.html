@@ -47,7 +47,7 @@
 </#if>
 
 
-<#if order.status == 0 && !(order.agencyName )??>
+<#if order.status == 0 && (order.agencyName )??>
 <div class="ub ja-cell ja-cell_sm">
     <div class="ub-f1 ub ub-ac">
         <p class="ft_smaller second-txt lh_1">该订单绑定未完成</p>
