@@ -14,6 +14,23 @@
     <link href="${plugins}/multiselect/style.css" rel="stylesheet" type="text/css">
     <link href="${system_css}/system.css" rel="stylesheet"></link>
     <link href="${plugins}/magicsuggest/magicsuggest-min.css" rel="stylesheet"></link>
+    <link href="${system_css}/toastr.min.css" rel="stylesheet"></link>
+    <style type="text/css">
+        .fileinput-button {
+            position: relative;
+            display: inline-block;
+            overflow: hidden;
+        }
+
+        .fileinput-button input{
+            position:absolute;
+            right: 0px;
+            top: 0px;
+            opacity: 0;
+            -ms-filter: 'alpha(opacity=0)';
+            font-size: 200px;
+        }
+    </style>
 </head>
 <body class="gray-bg">
 <div class="wrapper wrapper-content animated fadeInRight">
@@ -123,6 +140,30 @@
                                     </div>
                                 </div>
 
+<div class="form-group">
+    <label class="col-sm-2 control-label">产品图片:</label>
+    <div class="col-sm-3">
+        <input type="hidden" name="imgUrl"  id="imgUrl" value="${(data.imgUrl)!?html}"/>
+        <span class="btn btn-success fileinput-button"><span>上传</span>
+                                <input type="file" name="logoFile" id="logoFile" onchange="setImg(this);"></span>
+        <span><img id="thumburlShow"
+                                           <#if (data.imgUrl)??>
+                                           src="/upload/getImg?path=${(data.imgUrl)!?html}"
+                                    </#if>
+        /></span>
+    </div>
+</div>
+<div class="form-group">
+    <label class="col-sm-2 control-label">产品详情:</label>
+    <div class="col-sm-3">
+        <input type="hidden" name="pdfUrl"  id="pdfUrl"/>
+        <span class="btn btn-success fileinput-button"><span>上传</span>
+                            <input type="file" name="logoFile2" id="logoFile2" onchange="setPdf(this);"></span>
+        <span><a href="${(data.pdfUrl)!?html}" target="_blank" id="pdf">产品详情</a></span>
+    </div>
+</div>
+
+
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">检测内容介绍：</label>
                                 <div class="col-sm-8">
@@ -184,7 +225,9 @@
 <script src="${system_js}/myValidate.js"></script>
 <script src="${plugins}/My97DatePicker/WdatePicker.js"></script>
 <script src="${plugins}/multiselect/multiselect.min.js" type="text/javascript"></script>
+<script src="${system_js}/toastr.min.js"></script>
 <script type="text/javascript">
+
     <!--
     $(function()
     {
@@ -331,6 +374,89 @@
 
 
     //-->
+
+    function setImg(obj){//用于进行图片上传，返回地址
+        var f=$(obj).val();
+        if(f == null || f ==undefined || f == ''){
+            return false;
+        }
+        if(!/\.(?:png|jpg|bmp|gif|PNG|JPG|BMP|GIF)$/.test(f))
+        {
+            toastr.error("类型必须是图片(.png|jpg|bmp|gif|PNG|JPG|BMP|GIF)");
+            $(obj).val('');
+            return false;
+        }
+        var data = new FormData();
+        $.each($(obj)[0].files,function(i,file){
+            data.append('file', file);
+        });
+        $.ajax({
+            type: "POST",
+            url: "/upload/uploadImg",
+            data: data,
+            cache: false,
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            dataType:"json",
+            success: function(suc) {
+                if(suc.code==0){
+                    $("#imgUrl").val(suc.message);//将地址存储好
+                    $("#thumburlShow").attr("src","/upload/getImg?path="+suc.message);//显示图片
+                }else{
+                    toastr.error("上传失败");
+                    $("#url").val("");
+                    $(obj).val('');
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error("上传失败");
+                $("#url").val("");
+                $(obj).val('');
+            }
+        });
+    }
+
+    function setPdf(obj){
+        var f=$(obj).val();
+        if(f == null || f ==undefined || f == ''){
+            return false;
+        }
+        if(!/\.(?:pdf|PDF)$/.test(f))
+        {
+            toastr.error("类型必须pdf");
+            $(obj).val('');
+            return false;
+        }
+        var data = new FormData();
+        $.each($(obj)[0].files,function(i,file){
+            data.append('file', file);
+        });
+        $.ajax({
+            type: "POST",
+            url: "/upload/uploadPdf",
+            data: data,
+            cache: false,
+            contentType: false,    //不可缺
+            processData: false,    //不可缺
+            dataType:"json",
+            success: function(suc) {
+                if(suc.code==0){
+                    $("#pdfUrl").val(suc.message);//将地址存储好
+                    $("#pdf").attr("href",suc.message);
+                    toastr.success("上传成功");
+                }else{
+                    toastr.error("上传失败");
+                    $("#url").val("");
+                    $(obj).val('');
+                }
+            },
+            error: function(XMLHttpRequest, textStatus, errorThrown) {
+                toastr.error("上传失败");
+                $("#url").val("");
+                $(obj).val('');
+            }
+        });
+    }
 </script>
 </body>
 </html>

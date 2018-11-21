@@ -13,6 +13,10 @@ public class Product
     private String code;
     
     private String name;
+
+    private String imgUrl;
+
+    private String pdfUrl;
     
     private Integer sexRestraint;
     
@@ -75,7 +79,15 @@ public class Product
     {
         this.name = name;
     }
-    
+
+    public String getImgUrl() { return imgUrl; }
+
+    public void setImgUrl(String imgUrl) { this.imgUrl = imgUrl; }
+
+    public String getPdfUrl() { return pdfUrl; }
+
+    public void setPdfUrl(String pdfUrl) { this.pdfUrl = pdfUrl; }
+
     public Integer getSexRestraint()
     {
         return sexRestraint;

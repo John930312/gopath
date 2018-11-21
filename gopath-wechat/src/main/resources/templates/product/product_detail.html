@@ -28,6 +28,10 @@
             <div class="ja-info-list__item-txt">${(data.name)!?html}</div>
         </li>
         <li class="ja-info-list__item">
+            <div class="ja-info-list__item-name">产品图片：</div>
+            <div class="ja-info-list__item-txt"><img src="/upload/getImg?path=${(data.imgUrl)!?html}"/></div>
+        </li>
+        <li class="ja-info-list__item">
             <div class="ja-info-list__item-name">适用人群：</div>
             <div class="ja-info-list__item-txt">
                 <#if data.sexRestraint == 0>通用</#if>
@@ -43,6 +47,10 @@
             <div class="ja-info-list__item-name">检测项目：</div>
             <div class="ja-info-list__item-txt">${(data.itemIds)!?html}</div>
         </li>
+    <li class="ja-info-list__item ja-info-list__item-name">
+        <a href="${(data.pdfUrl)!?html}" target="_blank" class="weui-btn ja-btn__primary ja-btn__inline-size ja-btn__round">产品详情</a>
+    </li>
+
     </ul>
     <div style="padding:3rem  2.375rem 0.8rem;">
         <a href="${base}/order/place.jsp?id=${(data.id)!?html}&openId=${(openId)!?html}" class="weui-btn ja-btn__primary">选择购买</a>

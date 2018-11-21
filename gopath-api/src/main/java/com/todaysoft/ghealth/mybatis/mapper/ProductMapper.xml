@@ -5,6 +5,8 @@
         <id column="ID" property="id"/>
         <result column="CODE" property="code"/>
         <result column="NAME" property="name"/>
+        <result column="IMG_URL" property="imgUrl"/>
+        <result column="PDF_URL" property="pdfUrl"/>
         <result column="SEX_RESTRAINT" property="sexRestraint"/>
         <result column="GUIDING_PRICE" property="guidingPrice"/>
         <result column="START_TIME" property="startTime"/>
@@ -39,6 +41,12 @@
             </if>
             <if test="name != null">
                 NAME,
+            </if>
+            <if test="imgUrl != null">
+                IMG_URL,
+            </if>
+            <if test="pdfUrl != null">
+                PDF_URL,
             </if>
             <if test="sexRestraint != null">
                 SEX_RESTRAINT,
@@ -93,6 +101,12 @@
             <if test="name != null">
                 #{name, jdbcType=VARCHAR},
             </if>
+            <if test="imgUrl != null">
+                #{imgUrl, jdbcType=VARCHAR},
+            </if>
+            <if test="pdfUrl != null">
+                #{pdfUrl, jdbcType=VARCHAR},
+            </if>
             <if test="sexRestraint != null">
                 #{sexRestraint, jdbcType=TINYINT},
             </if>
@@ -146,6 +160,12 @@
             </if>
             <if test="name != null">
                 NAME = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="imgUrl != null">
+                IMG_URL = #{imgUrl,jdbcType=VARCHAR},
+            </if>
+            <if test="pdfUrl != null">
+                PDF_URL = #{pdfUrl,jdbcType=VARCHAR},
             </if>
             <if test="sexRestraint != null">
                 SEX_RESTRAINT = #{sexRestraint,jdbcType=TINYINT},

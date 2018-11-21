@@ -85,7 +85,7 @@
                                 <input type="file" name="logoFile" id="logoFile" onchange="setImg(this);"></span>
                                 <span><img id="thumburlShow"
                                            <#if (data.pictureUrl)??>
-                                           src="/slideshow/getImg?path=${(data.pictureUrl)!?html}"
+                                           src="/upload/getImg?path=${(data.pictureUrl)!?html}"
                                     </#if>
                                 /></span>
                      </div>
@@ -223,7 +223,7 @@ function setImg(obj){//用于进行图片上传，返回地址
  });
  $.ajax({
      type: "POST",
-     url: "/slideshow/uploadImg",
+     url: "/upload/uploadImg",
      data: data,
      cache: false,
      contentType: false,    //不可缺
@@ -232,7 +232,7 @@ function setImg(obj){//用于进行图片上传，返回地址
      success: function(suc) {
          if(suc.code==0){
              $("#pictureUrl").val(suc.message);//将地址存储好
-             $("#thumburlShow").attr("src","/slideshow/getImg?path="+suc.message);//显示图片
+             $("#thumburlShow").attr("src","/upload/getImg?path="+suc.message);//显示图片
          }else{
              toastr.error("上传失败");
              $("#url").val("");
