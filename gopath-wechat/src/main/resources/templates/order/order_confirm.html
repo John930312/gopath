@@ -173,7 +173,7 @@
     $(':radio[name="smpleBoxGeted"]').click(function () {
         var value = $(this).val()  //获取选中的radio的值
         $('#getWay').val(value);
-        if (value == 1) {
+        if (value == 1 && $('[name="reportPrintRequired"]:checked').val() == 0) {
             $("#chooseType").html("采集器领取")
             $("#hidDiv").hide();
         } else {
@@ -197,7 +197,7 @@
     });
 
     function hideDiv(){
-        $("input").val("");
+        $("#hidDiv input").val("");
         $("textarea").val("");
         $("#hidDiv").hide();
     }
