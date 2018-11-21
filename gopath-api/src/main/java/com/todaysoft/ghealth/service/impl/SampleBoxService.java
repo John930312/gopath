@@ -110,12 +110,15 @@ public class SampleBoxService implements ISampleBoxService
         String id  = request.getId();
         Order byCode = orderMapper.getByCode(id);
 
-        //step2:查询采样盒id
+        //step2:删除订单生成的采样盒
+        sampleBoxMapper.deleteById(byCode.getSampleBox().getId());
+
+        //step3:查询采样盒id
         SampleBoxQuery s = new SampleBoxQuery();
         s.setCode(request.getSampleBox().getCode());
-        List<SampleBox> query = sampleBoxMapper.query( s );
+        List<SampleBox> query = sampleBoxMapper.query(s);
 
-        //step3:更新订单内容
+        //step4:更新订单内容
         Order or = new Order();
         or.setCode(query.get(0).getId());
         or.setId(byCode.getId());

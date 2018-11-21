@@ -130,7 +130,7 @@ public class OrderService implements IOrderService
         }
         sampleBox.setId(sampleBoxId);
         sampleBox.setCreateTime(new Date());
-        sampleBox.setCode(serialNumber.getCode(SampleBox.SAMPLEBOX_CODE));
+        //sampleBox.setCode(serialNumber.getCode(SampleBox.SAMPLEBOX_CODE));
         sampleBoxMapper.create(sampleBox);
 
         order.setSampleBox(sampleBox);

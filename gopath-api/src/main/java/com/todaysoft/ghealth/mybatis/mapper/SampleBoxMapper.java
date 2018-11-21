@@ -20,4 +20,6 @@ public interface SampleBoxMapper
     List<SampleBox> query(SampleBoxQuery query);
 
     List<SampleBox> checkByCode(String code);
+
+    void deleteById(String id);
 }
