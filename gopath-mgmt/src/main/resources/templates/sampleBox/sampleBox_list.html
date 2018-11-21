@@ -67,10 +67,10 @@
 
                             <div class="col-sm-2">
                                 <div class="form-group">
-                                    <select class="form-control" id="binded" name="binded" value="${(searcher.binded)!?html}">
+                                    <select class="form-control" id="binded" name="binded" data-value="${(searcher.binded)!?html}">
                                         <option value="">启用状态</option>
-                                        <option <#if searcher.binded??><#if (searcher.binded)== "0">selected="true"</#if></#if>value="0">未启用</option>
-                                        <option  <#if searcher.binded??><#if (searcher.binded)=="1">selected="true"</#if></#if> value="1">已启用</option>
+                                        <option value="0">未启用</option>
+                                        <option value="1">已启用</option>
                                     </select>
                                 </div>
                             </div>
