@@ -58,7 +58,7 @@ public class WXPay
         String s = data.getActualPrice().multiply( new BigDecimal( "100" ) ).toString();
         paramMap.put("total_fee", s.contains(".")?s.substring(0, s.indexOf( "." )):s );//标价金额 单位分
         paramMap.put("spbill_create_ip", "112.82.118.145");//终端IP 用户的ip
-        paramMap.put("notify_url", "http://ayk4r6.natappfree.cc/callBack/notification");//通知地址
+        paramMap.put("notify_url", "http://ja.jllhdzy.cn/callBack/notification");//通知地址
         paramMap.put("trade_type", "JSAPI");//交易类型
         paramMap.put("openid", data.getOpenId());
         paramMap.put("sign", WXPayUtil.generateSignature(paramMap, WXPayConstants.KEY));//签名
