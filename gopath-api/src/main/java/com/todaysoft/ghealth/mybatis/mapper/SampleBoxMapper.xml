@@ -131,6 +131,7 @@
 
     <sql id="ExpertFilters">
         WHERE 1=1
+        AND CODE  is  not  null
         <if test="_parameter.code != null and _parameter.code != ''">
             <bind name="codePattern" value="'%' + _parameter.code + '%'"/>
             AND t.CODE LIKE #{codePattern}
@@ -161,5 +162,11 @@
         FROM ghealth_gopath_sample_box b
         WHERE b.CODE = #{code}
     </select>
+
+    <delete id="deleteById" parameterType="java.lang.String">
+       DELETE
+       FROM ghealth_gopath_sample_box
+       WHERE ID = #{ID};
+   </delete>
 
 </mapper>
