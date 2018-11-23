@@ -32,6 +32,7 @@ public class QuestionnaireAction
         model.addAttribute("tumors", questionnaireMap.containsKey(1) ? questionnaireMap.get(1): null);
         model.addAttribute("nonTumors",questionnaireMap.containsKey(2) ?questionnaireMap.get(2): null);
         model.addAttribute("dailys", questionnaireMap.containsKey(3) ? questionnaireMap.get(3) :null);
+        model.addAttribute("baseTypes", questionnaireMap.containsKey(4) ? questionnaireMap.get(4) :null);
         return "questionnaire/questionnaire_list";
     }
 }
