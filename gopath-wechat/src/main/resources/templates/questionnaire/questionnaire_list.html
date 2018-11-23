@@ -82,6 +82,25 @@
             </div>
         </section>
         </#if>
+
+        <#if baseTypes?has_content>
+            <section class="ja-panel_que mb-space-cell">
+                <div class="ja-que-label ja-que-label_style-2">
+                    <h4 class="ja-que-label__title">基本信息</h4>
+                </div>
+                <div class="ja-que-checks">
+                    <#list baseTypes as baseType>
+                        <div class="ja-que-checks__item">
+                            <label class="ja-que-check">
+                                <input type="checkbox" class="ja-que-check__input" value="${(baseType.id)!?html}">
+                                <span class="ja-que-check__state"></span>
+                                ${(baseType.name)!?html}
+                            </label>
+                        </div>
+                    </#list>
+                </div>
+            </section>
+        </#if>
         <div class="ja-btm-acts ub">
             <div class="ub-f1">
                 <a href="javascript:;" class="weui-btn ja-btn__primary ja-btn__round ja-btn__normal-size" onclick="getProducts()">提交</a>
