@@ -35,7 +35,7 @@
 						+ (v > 1 ? "s" : "")
 			},
 			maxSuggestions : null,
-			maxSelection : 10,
+			maxSelection : 50,
 			maxSelectionRenderer : function(v) {
 				return ""
 						

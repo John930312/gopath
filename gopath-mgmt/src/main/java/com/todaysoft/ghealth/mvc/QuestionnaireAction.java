@@ -84,7 +84,7 @@ public class QuestionnaireAction
     @ResponseBody
     public List<Questionnaire> jsonList(QuestionnaireSearcher searcher)
     {
-        Pager<Questionnaire> pagination = questionnaireService.pager(searcher, 1, 10);
+        Pager<Questionnaire> pagination = questionnaireService.pager(searcher, 1, 50);
         if (CollectionUtils.isEmpty(pagination.getRecords()))
         {
             return Collections.emptyList();
