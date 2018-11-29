@@ -85,10 +85,10 @@
                                     <td>${record_index + 1}</td>
                                     <td>${(record.name)!?html}</td>
                                     <td>
-                                        <option value="1">肿瘤类</option>
-                                        <option value="2">非肿瘤类</option>
-                                        <option value="3">日常用药</option>
-                                        <option value="4">基本信息</option>
+                                    <#if record.category == 1>肿瘤类
+                                        <#elseif record.category == 2>非肿瘤类
+                                            <#elseif record.category == 3>日常用药
+                                                <#else>基本信息</#if>
                                     </td>
                                     <td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"title="${record.remark!?html}">${(record.remark)!?html}</td>
                                     <td>
