@@ -85,7 +85,10 @@
                                     <td>${record_index + 1}</td>
                                     <td>${(record.name)!?html}</td>
                                     <td>
-                                        <@dict_category_value category = "PROJECT_CATEGORY" value = record.category/>
+                                        <option value="1">肿瘤类</option>
+                                        <option value="2">非肿瘤类</option>
+                                        <option value="3">日常用药</option>
+                                        <option value="4">基本信息</option>
                                     </td>
                                     <td style="overflow:hidden;text-overflow:ellipsis;white-space:nowrap;"title="${record.remark!?html}">${(record.remark)!?html}</td>
                                     <td>
