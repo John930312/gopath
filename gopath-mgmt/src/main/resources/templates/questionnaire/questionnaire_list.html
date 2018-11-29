@@ -49,11 +49,10 @@
                                     <div class="form-group">
                                         <select class="form-control" id="category" name="category" data-value="${(searcher.category)!?html}">
                                             <option value="">项目分类</option>
-                                            <@dict_category category = "PROJECT_CATEGORY">
-                                            <#list entries as entry>
-                                                <option value="${(entry.dictValue)!html}">${(entry.dictText)!html}</option>
-                                            </#list>
-                                        </@dict_category>
+                                            <option value="1">肿瘤类</option>
+                                            <option value="2">非肿瘤类</option>
+                                            <option value="3">日常用药</option>
+                                            <option value="4">基本信息</option>
                                         </select>
                                     </div>
                                 </div>

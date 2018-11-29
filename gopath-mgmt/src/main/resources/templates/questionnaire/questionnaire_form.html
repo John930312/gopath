@@ -50,13 +50,12 @@
                             <div class="form-group">
                                 <label class="col-sm-2 control-label">项目分类：</label>
                                 <div class="col-sm-3">
-                                    <select class="col-sm-12 control-label" name="category" value="${(data.category)!?html}">
+                                    <select class="col-sm-12 control-label" name="category" data-value="${(data.category)!?html}">
                                     <option value="">请选择：</option>
-                                    <@dict_category category = "PROJECT_CATEGORY">
-                                        <#list entries as entry>
-                                            <option  <#if data??><#if (data.category)?string==(entry.dictValue)>selected="true"</#if></#if> value="${(entry.dictValue)!html}">${(entry.dictText)!html}</option>
-                                        </#list>
-                                    </@dict_category>
+                                    <option value="1">肿瘤类</option>
+                                    <option value="2">非肿瘤类</option>
+                                    <option value="3">日常用药</option>
+                                    <option value="4">基本信息</option>
                                     </select>
                                 </div>
                             </div>
