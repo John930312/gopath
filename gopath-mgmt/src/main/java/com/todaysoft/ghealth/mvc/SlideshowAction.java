@@ -54,7 +54,14 @@ public class SlideshowAction
     {
         return "slideshow/slideshow_form";
     }
-    
+
+    /**
+     * 新增方法
+     * @param data
+     * @param model
+     * @param session
+     * @return
+     */
     @RequestMapping(value = "/create.jsp", method = RequestMethod.POST)
     @FormSubmitHandler
     public String create(Slideshow data, ModelMap model, HttpSession session)
